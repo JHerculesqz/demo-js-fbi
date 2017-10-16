@@ -11,7 +11,7 @@
           <marvel-check-box v-bind:ref="item.ref"
                             v-bind:id="item.ref"
                             v-bind:check="true"
-                            v-bind:item="item"
+                            v-bind:buObj="item"
                             v-bind:label="item.label"
                             showLabel="true"
                             v-on:onChange="onChange4Site"></marvel-check-box>
@@ -23,7 +23,7 @@
           <marvel-check-box v-bind:ref="item.ref"
                             v-bind:id="item.ref"
                             v-bind:check="true"
-                            v-bind:item="item"
+                            v-bind:buObj="item"
                             v-bind:label="item.label"
                             showLabel="true"
                             v-on:onChange="onChange4Node"></marvel-check-box>
@@ -36,7 +36,7 @@
           <marvel-check-box v-bind:ref="linkCheckItems[0].ref"
                             v-bind:id="linkCheckItems[0].ref"
                             v-bind:check="true"
-                            v-bind:item="linkCheckItems[0]"
+                            v-bind:buObj="linkCheckItems[0]"
                             showLabel="false"
                             v-on:onChange="onChange4Link"></marvel-check-box>
           <label>大于等于</label>
@@ -46,7 +46,7 @@
           <marvel-check-box v-bind:ref="linkCheckItems[1]"
                             v-bind:id="linkCheckItems[1]"
                             v-bind:check="true"
-                            v-bind:item="linkCheckItems[1]"
+                            v-bind:buObj="linkCheckItems[1]"
                             showLabel="false"
                             v-on:onChange="onChange4Link"></marvel-check-box>
           <label>大于</label>
@@ -58,7 +58,7 @@
           <marvel-check-box v-bind:ref="linkCheckItems[2]"
                             v-bind:id="linkCheckItems[2]"
                             v-bind:check="true"
-                            v-bind:item="linkCheckItems[2]"
+                            v-bind:buObj="linkCheckItems[2]"
                             showLabel="false"
                             v-on:onChange="onChange4Link"></marvel-check-box>
           <label>小于等于</label>
