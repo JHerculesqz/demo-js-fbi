@@ -18,6 +18,7 @@
   import {MarvelTab, MarvelTabItem, MarvelTxtButton, MarvelWizardTab} from "marvel-fui2";
   import Phy from "@/components/2.topo/2.2.phy/Phy";
   import Traffic from "@/components/2.topo/2.3.traffic/Traffic";
+  import Gis from "@/components/2.topo/2.4.gis/Gis";
 
   export default {
     components: {
@@ -26,7 +27,8 @@
       Traffic,
       MarvelTabItem,
       MarvelTab,
-      Phy
+      Phy,
+      Gis
     },
     name: 'Topo',
     data: function () {
@@ -42,6 +44,10 @@
         }, {
           index: 2,
           label: "业务还原",
+          isActive: false
+        }, {
+          index: 3,
+          label: "GIS还原",
           isActive: false
         }],
         //#endregion
@@ -59,8 +65,11 @@
         if (oItem.index == 1) {
           this.moduleName = "Phy";
         }
-        else {
+        else if(oItem.index == 2) {
           this.moduleName = "Traffic";
+        }
+        else {
+          this.moduleName = "Gis";
         }
       },
       //#endregion
