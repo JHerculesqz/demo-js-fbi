@@ -61,10 +61,13 @@
 </template>
 
 <script>
-  import {MarvelTab, MarvelTabItem, MarvelBottomExtPanel} from "marvel-fui2";
+  import MarvelTab from "@/walle/widget/tab/MarvelTab";
+  import MarvelTabItem from "@/walle/widget/tab/MarvelTabItem";
+  import MarvelBottomExtPanel from "@/walle/widget/extPanel/MarvelBottomExtPanel";
   import TopoPanel from "@/components/0.common/0.2.topo/TopoPanel";
   import NodeInsertS4S5Inserted from "@/components/0.common/0.6.nodeInsertS4S5Topo/NodeInsertS4S5Inserted";
   import NodeInsertS4S5NotInserted from "@/components/0.common/0.6.nodeInsertS4S5Topo/NodeInsertS4S5NotInserted";
+
   export default {
     components: {
       NodeInsertS4S5Inserted,

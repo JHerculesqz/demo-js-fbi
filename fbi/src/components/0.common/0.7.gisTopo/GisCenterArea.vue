@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import {MarvelLeaflet} from "marvel-fui2";
+  import MarvelLeaflet from "@/walle/widget/leaflet/MarvelLeaflet";
 
   export default {
     components: {

@@ -33,7 +33,7 @@
   import GisCenterArea from "@/components/0.common/0.7.gisTopo/GisCenterArea";
   import GisRightArea from "@/components/0.common/0.7.gisTopo/GisRightArea";
   import PhyGridPanel from "@/components/0.common/0.1.phyGridPanel/PhyGridPanel";
-  import {MarvelBottomExtPanel} from "marvel-fui2";
+  import MarvelBottomExtPanel from "@/walle/widget/extPanel/MarvelBottomExtPanel";
 
   export default {
     components: {

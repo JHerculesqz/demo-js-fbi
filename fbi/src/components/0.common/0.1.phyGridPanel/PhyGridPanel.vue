@@ -49,7 +49,10 @@
 </template>
 
 <script>
-  import {MarvelFrame, MarvelTab, MarvelTabItem, MarvelGrid} from "marvel-fui2";
+  import MarvelFrame from "@/walle/widget/frame/MarvelFrame";
+  import MarvelTab from "@/walle/widget/tab/MarvelTab";
+  import MarvelTabItem from "@/walle/widget/tab/MarvelTabItem";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid.vue";
 
   export default {
     components: {

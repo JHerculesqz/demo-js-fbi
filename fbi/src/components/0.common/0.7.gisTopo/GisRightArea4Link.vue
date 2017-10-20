@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import {MarvelGrid} from "marvel-fui2";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
 
   export default {
     components: {

@@ -11,7 +11,8 @@
 </template>
 
 <script>
-  import {MarvelRightExtPanel, MarvelGrid} from "marvel-fui2";
+  import MarvelRightExtPanel from "@/walle/widget/extPanel/MarvelRightExtPanel";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
   import GisRightArea4Node from "@/components/0.common/0.7.gisTopo/GisRightArea4Node";
   import GisRightArea4Site from "@/components/0.common/0.7.gisTopo/GisRightArea4Site";
   import GisRightArea4Link from "@/components/0.common/0.7.gisTopo/GisRightArea4Link";

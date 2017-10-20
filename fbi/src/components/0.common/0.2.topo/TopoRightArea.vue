@@ -14,7 +14,9 @@
 </template>
 
 <script>
-  import {MarvelRightExtPanel, MarvelGrid} from "marvel-fui2";
+  import MarvelRightExtPanel from "@/walle/widget/extPanel/MarvelRightExtPanel";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
+
   export default {
     components: {
       MarvelGrid,

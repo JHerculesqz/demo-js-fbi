@@ -25,7 +25,7 @@
   import Business from "@/components/0.common/0.4.trafficTopo/Business";
   import PartPath from "@/components/0.common/0.4.trafficTopo/PartPath";
   import DiscreteCross from "@/components/0.common/0.4.trafficTopo/DiscreteCross";
-  import {MarvelAccordion2} from "marvel-fui2";
+  import MarvelAccordion2 from "@/walle/widget/accordion/MarvelAccordion2";
 
   export default {
     components: {

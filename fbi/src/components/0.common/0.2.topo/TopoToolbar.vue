@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import {MarvelToolbar} from 'marvel-fui2';
+  import MarvelToolbar from "@/walle/widget/toolbar/MarvelToolbar";
 
   export default {
     components: {

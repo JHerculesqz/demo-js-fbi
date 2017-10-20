@@ -110,8 +110,12 @@
 </template>
 
 <script>
-  import {MarvelLeftExtPanel, MarvelZTree,
-    MarvelZTreeItem, MarvelCheckBox, MarvelGrid, MarvelSwitch} from "marvel-fui2";
+  import MarvelLeftExtPanel from "@/walle/widget/extPanel/MarvelLeftExtPanel";
+  import MarvelZTree from "@/walle/widget/tree/MarvelZTree";
+  import MarvelZTreeItem from "@/walle/widget/tree/MarvelZTreeItem";
+  import MarvelCheckBox from "@/walle/widget/select/MarvelCheckBox";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
+  import MarvelSwitch from "@/walle/widget/select/MarvelSwitch";
 
   export default {
     components: {
