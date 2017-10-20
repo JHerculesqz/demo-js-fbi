@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'pingfang';
+  src:  url('../font/PingFang.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'roboto';
+  src:  url('../font/Roboto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 *{
   font-family: "pingfang", "roboto",sans-serif;
 }

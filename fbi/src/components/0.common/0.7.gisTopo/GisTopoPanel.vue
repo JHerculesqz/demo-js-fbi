@@ -5,9 +5,12 @@
                      v-on:onNodeGroupClick="onNodeGroupClick"
                      v-on:onLinkClick="onLinkClick"></gis-center-area>
     <gis-left-area class="panelClass" ref="gisLeftArea"
+                   v-bind:linkFilterOptions="linkFilterOptions"
                    v-on:onChange4Site="onChange4Site"
                    v-on:onChange4Node="onChange4Node"
-                   v-on:onChange4Link="onChange4Link"></gis-left-area>
+                   v-on:onChange4Link="onChange4Link"
+                   v-on:linkBwThresholdChange="linkBwThresholdChange"
+                   v-on:onClickRow4Subnet="onClickRow4Subnet"></gis-left-area>
     <!--<gis-right-area class="panelClass" ref="gisRightArea"></gis-right-area>-->
     <marvel-bottom-ext-panel class="panelClass"
                              theme="dark"
@@ -41,7 +44,7 @@
       MarvelBottomExtPanel
     },
     name: "GisTopoPanel",
-    props: ["id"],
+    props: ["id", "linkFilterOptions"],
     data: function () {
       return {};
     },
@@ -69,8 +72,14 @@
       onChange4Node: function (strOldVal, strNewVal, oItem) {
         this.$emit("onChange4Node", strOldVal, strNewVal, oItem);
       },
-      onChange4Link: function(strOldVal, strNewVal, oItem){
+      onChange4Link: function (strOldVal, strNewVal, oItem) {
         this.$emit("onChange4Link", strOldVal, strNewVal, oItem);
+      },
+      linkBwThresholdChange: function (iThreshold1, iThreshold2) {
+        this.$emit("linkBwThresholdChange", iThreshold1, iThreshold2);
+      },
+      onClickRow4Subnet: function(oRow){
+        this.$emit("onClickRow4Subnet", oRow);
       },
       //endregion
       //region bottomArea
@@ -97,14 +106,26 @@
       drawGisTopo: function (oTopoData) {
         this.$refs.gisCenterArea.drawGisTopo(oTopoData);
       },
-      getTopoData: function(){
+      getTopoData: function () {
         return this.$refs.gisCenterArea.getTopoData();
       },
-      setOpacity4Marker: function(strId, iOpacity){
+      setOpacity4Marker: function (strId, iOpacity) {
         this.$refs.gisCenterArea.setOpacity4Marker(strId, iOpacity);
       },
-      setOpacity4Group: function(strId, iOpacity){
+      setOpacity4Group: function (strId, iOpacity) {
         this.$refs.gisCenterArea.setOpacity4Group(strId, iOpacity);
+      },
+      setOpacity4Link: function (strId, iOpacity) {
+        this.$refs.gisCenterArea.setOpacity4Link(strId, iOpacity);
+      },
+      setColor4Link: function (strId, oColor) {
+        this.$refs.gisCenterArea.setColor4Link(strId, oColor);
+      },
+      addPolygon: function (strId, arrPoints, oBuObj) {
+        this.$refs.gisCenterArea.addPolygon(strId, arrPoints, oBuObj);
+      },
+      delPolygon: function(strId){
+        this.$refs.gisCenterArea.delPolygon(strId);
       },
       //endregion
       //region leftArea
@@ -114,7 +135,7 @@
       setNodeData: function (oNodeData) {
         this.$refs.gisLeftArea.setNodeData(oNodeData);
       },
-      setLinkData: function(oLinkData){
+      setLinkData: function (oLinkData) {
         this.$refs.gisLeftArea.setLinkData(oLinkData);
       },
       setSubnetData: function (oSubnetData) {

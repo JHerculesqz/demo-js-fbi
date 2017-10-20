@@ -2,12 +2,12 @@
     $.MarvelGisSprite = function() {
         var self = this;
 
-        //#region Fields
+        //region Fields
 
         this.Node = new $.MarvelGisNode();
         this.NodeGroup = new $.MarvelGisNodeGroup();
         this.LinkGroup = new $.MarvelGisLinkGroup();
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

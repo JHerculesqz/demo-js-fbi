@@ -2,19 +2,19 @@
     $.MarvelGisLayer = function() {
         var self = this;
 
-        //#region Fields
+        //region Fields
 
-        //#endregion
+        //endregion
 
-        //#region init
+        //region init
 
-        //#endregion
+        //endregion
 
-        //#region event
+        //region event
 
-        //#endregion
+        //endregion
 
-        //#region imsg
+        //region imsg
 
         this.findById = function(strId, oGis){
             var oRes = undefined;
@@ -91,6 +91,6 @@
             return oRes;
         };
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

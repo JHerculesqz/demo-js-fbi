@@ -1,5 +1,6 @@
 <template>
   <marvel-leaflet ref="gis" v-bind:id="id"
+                  v-on:onClick="onClick"
                   v-on:onNodeClick="onNodeClick"
                   v-on:onNodeGroupClick="onNodeGroupClick"
                   v-on:onLinkClick="onLinkClick"></marvel-leaflet>
@@ -23,6 +24,10 @@
       //#endregion
 
       //#region callback
+      onClick: function(e){
+        console.log(e);
+        this.$emit("onClick", e);
+      },
       onNodeClick: function (e) {
         this.$emit("onNodeClick", e);
       },
@@ -49,6 +54,18 @@
       },
       setOpacity4Group: function(strId, iOpacity){
         this.$refs.gis.setOpacity4Group(strId, iOpacity);
+      },
+      setOpacity4Link: function(strId, iOpacity){
+        this.$refs.gis.setOpacity4Link(strId, iOpacity);
+      },
+      setColor4Link: function(strId, oColor){
+        this.$refs.gis.setColor4Link(strId, oColor);
+      },
+      addPolygon: function (strId, arrPoints, oBuObj) {
+        this.$refs.gis.addPolygon(strId, arrPoints, oBuObj);
+      },
+      delPolygon: function(strId){
+        this.$refs.gis.delPolygon(strId);
       },
       //#endregion
     }

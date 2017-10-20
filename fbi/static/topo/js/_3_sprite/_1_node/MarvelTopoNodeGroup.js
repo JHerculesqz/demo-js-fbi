@@ -89,7 +89,8 @@
                 oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oGroup.tag, oTopo);
             });
             oGroup.on("click", function(evt){
-                self._onNodeGroupOrNodeClick(oGroup, oTopo);
+                evt.evt.stopPropagation();
+                self._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
             });
             oGroup.on('dragmove', function(evt){
                 //var arrSelectNode = _getSelectNodeGroupAndNodes(oTopo);
@@ -185,7 +186,8 @@
                 oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oGroup.tag, oTopo);
             });
             oGroup.on("click", function(evt){
-                self._onNodeGroupOrNodeClick(oGroup, oTopo);
+                evt.evt.stopPropagation();
+                self._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
             });
             oGroup.on('dragmove', function(evt){
                 self.onNodeOrNodeGroupMove(oGroup, oTopo);
@@ -227,7 +229,7 @@
         var _onExpandGroupDBClick = function(oBuObj, oGroup, oTopo){
             _drawCollapse(oBuObj, oGroup, oTopo);
         };
-        this._onNodeGroupOrNodeClick = function(oGroup, oTopo){
+        this._onNodeGroupOrNodeClick = function(oGroup, evt, oTopo){
             //1.ctrl press
             if(keyboardJS.isCtrlPress){
                 if(oGroup.tag.uiSelectNode == undefined || false == oGroup.tag.uiSelectNode){
@@ -253,6 +255,13 @@
                 oGroup.tag.uiSelectNode = true;
                 _setSelectNodeStyle(oGroup.children[0], oTopo);
                 oTopo.Layer.reDraw(oTopo.ins.layerNode);
+            }
+            //3.external event
+            if(oGroup.tag.children){
+                oTopo.Stage.eventOptions.callbackOnNodeGroupClick(oGroup.tag, evt);
+            }
+            else{
+                oTopo.Stage.eventOptions.callbackOnNodeClick(oGroup.tag, evt);
             }
         };
 

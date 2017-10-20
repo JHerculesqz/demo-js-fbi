@@ -1,11 +1,14 @@
 <template>
   <gis-topo-panel ref="gisTopoPanel" id="gisTopo"
+                  v-bind:linkFilterOptions="linkFilterOptions"
                   v-on:onNodeClick="onNodeClick"
                   v-on:onNodeGroupClick="onNodeGroupClick"
                   v-on:onLinkClick="onLinkClick"
                   v-on:onChange4Site="onChange4Site"
                   v-on:onChange4Node="onChange4Node"
                   v-on:onChange4Link="onChange4Link"
+                  v-on:linkBwThresholdChange="linkBwThresholdChange"
+                  v-on:onClickRow4Subnet="onClickRow4Subnet"
                   v-on:onClickRow4Ne="onClickRow4Ne"
                   v-on:onClickRow4Fiber="onClickRow4Fiber"
                   v-on:onGridRowIconClick4Fiber="onGridRowIconClick4Fiber"
@@ -23,7 +26,23 @@
     data: function () {
       return {
         //region const
-        debug: true
+        debug: true,
+        //endregion
+        //region linkFilterOptions
+        linkFilterOptions: {
+          filter: [{
+            ref: "linkFilter1",
+            color: "#e00000"
+          },{
+            ref: "linkFilter2",
+            color: "#00aaff"
+          },{
+            ref: "linkFilter3",
+            color: "#4ab610"
+          }],
+          threshold1: 10,
+          threshold2: 5
+        }
         //endregion
       };
     },
@@ -136,7 +155,7 @@
           id: "site1",
           name: "site1",
           x: 51.49994457056707,
-          y: -0.10597944259643556,
+          y: -0.11597944259643556,
           uiType: "site",
           siteType: "核心站点",
           uiImgUrl: "/static/gis/lib/images/nodeGroup1.svg",
@@ -152,7 +171,7 @@
             id: "site1_ne1",
             name: "site1_ne1",
             x: 51.49992987708078,
-            y: -0.10618329048156738,
+            y: -0.11618329048156738,
             uiType: "neInSite",
             deviceType: "ne9500",
             uiImgUrl: "/static/gis/lib/images/node1.svg",
@@ -165,7 +184,7 @@
             id: "site1_ne2",
             name: "site1_ne2",
             x: 51.49999332628028,
-            y: -0.10580241680145265,
+            y: -0.11580241680145265,
             uiType: "neInSite",
             deviceType: "ne9500",
             uiImgUrl: "/static/gis/lib/images/node1.svg",
@@ -180,7 +199,7 @@
           uiExpand: false,
           id: "site2",
           name: "site2",
-          x: 51.49894457056707,
+          x: 51.48894457056707,
           y: -0.10597944259643556,
           uiType: "site",
           siteType: "接入站点",
@@ -196,7 +215,7 @@
           children: [{
             id: "site2_ne1",
             name: "site2_ne1",
-            x: 51.49892987708078,
+            x: 51.48892987708078,
             y: -0.10618329048156738,
             uiType: "neInSite",
             deviceType: "ne9500",
@@ -209,7 +228,7 @@
           }, {
             id: "site2_ne2",
             name: "site2_ne2",
-            x: 51.49899332628028,
+            x: 51.48899332628028,
             y: -0.10580241680145265,
             uiType: "neInSite",
             deviceType: "ne9500",
@@ -277,11 +296,12 @@
           srcNodeId: "marker1",
           dstNodeId: "marker2",
           uiType: "link",
-          uiColor: "red",
+          uiColor: "#e00000",
           uiWeight: 3,
           uiOpacity: 1,
           uiDashArray: "5, 10",
           uiTips: "link1",
+          bw: 12,
           uiDirection: 2
         });
 
@@ -294,11 +314,12 @@
           srcNodeId: "marker2",
           dstNodeId: "site1_ne1",
           uiType: "link",
-          uiColor: "red",
+          uiColor: "#00aaff",
           uiWeight: 3,
           uiOpacity: 1,
           uiDashArray: "5, 10",
           uiTips: "link2",
+          bw: 8,
           uiDirection: 2
         });
         arrLinks.push({
@@ -306,11 +327,12 @@
           srcNodeId: "marker2",
           dstNodeId: "site1_ne2",
           uiType: "link",
-          uiColor: "red",
+          uiColor: "#00aaff",
           uiWeight: 3,
           uiOpacity: 1,
           uiDashArray: "5, 10",
           uiTips: "link2",
+          bw: 8,
           uiDirection: 2
         });
 
@@ -323,11 +345,12 @@
           srcNodeId: "site2_ne1",
           dstNodeId: "site1_ne1",
           uiType: "link",
-          uiColor: "red",
+          uiColor: "#4ab610",
           uiWeight: 3,
           uiOpacity: 1,
           uiDashArray: "5, 10",
           uiTips: "link2",
+          bw: 3,
           uiDirection: 2
         });
         arrLinks.push({
@@ -335,11 +358,12 @@
           srcNodeId: "site2_ne2",
           dstNodeId: "site1_ne2",
           uiType: "link",
-          uiColor: "red",
+          uiColor: "#4ab610",
           uiWeight: 3,
           uiOpacity: 1,
           uiDashArray: "5, 10",
           uiTips: "link2",
+          bw: 3,
           uiDirection: 2
         });
 
@@ -549,7 +573,113 @@
         });
       },
       onChange4Link: function(strOldVal, strNewVal, oItem){
-        this.$emit("onChange4Link", strOldVal, strNewVal, oItem);
+        var oTopoData = this.$refs.gisTopoPanel.getTopoData();
+        var oTargetLinks = oTopoData.links.filter(function(oLink, index){
+            return oLink.uiColor === oItem.color;
+        });
+        var iOpacity = 1.0;
+        if(strNewVal === false){
+          iOpacity = 0.4;
+        }
+        var self = this;
+        oTargetLinks.forEach(function(oLink, index){
+          self.$refs.gisTopoPanel.setOpacity4Link(oLink.id, iOpacity);
+        });
+      },
+      linkBwThresholdChange: function(iThreshold1, iThreshold2){
+        this.linkFilterOptions.threshold1 = iThreshold1;
+        this.linkFilterOptions.threshold2 = iThreshold2;
+        this._updateLinkColor();
+      },
+      _updateLinkColor: function(){
+        //更新链路的颜色
+        var oTopoData = this.$refs.gisTopoPanel.getTopoData();
+        var self = this;
+        oTopoData.links.forEach(function(oLink, index){
+          var oBw = oLink.bw;
+          var oColor;
+          if(oBw >= self.linkFilterOptions.threshold1){
+            oColor = self.linkFilterOptions.filter[0].color;
+          }
+          else if(oBw < self.linkFilterOptions.threshold1 && oBw > self.linkFilterOptions.threshold2){
+            oColor = self.linkFilterOptions.filter[1].color;
+          }
+          else {
+            oColor = self.linkFilterOptions.filter[2].color;
+          }
+          self.$refs.gisTopoPanel.setColor4Link(oLink.id, oColor);
+        });
+      },
+      onClickRow4Subnet: function(oRow){
+        if(this.debug){
+          if(oRow[1].value == "subnet0"){
+            if(this.polygon1 == undefined){
+              this.polygon1 = 1;
+            }
+            if(this.polygon1 == 1){
+              this.$refs.gisTopoPanel.addPolygon("polygon1", [
+                [51.51098606917176, -0.12084960937500001],
+                [51.493140970308815, -0.12239456176757814],
+                [51.495599093467625, -0.09990692138671875],
+                [51.50703296721856, -0.08943557739257814],
+                [51.51322956905176, -0.10488510131835939],
+              ], {
+                id: "polygon1",
+                points: [
+                  [51.51098606917176, -0.12084960937500001],
+                  [51.493140970308815, -0.12239456176757814],
+                  [51.495599093467625, -0.09990692138671875],
+                  [51.50703296721856, -0.08943557739257814],
+                  [51.51322956905176, -0.10488510131835939],
+                ],
+                uiFillColor: "#ffa600",
+                uiColor: "#ffffff",
+                uiTips: "polygon1"
+              });
+              this.polygon1 = 0;
+            }
+            else{
+              this.$refs.gisTopoPanel.delPolygon("polygon1");
+              this.polygon1 = 1;
+            }
+          }
+          else if(oRow[1].value == "subnet1"){
+            if(this.polygon2 == undefined){
+              this.polygon2 = 1;
+            }
+            if(this.polygon2 == 1){
+              this.$refs.gisTopoPanel.addPolygon("polygon2", [
+                [51.48940009377448, -0.11621475219726564],
+                [51.50489601254001, -0.10557174682617189],
+                [51.50735350177636, -0.08600234985351564],
+                [51.50115610069437, -0.07089614868164064],
+                [51.488865657782796, -0.08068084716796876],
+                [51.48501753370923, -0.10007858276367189]
+              ], {
+                id: "polygon2",
+                points: [
+                  [51.48940009377448, -0.11621475219726564],
+                  [51.50489601254001, -0.10557174682617189],
+                  [51.50735350177636, -0.08600234985351564],
+                  [51.50115610069437, -0.07089614868164064],
+                  [51.488865657782796, -0.08068084716796876],
+                  [51.48501753370923, -0.10007858276367189]
+                ],
+                uiFillColor: "#ffa600",
+                uiColor: "#ffffff",
+                uiTips: "polygon2"
+              });
+              this.polygon2 = 0;
+            }
+            else{
+              this.$refs.gisTopoPanel.delPolygon("polygon2");
+              this.polygon2 = 1;
+            }
+          }
+        }
+        else{
+          //TODO
+        }
       },
       //endregion
       //region bottomArea

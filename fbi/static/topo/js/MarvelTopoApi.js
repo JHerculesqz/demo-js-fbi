@@ -30,7 +30,7 @@
                 var oWidth = document.getElementById(oParams.id).clientWidth;
                 var oHeight = document.getElementById(oParams.id).clientHeight;
                 oTopo.ins.stage = oTopo.Stage.init(oParams.id,
-                    oWidth, oHeight, oTopo);
+                    oWidth, oHeight, oParams.eventOptions, oTopo);
                 oTopo.ins.layerLink = oTopo.Layer.init(oTopo);
                 oTopo.ins.layerNode = oTopo.Layer.init(oTopo);
                 //oTopo.ins.layerLink = oTopo.Layer.init(oTopo);
@@ -168,6 +168,10 @@
         this.updateTopo = function(oTopo, oTopoData){
             //0.绘制Topo
             self.draw(oTopo, oTopoData);
+        };
+
+        this.createNode = function(oBuObj, oTopo){
+            oTopo.Sprite.Node.createNode(oBuObj, oTopo);
         };
 
         //#endregion

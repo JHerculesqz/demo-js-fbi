@@ -4,17 +4,37 @@
 
         //#region Const
 
-        var ZOOM_SCALE = 2;
+        var ZOOM_SCALE = 1.15;
+        var MIN_SCALE = 0.02;
+
+        this.MODEL_EMPTY='';
+        this.MODEL_CREATE_NODE = 'createNode';
 
         //#endregion
 
         //#region Fields
 
+        this.model = self.MODEL_EMPTY;
+
+        this.eventOptions = {
+            //region node
+            callbackOnNodeClick: function(oNode, oEvent){},
+            //endregion
+            //region nodeGroup
+            callbackOnNodeGroupClick: function(oNodeGroup, oEvent){},
+            //endregion
+            //region linkGroup
+            callbackOnLinkGroupClick: function(oLinkGroup, oEvent){},
+            callbackOnLinkClick: function(oLink, oEvent){}
+            //endregion
+
+        };
+
         //#endregion
 
         //#region init
 
-        this.init = function(strId, iWidth, iHeight, oTopo){
+        this.init = function(strId, iWidth, iHeight, oEventOptions, oTopo){
             //#region 1._initContainer
 
             _initContainer(strId, oTopo);
@@ -38,8 +58,10 @@
                 id: "oStageRect",
                 x: 0,
                 y: 0,
+                //stroke: "red",
                 width: oStage.getWidth(),
-                height: oStage.getHeight()
+                height: oStage.getHeight(),
+                //draggable: true
             });
             oStageLayer.add(oStageRect);
             oTopo.Layer.reDraw(oStageLayer);
@@ -52,9 +74,19 @@
             _initEventWheel(strId, oStage);
             _initEventAddMinus(oTopo);
             _initEventClick(oStageRect, oTopo);
+            //_initEventClickEx(strId, oTopo);
             _initEventCtrlPress(oTopo);
-
+            _initEventMouseDown(oStage, oTopo);
+            _initEventMouseUp(oStage, oTopo);
+            _initEventMouseMove(oStage, oTopo);
+            _initEventMouseOver(oStage, oTopo);
+            _initEventMouseOut(oStage, oTopo);
+            _initEventEscPress(oTopo);
             //#endregion
+
+            //region initEventOpions
+            $.extend(self.eventOptions, oEventOptions);
+            //endregion
 
             return oStage;
         };
@@ -69,7 +101,6 @@
         //#region event
 
         var _initEventWheel = function(strId, oStage){
-            //TODO:需要缩小绑定事件的范围
             document.getElementById(strId).addEventListener('wheel', function(e){
                 e.preventDefault();
                 var oldScale = oStage.scaleX();
@@ -77,7 +108,10 @@
                     x: oStage.getPointerPosition().x / oldScale - oStage.x() / oldScale,
                     y: oStage.getPointerPosition().y / oldScale - oStage.y() / oldScale
                 };
-                var newScale = e.deltaY > 0 ? oldScale * ZOOM_SCALE : oldScale / ZOOM_SCALE;
+                //往上滚deltaY小于0
+                var newScale = e.deltaY < 0 ? oldScale * ZOOM_SCALE : oldScale / ZOOM_SCALE;
+                //限制最小的缩放比
+                newScale = Math.max(newScale, MIN_SCALE);
                 oStage.scale({ x: newScale, y: newScale });
                 var newPos = {
                     x: -(mousePointTo.x - oStage.getPointerPosition().x / newScale) * newScale,
@@ -87,12 +121,13 @@
                 oStage.batchDraw();
             });
         };
+
         var _initEventAddMinus = function(oTopo){
-            keyboardJS.bind('=', function(e) {
-                oTopo.Sprite.NodeGroup.zoomInSelectNodeGroupAndNodes();
+            keyboardJS.bind('+', function(e) {
+                oTopo.Sprite.NodeGroup.zoomInSelectNodeGroupAndNodes(oTopo);
             });
             keyboardJS.bind('-', function(e) {
-                oTopo.Sprite.NodeGroup.zoomOutSelectNodeGroupAndNodes();
+                oTopo.Sprite.NodeGroup.zoomOutSelectNodeGroupAndNodes(oTopo);
             });
         };
         var _initEventClick = function(oStageRect, oTopo){
@@ -101,6 +136,15 @@
                 oTopo.Sprite.LinkGroup.unSelectLinks(oTopo);
             });
         };
+        var _initEventClickEx = function(strId, oTopo){
+            document.getElementById(strId).addEventListener("click", function(evt){
+                console.log(evt);
+                oTopo.Sprite.NodeGroup.unSelectNodeGroupAndNodes(oTopo);
+                oTopo.Sprite.LinkGroup.unSelectLinks(oTopo);
+                //console.log("_initEventClickEx");
+            });
+
+        };
         var _initEventCtrlPress = function(oTopo){
             keyboardJS.bind('ctrl', function(e) {
                 keyboardJS.isCtrlPress = true;
@@ -108,7 +152,51 @@
                 keyboardJS.isCtrlPress = false;
             });
         };
+        var _initEventMouseDown = function(oStage, oTopo){
+            oStage.on("contentMousedown", function(e){
+                if(self.model === self.MODEL_CREATE_NODE){
+                    oTopo.Sprite.Node.stageEventMouseDown(e, oTopo);
+                }
+            });
+        };
+        var _initEventMouseUp = function(oStage, oTopo){
+            oStage.on("contentMouseup", function(e){
+                if(self.model === self.MODEL_CREATE_NODE){
 
+                }
+            });
+        };
+        var _initEventMouseMove = function(oStage, oTopo){
+            oStage.on("contentMousemove", function(e){
+                if(self.model === self.MODEL_CREATE_NODE){
+                    oTopo.Sprite.Node.stageEventMouseMove(e, oTopo);
+                }
+            });
+        };
+        var _initEventMouseOver = function(oStage, oTopo){
+            oStage.on("contentMouseover", function(e){
+                if(self.model === self.MODEL_CREATE_NODE){
+                    oTopo.Sprite.Node.stageEventMouseOver(e, oTopo);
+                }
+            });
+        };
+        var _initEventMouseOut = function(oStage, oTopo){
+            oStage.on("contentMouseout", function(e){
+                if(self.model === self.MODEL_CREATE_NODE){
+                    oTopo.Sprite.Node.stageEventMouseOut(e, oTopo);
+                }
+            });
+        };
+        var _initEventEscPress = function(oTopo){
+            keyboardJS.bind('esc', function(e){
+                //down
+                if(self.model === self.MODEL_CREATE_NODE){
+                    oTopo.Sprite.Node.eventEscPress(e, oTopo);
+                }
+            }, function(e){
+                //up
+            });
+        };
         //#endregion
 
         //#region imsg

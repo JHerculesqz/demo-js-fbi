@@ -2,25 +2,41 @@
     $.MarvelGisStage = function() {
         var self = this;
 
-        //#region Const
+        //region Const
 
         var URL_GIS_MAP = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
 
-        //#endregion
+        //endregion
 
-        //#region Fields
+        //region Fields
 
         this.mapObj;
+        this.eventHandler = {
+            //region Stage
+            callbackOnZoom: function(e){},
+            callbackOnClick: function(e){},
+            callbackOnContextmenu: function(e){},
+            //endregion
+            //region node
+            callbackOnNodeDblClick: function(e){},
+            callbackOnNodeDrag: function(e){},
+            callbackOnNodeClick: function(e){},
+            callbackOnCircleDblclick: function(e){},
+            callbackOnNodeContextMenu: function (e) {},
+            //endregion
+            //region nodeGroup
+            callbackOnNodeGroupClick: function(e){},
+            //endregion
+            //region link
+            callbackOnLinkClick: function(e){},
+            //endregion
+        };
+        //endregion
 
-        //#endregion
+        //region init
 
-        //#region init
-
-        this.init = function(strId, iX, iY, iZoom4Init, oOptions,
-                             oCallbackOnZoom,
-                             oCallbackOnClick,
-                             oCallbackOnContextMenu){
-            //#region 0.init tileLayer
+        this.init = function(strId, iX, iY, iZoom4Init, oOptions, eventOptions){
+            //region 0.init tileLayer
             var oTileLayer1 = L.tileLayer(URL_GIS_MAP, {
                 attribution: "",
                 id: 'mapbox.streets',
@@ -31,9 +47,9 @@
                 id: 'mapbox.satellite',
                 token: "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
             });
-            //#endregion
+            //endregion
 
-            //#region 1.init mapObj
+            //region 1.init mapObj
             self.mapObj = L.map(strId, {
                 attributionControl: false,
                 zoomControl: oOptions.hasZoomCtrl == undefined ? true : oOptions.hasZoomCtrl,
@@ -49,38 +65,39 @@
                 "卫星": oTileLayer2,
                 "道路": oTileLayer1,
             }).addTo(this.mapObj);
-            //#endregion
+            //endregion
 
-            //#region 2.event
-            _onZoom(oCallbackOnZoom);
-            _onClick(oCallbackOnClick);
-            _onContextMenu(oCallbackOnContextMenu);
-            //#endregion
+            //region 2.event
+            $.extend(self.eventHandler, eventOptions);
+            _onZoom();
+            _onClick();
+            _onContextMenu();
+            //endregion
         };
 
-        //#endregion
+        //endregion
 
-        //#region event
+        //region event
 
-        var _onZoom = function(oCallbackOnZoom){
+        var _onZoom = function(){
             self.mapObj.on("zoomend", function(e){
-                oCallbackOnZoom(e);
+                self.eventHandler.callbackOnZoom(e);
             });
         };
-        var _onClick = function(oCallbackOnClick){
-            self.mapObj.on('click', function(e){
-                oCallbackOnClick(e);
+        var _onClick = function(){
+            self.mapObj.on('click', function(e) {
+                self.eventHandler.callbackOnClick(e);
             });
         };
-        var _onContextMenu = function (oCallbackOnContextMenu) {
+        var _onContextMenu = function () {
             self.mapObj.on('contextmenu', function(e){
-                oCallbackOnContextMenu(e);
+                self.eventHandler.callbackOnContextmenu(e);
             });
         };
 
-        //#endregion
+        //endregion
 
-        //#region imsg
+        //region imsg
 
         this.setCenter = function(iX, iY, iZoom4Init){
             self.mapObj.setView([iX, iY], iZoom4Init);
@@ -90,6 +107,6 @@
             // self.isShow = bIsShow ? "block":"none";
         };
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

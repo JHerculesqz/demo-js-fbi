@@ -4,14 +4,14 @@
 (function($){
     $.MarvelLinkUtils = function(){
 
-        //#region Const
+        //region Const
 
-        //#endregion
+        //endregion
 
-        //#region imsg
+        //region imsg
 
 
-        //#endregion
+        //endregion
 
     };
 })(jQuery);

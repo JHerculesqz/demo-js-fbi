@@ -2,29 +2,29 @@
     $.MarvelGisLinkGroup = function () {
         var self = this;
 
-        //#region Const
+        //region Const
 
         var LINK_TYPE="link";
 
-        //#endregion
+        //endregion
 
-        //#region Fields
+        //region Fields
 
-        //#endregion
+        //endregion
 
-        //#region event
+        //region event
 
-        var _clickPolyline = function(oBuObj, oGis){
+        var _clickPolyline = function(oBuObj, e, oGis){
+            oGis.Stage.eventHandler.callbackOnLinkClick(e);
+        };
+
+        var _rightClickPolyline = function(oBuObj, e, oGis){
 
         };
 
-        var _rightClickPolyline = function(oBuObj, oGis){
+        //endregion
 
-        };
-
-        //#endregion
-
-        //#region imsg
+        //region imsg
 
         this.drawLines = function(arrLinks, oGis){
             //对链路按照源宿网元进行分组
@@ -62,7 +62,6 @@
                 //绘制两个网元之间的链路
                 _draw4Group(arrLinks4Draw, oGis);
             }
-
         };
 
         var _groupLinkBySrcAndDstNodeId = function(arrLinks, oGis){
@@ -164,7 +163,7 @@
         };
 
         this.addPolyline = function (strId, arrPoints, oBuObj, oGis) {
-            //#region init
+            //region init
 
             var oPolyline = L.polyline(arrPoints, {
                 color: oBuObj.uiColor,
@@ -189,7 +188,7 @@
                             polygon: false,
                             pathOptions: {
                                 stroke: true,
-                                color: oBuObj.uiColor,
+                                color: oBuObj.uiColor
                             }
                         })
                     }]
@@ -208,7 +207,7 @@
                             polygon: false,
                             pathOptions: {
                                 stroke: true,
-                                color: oBuObj.uiColor,
+                                color: oBuObj.uiColor
                             }
                         })
                     },{
@@ -220,7 +219,7 @@
                             polygon: false,
                             pathOptions: {
                                 stroke: true,
-                                color: oBuObj.uiColor,
+                                color: oBuObj.uiColor
                             }
                         })
                     }]
@@ -229,18 +228,18 @@
                 oPolyline.children.push(oArrHead);
             }
 
-            //#endregion
+            //endregion
 
-            //#region event
+            //region event
 
             oPolyline.on("click", function (e) {
-                _clickPolyline(oBuObj, oGis);
+                _clickPolyline(oBuObj, e, oGis);
             });
             oPolyline.on("contextmenu", function (e) {
-                _rightClickPolyline(oBuObj, oGis);
+                _rightClickPolyline(oBuObj, e, oGis);
             });
 
-            //#endregion
+            //endregion
         };
 
         this.delPolyline = function(strId, oGis){
@@ -282,7 +281,42 @@
             return arrTargetLinks;
         };
 
-        //#endregion
+        this.setOpacity4Link = function(strId, iOpacity, oGis){
+            var oPolyLine = oGis.Layer.findById(strId, oGis);
+            if(oPolyLine){
+                oPolyLine.setStyle({
+                    opacity: iOpacity
+                });
+                //更新箭头
+                if(oPolyLine.children.length){
+                    oPolyLine.children.forEach(function(oChild, index){
+                        oChild.options.patterns.forEach(function(oPattern, index){
+                            oPattern.symbol.options.pathOptions.opacity = iOpacity;
+                        });
+                        oChild.redraw();
+                    });
+                }
+            }
+        };
 
+        this.setColor4Link = function(strId, oColor, oGis){
+            var oPolyLine = oGis.Layer.findById(strId, oGis);
+            if(oPolyLine){
+                oPolyLine.setStyle({
+                    color: oColor
+                });
+                //更新箭头
+                if(oPolyLine.children.length){
+                    oPolyLine.children.forEach(function(oChild, index){
+                        oChild.options.patterns.forEach(function(oPattern, index){
+                            oPattern.symbol.options.pathOptions.color = oColor;
+                        });
+                        oChild.redraw();
+                    });
+                }
+            }
+        };
+
+        //endregion
     }
 })(jQuery);

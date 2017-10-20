@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?e4verj');
-  src:  url('fonts/icomoon.eot?e4verj#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?e4verj') format('truetype'),
-    url('fonts/icomoon.woff?e4verj') format('woff'),
-    url('fonts/icomoon.svg?e4verj#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?jb5wko');
+  src:  url('fonts/icomoon.eot?jb5wko#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?jb5wko') format('truetype'),
+    url('fonts/icomoon.woff?jb5wko') format('woff'),
+    url('fonts/icomoon.svg?jb5wko#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -26,267 +26,299 @@
 
 .icon-marvelIcon-01:before {
   content: "\e900";
-
+   
 }
 .icon-marvelIcon-02:before {
   content: "\e901";
-
+   
 }
 .icon-marvelIcon-03:before {
   content: "\e902";
-
+   
 }
 .icon-marvelIcon-04:before {
   content: "\e903";
-
+   
 }
 .icon-marvelIcon-05:before {
   content: "\e904";
-
+   
 }
 .icon-marvelIcon-06:before {
   content: "\e905";
-
+   
 }
 .icon-marvelIcon-07:before {
   content: "\e906";
-
+   
 }
 .icon-marvelIcon-08:before {
   content: "\e907";
-
+   
 }
 .icon-marvelIcon-09:before {
   content: "\e908";
-
+   
 }
 .icon-marvelIcon-10:before {
   content: "\e909";
-
+   
 }
 .icon-marvelIcon-11:before {
   content: "\e90a";
-
+   
 }
 .icon-marvelIcon-12:before {
   content: "\e90b";
-
+   
 }
 .icon-marvelIcon-13:before {
   content: "\e90c";
-
+   
 }
 .icon-marvelIcon-14:before {
   content: "\e90d";
-
+   
 }
 .icon-marvelIcon-15:before {
   content: "\e90e";
-
+   
 }
 .icon-marvelIcon-16:before {
   content: "\e90f";
-
+   
 }
 .icon-marvelIcon-17:before {
   content: "\e910";
-
+   
 }
 .icon-marvelIcon-18:before {
   content: "\e911";
-
+   
 }
 .icon-marvelIcon-19:before {
   content: "\e912";
-
+   
 }
 .icon-marvelIcon-20:before {
   content: "\e913";
-
+   
 }
 .icon-marvelIcon-21:before {
   content: "\e914";
-
+   
 }
 .icon-marvelIcon-22:before {
   content: "\e915";
-
+   
 }
 .icon-marvelIcon-23:before {
   content: "\e916";
-
+   
 }
 .icon-marvelIcon-24:before {
   content: "\e917";
-
+   
 }
 .icon-marvelIcon-25:before {
   content: "\e918";
-
+   
 }
 .icon-marvelIcon-26:before {
   content: "\e919";
-
+   
 }
 .icon-marvelIcon-27:before {
   content: "\e91a";
-
+   
 }
 .icon-marvelIcon-28:before {
   content: "\e91b";
-
+   
 }
 .icon-marvelIcon-29:before {
   content: "\e91c";
-
+   
 }
 .icon-marvelIcon-30:before {
   content: "\e91d";
-
+   
 }
 .icon-marvelIcon-31:before {
   content: "\e91e";
-
+   
 }
 .icon-marvelIcon-32:before {
   content: "\e91f";
-
+   
 }
 .icon-marvelIcon-33:before {
   content: "\e920";
-
+   
 }
 .icon-marvelIcon-34:before {
   content: "\e921";
-
+   
 }
 .icon-marvelIcon-35:before {
   content: "\e922";
-
+   
 }
 .icon-marvelIcon-36:before {
   content: "\e923";
-
+   
 }
 .icon-marvelIcon-37:before {
   content: "\e924";
-
+   
 }
 .icon-marvelIcon-38:before {
   content: "\e925";
-
+   
 }
 .icon-marvelIcon-39:before {
   content: "\e926";
-
+   
 }
 .icon-marvelIcon-40:before {
   content: "\e927";
-
+   
 }
 .icon-marvelIcon-41:before {
   content: "\e928";
-
+   
 }
 .icon-marvelIcon-42:before {
   content: "\e929";
-
+   
 }
 .icon-marvelIcon-43:before {
   content: "\e92a";
-
+   
 }
 .icon-marvelIcon-44:before {
   content: "\e92b";
-
+   
 }
 .icon-marvelIcon-45:before {
   content: "\e92c";
-
+   
 }
 .icon-marvelIcon-46:before {
   content: "\e92d";
-
+   
 }
 .icon-marvelIcon-47:before {
   content: "\e92e";
-
+   
 }
 .icon-marvelIcon-48:before {
   content: "\e92f";
-
+   
 }
 .icon-marvelIcon-49:before {
   content: "\e930";
-
+   
 }
 .icon-marvelIcon-50:before {
   content: "\e931";
-
+   
 }
 .icon-marvelIcon-51:before {
   content: "\e932";
-
+   
 }
 .icon-marvelIcon-52:before {
   content: "\e933";
-
+   
 }
 .icon-marvelIcon-53:before {
   content: "\e934";
-
+   
 }
 .icon-marvelIcon-54:before {
   content: "\e935";
-
+   
 }
 .icon-marvelIcon-55:before {
   content: "\e936";
-
+   
 }
 .icon-marvelIcon-56:before {
   content: "\e937";
-
+   
 }
 .icon-marvelIcon-57:before {
   content: "\e938";
-
+   
 }
 .icon-marvelIcon-58:before {
   content: "\e939";
-
+   
 }
 .icon-marvelIcon-59:before {
   content: "\e93a";
-
+   
 }
 .icon-marvelIcon-60:before {
   content: "\e93b";
-
+   
 }
 .icon-marvelIcon-61:before {
   content: "\e93c";
-
+   
 }
 .icon-marvelIcon-62:before {
   content: "\e93d";
-
+   
 }
 .icon-marvelIcon-63:before {
   content: "\e93e";
-
+   
 }
 .icon-marvelIcon-64:before {
   content: "\e93f";
-
+   
 }
 .icon-marvelIcon-65:before {
   content: "\e940";
-
+   
 }
 .icon-marvelIcon-66:before {
   content: "\e941";
-
+   
+}
+.icon-marvelIcon-67:before {
+  content: "\eb2d";
+   
+}
+.icon-marvelIcon-68:before {
+  content: "\eb2e";
+   
+}
+.icon-marvelIcon-69:before {
+  content: "\eb2f";
+   
+}
+.icon-marvelIcon-70:before {
+  content: "\eb30";
+   
+}
+.icon-marvelIcon-71:before {
+  content: "\eb31";
+   
+}
+.icon-marvelIcon-72:before {
+  content: "\eb32";
+   
+}
+.icon-marvelIcon-73:before {
+  content: "\eb33";
+   
+}
+.icon-marvelIcon-74:before {
+  content: "\eb34";
+   
 }
 .icon-home:before {
   content: "\e942";

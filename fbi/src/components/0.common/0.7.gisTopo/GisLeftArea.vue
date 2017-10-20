@@ -1,84 +1,117 @@
 <template>
   <marvel-left-ext-panel
     theme="dark"
-    width="250"
+    width="280"
     show="false"
     canDrag="false">
     <div class="gisLeftArea" slot="content">
-      <div>
-        <div class="title">站点</div>
-        <div v-for="item in siteTypeItems">
-          <marvel-check-box v-bind:ref="item.ref"
-                            v-bind:id="item.ref"
-                            v-bind:check="true"
-                            v-bind:buObj="item"
-                            v-bind:label="item.label"
-                            showLabel="true"
-                            v-on:onChange="onChange4Site"></marvel-check-box>
+      <!--region 站点-->
+      <fieldset class="gisLeftAreaSession">
+        <legend class="title">站点</legend>
+        <div v-for="item in siteTypeItems" class="switchArea">
+          <div class="switchLabel">{{item.label}}</div>
+          <div class="switch">
+            <marvel-switch v-bind:ref="item.ref"
+                           v-bind:id="item.ref"
+                           v-bind:check="true"
+                           v-bind:buObj="item"
+                           v-bind:label="item.label"
+                           showLabel="true"
+                           v-on:onChange="onChange4Site"></marvel-switch>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="title">网元</div>
-        <div v-for="item in nodeTypeItems">
-          <marvel-check-box v-bind:ref="item.ref"
-                            v-bind:id="item.ref"
-                            v-bind:check="true"
-                            v-bind:buObj="item"
-                            v-bind:label="item.label"
-                            showLabel="true"
-                            v-on:onChange="onChange4Node"></marvel-check-box>
+      </fieldset>
+      <!--endregion -->
+      <!--region 网元-->
+      <fieldset class="gisLeftAreaSession">
+        <legend class="title">网元</legend>
+        <div class="switchArea" v-for="item in nodeTypeItems">
+          <div class="switchLabel">{{item.label}}</div>
+          <div class="switch">
+            <marvel-switch v-bind:ref="item.ref"
+                           v-bind:id="item.ref"
+                           v-bind:check="true"
+                           v-bind:buObj="item"
+                           v-bind:label="item.label"
+                           showLabel="true"
+                           v-on:onChange="onChange4Node"></marvel-switch>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="title">链路</div>
-        <div>链路带宽(bit/s)</div>
+      </fieldset>
+      <!--endregion -->
+      <!--region 链路-->
+      <fieldset class="gisLeftAreaSession">
+        <legend class="title">链路</legend>
+        <div class="subTitle">链路带宽(bit/s)</div>
         <div class="linkBandWidthItem">
-          <marvel-check-box v-bind:ref="linkCheckItems[0].ref"
-                            v-bind:id="linkCheckItems[0].ref"
-                            v-bind:check="true"
-                            v-bind:buObj="linkCheckItems[0]"
-                            showLabel="false"
-                            v-on:onChange="onChange4Link"></marvel-check-box>
-          <label>大于等于</label>
-          <input class="linkBandWidthInput" type="text" v-model="threshold1"/>
+          <div class="switchLabel">
+            <div class="colorStyle"
+                 v-bind:style="{backgroundColor: linkFilterOptions.filter[0].color}"></div>
+            <label>大于等于</label>
+            <input class="linkBandWidthInput" type="text" v-model.number="threshold1"/>
+          </div>
+          <div class="switch">
+            <marvel-switch v-bind:ref="linkFilterOptions.filter[0].ref"
+                           v-bind:id="linkFilterOptions.filter[0].ref"
+                           v-bind:check="true"
+                           v-bind:buObj="linkFilterOptions.filter[0]"
+                           showLabel="false"
+                           v-on:onChange="onChange4Link"></marvel-switch>
+          </div>
         </div>
         <div class="linkBandWidthItem">
-          <marvel-check-box v-bind:ref="linkCheckItems[1]"
-                            v-bind:id="linkCheckItems[1]"
-                            v-bind:check="true"
-                            v-bind:buObj="linkCheckItems[1]"
-                            showLabel="false"
-                            v-on:onChange="onChange4Link"></marvel-check-box>
-          <label>大于</label>
-          <input class="linkBandWidthInput" type="text" v-model="threshold2"/>
-          <label>且小于</label>
-          <input class="linkBandWidthInput" type="text" v-model="threshold1"/>
+          <div class="switchLabel">
+            <div class="colorStyle"
+                 v-bind:style="{backgroundColor: linkFilterOptions.filter[1].color}"></div>
+            <label>大于</label>
+            <input class="linkBandWidthInput" type="text" v-model.number="threshold2"/>
+            <label>且小于</label>
+            <input class="linkBandWidthInput" type="text" v-model.number="threshold1"/>
+          </div>
+          <div class="switch">
+            <marvel-switch v-bind:ref="linkFilterOptions.filter[1].ref"
+                           v-bind:id="linkFilterOptions.filter[1].ref"
+                           v-bind:check="true"
+                           v-bind:buObj="linkFilterOptions.filter[1]"
+                           showLabel="false"
+                           v-on:onChange="onChange4Link"></marvel-switch>
+          </div>
         </div>
         <div class="linkBandWidthItem">
-          <marvel-check-box v-bind:ref="linkCheckItems[2]"
-                            v-bind:id="linkCheckItems[2]"
-                            v-bind:check="true"
-                            v-bind:buObj="linkCheckItems[2]"
-                            showLabel="false"
-                            v-on:onChange="onChange4Link"></marvel-check-box>
-          <label>小于等于</label>
-          <input class="linkBandWidthInput" type="text" v-model="threshold2"/>
+          <div class="switchLabel">
+            <div class="colorStyle"
+                 v-bind:style="{backgroundColor: linkFilterOptions.filter[2].color}"></div>
+            <label>小于等于</label>
+            <input class="linkBandWidthInput" type="text" v-model.number="threshold2"/>
+          </div>
+          <div class="switch">
+            <marvel-switch v-bind:ref="linkFilterOptions.filter[2].ref"
+                           v-bind:id="linkFilterOptions.filter[2].ref"
+                           v-bind:check="true"
+                           v-bind:buObj="linkFilterOptions.filter[2]"
+                           showLabel="false"
+                           v-on:onChange="onChange4Link"></marvel-switch>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="title">子网</div>
+      </fieldset>
+      <!--endregion -->
+      <!--region 子网-->
+      <fieldset class="gisLeftAreaSession">
+        <legend class="title">子网</legend>
         <marvel-grid theme="dark"
                      :titles="titles4Subnet"
                      :rows="rows4Subnet"
-                     :limit="limit4Subnet"></marvel-grid>
-      </div>
+                     :limit="limit4Subnet"
+                     v-on:onClickRow="onClickRow4Subnet"></marvel-grid>
+      </fieldset>
+      <!--endregion -->
     </div>
   </marvel-left-ext-panel>
 </template>
 
 <script>
   import {MarvelLeftExtPanel, MarvelZTree,
-    MarvelZTreeItem, MarvelCheckBox, MarvelGrid} from "marvel-fui2";
+    MarvelZTreeItem, MarvelCheckBox, MarvelGrid, MarvelSwitch} from "marvel-fui2";
 
   export default {
     components: {
@@ -86,9 +119,11 @@
       MarvelZTree,
       MarvelZTreeItem,
       MarvelCheckBox,
-      MarvelGrid
+      MarvelGrid,
+      MarvelSwitch
     },
     name: "GisLeftArea",
+    props: ["linkFilterOptions"],
     data: function () {
       return {
         //region site
@@ -98,21 +133,14 @@
         nodeTypeItems: [],
         //endregion
         //region link
-        linkCheckItems: [{
-          ref: "linkBWThreshold1"
-        },{
-          ref: "linkBWThreshold2"
-        },{
-          ref: "linkBWThreshold3"
-        }],
-        threshold1: 10,
-        threshold2: 5,
+        threshold1: this.linkFilterOptions.threshold1,
+        threshold2: this.linkFilterOptions.threshold2,
         //endregion
         //region subNet
         titles4Subnet: [{
           label: "",
           width: "10%"
-        },{
+        }, {
           label: "子网名称",
           width: "10%"
         }],
@@ -137,8 +165,19 @@
       onChange4Node: function (strOldVal, strNewVal, oItem) {
         this.$emit("onChange4Node", strOldVal, strNewVal, oItem);
       },
-      onChange4Link: function(strOldVal, strNewVal, oItem){
+      onChange4Link: function (strOldVal, strNewVal, oItem) {
         this.$emit("onChange4Link", strOldVal, strNewVal, oItem);
+      },
+      thresholdChange: _.debounce(function(strErrorMsg){
+        if(this.threshold1 <= this.threshold2){
+          alert(strErrorMsg);
+        }
+        else{
+          this.$emit("linkBwThresholdChange", this.threshold1, this.threshold2);
+        }
+      }, 1000),
+      onClickRow4Subnet: function(oRow){
+        this.$emit("onClickRow4Subnet", oRow);
       },
       //endregion
 
@@ -149,32 +188,96 @@
       setNodeData: function (oNodeTypeItems) {
         this.nodeTypeItems = oNodeTypeItems;
       },
-      setLinkData: function(oLinkData){
+      setLinkData: function (oLinkData) {
         //TODO
       },
-      setSubnetData: function(oSubnetData){
+      setSubnetData: function (oSubnetData) {
         this.rows4Subnet = oSubnetData.rows4Subnet;
       }
       //endregion
+    },
+    watch: {
+      threshold1: function(iNewVal, iOldVal){
+        this.thresholdChange("阈值设置不合理，阈值必须大于" + this.threshold2);
+      },
+      threshold2: function(iNewVal, iOldVal){
+        this.thresholdChange("阈值设置不合理，阈值必须小于" + this.threshold1);
+      }
     }
   }
 </script>
 
 <style scoped>
   .gisLeftArea {
-    color: #fff;
     height: 100%;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
   }
+
+  .gisLeftAreaSession {
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    border: 1px solid #8b90b3;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .gisLeftAreaSession:hover {
+    border: 1px solid #3dcca6;
+  }
+
   .title {
-    border-bottom: 1px solid #d5d5d5;
-    margin-bottom: 5px;
+    font-size: 16px;
+    color: #8b90b3;
   }
-  .linkBandWidthItem{
+
+  .gisLeftAreaSession:hover .title {
+    color: #3dcca6;
+  }
+
+  .switchArea {
+    margin-bottom: 10px;
+    height: 20px;
+  }
+
+  .switchLabel {
+    float: left;
     font-size: 14px;
+    line-height: 20px;
   }
-  .linkBandWidthItem .linkBandWidthInput{
-    width: 40px;
+
+  .switch {
+    float: right;
+  }
+
+  .subTitle {
+    line-height: 14px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .linkBandWidthItem {
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 32px;
+  }
+
+  .linkBandWidthItem .linkBandWidthInput {
+    width: 32px;
+    border: 1px solid #8b90b3;
+    background-color: transparent;
+    padding: 0 6px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    height: 18px;
+    color: #ffffff;
+  }
+
+  .colorStyle {
+    float: left;
+    width: 20px;
+    height: 18px;
+    margin-right: 5px;
   }
 </style>
