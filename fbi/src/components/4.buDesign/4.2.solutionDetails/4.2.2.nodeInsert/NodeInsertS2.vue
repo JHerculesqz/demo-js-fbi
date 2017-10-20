@@ -61,8 +61,12 @@
 </template>
 
 <script>
+  import MarvelBottomExtPanel from "@/walle/widget/extPanel/MarvelBottomExtPanel";
+  import MarvelDialog from "@/walle/widget/dialog/MarvelDialog";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
   import TopoPanel from "@/components/0.common/0.2.topo/TopoPanel";
-  import {MarvelBottomExtPanel, MarvelDialog, MarvelIconTxtButton, MarvelGrid} from "marvel-fui2";
+
   export default {
     components: {
       MarvelGrid,

@@ -32,8 +32,12 @@
 </template>
 
 <script>
-  import MarvelRouter from "marvel-fui2/src/walle/component/router";
-  import {MarvelTab, MarvelTabItem, MarvelTxtButton, MarvelWizardTab, MarvelIconTxtButton} from "marvel-fui2";
+  import MarvelTab from "@/walle/widget/tab/MarvelTab";
+  import MarvelTabItem from "@/walle/widget/tab/MarvelTabItem";
+  import MarvelTxtButton from "@/walle/widget/button/MarvelTxtButton";
+  import MarvelWizardTab from "@/walle/widget/wizard/MarvelWizardTab";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
+  import MarvelRouter from "@/walle/component/router";
   import NodeInsertS1 from "@/components/4.buDesign/4.2.solutionDetails/4.2.2.nodeInsert/NodeInsertS1";
   import NodeInsertS2 from "@/components/4.buDesign/4.2.solutionDetails/4.2.2.nodeInsert/NodeInsertS2";
   import NodeInsertS2Res from "@/components/4.buDesign/4.2.solutionDetails/4.2.2.nodeInsert/NodeInsertS2Res";
@@ -46,10 +50,10 @@
     components: {
       MarvelIconTxtButton,
       MarvelWizardTab,
-      MarvelRouter,
       MarvelTxtButton,
       MarvelTabItem,
       MarvelTab,
+      MarvelRouter,
       NodeInsertS1,
       NodeInsertS2,
       NodeInsertS2Res,

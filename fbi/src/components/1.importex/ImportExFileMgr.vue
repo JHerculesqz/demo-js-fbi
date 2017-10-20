@@ -65,7 +65,14 @@
 </template>
 
 <script>
-  import {MarvelFrame, MarvelGrid, MarvelIconTxtButton, MarvelDialog, MarvelLoadingMini, MarvelUpload, MarvelMultiInput} from "marvel-fui2";
+  import MarvelFrame from "@/walle/widget/frame/MarvelFrame";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
+  import MarvelDialog from "@/walle/widget/dialog/MarvelDialog";
+  import MarvelLoadingMini from "@/walle/widget/loading/MarvelLoadingMini";
+  import MarvelUpload from "@/walle/widget/upload/MarvelUpload";
+  import MarvelMultiInput from "@/walle/widget/input/MarvelMultiInput";
+
   export default {
     components: {
       MarvelMultiInput,

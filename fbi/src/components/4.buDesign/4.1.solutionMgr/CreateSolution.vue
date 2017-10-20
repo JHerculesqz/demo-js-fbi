@@ -72,7 +72,13 @@
 </template>
 
 <script>
-  import {MarvelDialog, MarvelPrimaryButton, MarvelGrid, MarvelInput, MarvelMultiInput, MarvelDropDownButton, MarvelIconTxtButton} from "marvel-fui2";
+  import MarvelDialog from "@/walle/widget/dialog/MarvelDialog";
+  import MarvelPrimaryButton from "@/walle/widget/button/MarvelPrimaryButton";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
+  import MarvelInput from "@/walle/widget/input/MarvelInput";
+  import MarvelMultiInput from "@/walle/widget/input/MarvelMultiInput";
+  import MarvelDropDownButton from "@/walle/widget/button/MarvelDropDownButton";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
 
   export default {
     components: {
@@ -81,8 +87,8 @@
       MarvelMultiInput,
       MarvelInput,
       MarvelGrid,
-      MarvelDialog,
-      MarvelPrimaryButton
+      MarvelPrimaryButton,
+      MarvelDialog
     },
     name: "CreateSolution",
     props: ["showDialog"],

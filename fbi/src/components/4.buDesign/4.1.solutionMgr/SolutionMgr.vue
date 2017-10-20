@@ -34,16 +34,17 @@
 </template>
 
 <script>
-  import {MarvelAccordion3, MarvelIconTxtButton} from "marvel-fui2";
+  import MarvelAccordion3 from "@/walle/widget/accordion/MarvelAccordion3";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
   import CreateSolution from "@/components/4.buDesign/4.1.solutionMgr/CreateSolution.vue";
   import SolutionSummary from "@/components/4.buDesign/4.1.solutionMgr/SolutionSummary.vue";
 
   export default {
     components: {
+      MarvelIconTxtButton,
       MarvelAccordion3,
       SolutionSummary,
       CreateSolution,
-      MarvelIconTxtButton,
     },
     name: 'SolutionMgr',
     data: function () {

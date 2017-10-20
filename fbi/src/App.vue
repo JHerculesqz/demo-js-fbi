@@ -50,13 +50,15 @@
 </template>
 
 <script>
-  import MarvelRouter from "marvel-fui2/src/walle/component/router";
-  import {MarvelMenuDropDown, MarvelDropDownButton} from "marvel-fui2";
+  import MarvelRouter from "@/walle/component/router";
+  import MarvelMenuDropDown from "@/walle/widget/menudropdown/MarvelMenuDropDown";
+  import MarvelDropDownButton from "@/walle/widget/button/MarvelDropDownButton";
 
   export default {
     components: {
-      MarvelMenuDropDown,
-      MarvelDropDownButton
+      MarvelDropDownButton,
+      MarvelMenuDropDown
+
     },
     name: 'app',
     data: function () {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import MarvelRouter from "marvel-fui2/src/walle/component/router";
+  import MarvelRouter from "@/walle/component/router";
 
   export default {
     components: {

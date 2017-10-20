@@ -46,16 +46,21 @@
 </template>
 
 <script>
-  import {MarvelFrame, MarvelGrid, MarvelLoadingMini, MarvelIconTxtButton, MarvelDialog} from "marvel-fui2";
+  import MarvelFrame from "@/walle/widget/frame/MarvelFrame";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
+  import MarvelLoadingMini from "@/walle/widget/loading/MarvelLoadingMini";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
+  import MarvelDialog from "@/walle/widget/dialog/MarvelDialog";
   import PhyGridPanel from "@/components/0.common/0.1.phyGridPanel/PhyGridPanel";
+
   export default {
     components: {
-      MarvelGrid,
-      PhyGridPanel,
-      MarvelLoadingMini,
-      MarvelIconTxtButton,
       MarvelDialog,
+      MarvelIconTxtButton,
+      MarvelLoadingMini,
+      MarvelGrid,
       MarvelFrame,
+      PhyGridPanel,
     },
     name: 'ImportExParseInput',
     data: function () {

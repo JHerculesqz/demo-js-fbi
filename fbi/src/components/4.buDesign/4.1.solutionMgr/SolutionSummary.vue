@@ -56,15 +56,18 @@
 </template>
 
 <script>
-  import MarvelRouter from "marvel-fui2/src/walle/component/router";
-  import {MarvelPrimaryButton, MarvelGrid, MarvelFrame, MarvelIconTxtButton} from "marvel-fui2";
+  import MarvelPrimaryButton from "@/walle/widget/button/MarvelPrimaryButton";
+  import MarvelGrid from "@/walle/widget/grid/MarvelGrid";
+  import MarvelFrame from "@/walle/widget/frame/MarvelFrame";
+  import MarvelIconTxtButton from "@/walle/widget/button/MarvelIconTxtButton";
+  import MarvelRouter from "@/walle/component/router";
 
   export default {
     components: {
       MarvelIconTxtButton,
+      MarvelFrame,
       MarvelGrid,
       MarvelPrimaryButton,
-      MarvelFrame,
       MarvelRouter
     },
     name: "SolutionSummary",

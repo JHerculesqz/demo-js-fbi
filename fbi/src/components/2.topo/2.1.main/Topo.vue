@@ -15,7 +15,10 @@
 </template>
 
 <script>
-  import {MarvelTab, MarvelTabItem, MarvelTxtButton, MarvelWizardTab} from "marvel-fui2";
+  import MarvelTab from "@/walle/widget/tab/MarvelTab";
+  import MarvelTabItem from "@/walle/widget/tab/MarvelTabItem";
+  import MarvelTxtButton from "@/walle/widget/button/MarvelTxtButton";
+  import MarvelWizardTab from "@/walle/widget/wizard/MarvelWizardTab";
   import Phy from "@/components/2.topo/2.2.phy/Phy";
   import Traffic from "@/components/2.topo/2.3.traffic/Traffic";
   import Gis from "@/components/2.topo/2.4.gis/Gis";
@@ -24,9 +27,9 @@
     components: {
       MarvelWizardTab,
       MarvelTxtButton,
-      Traffic,
       MarvelTabItem,
       MarvelTab,
+      Traffic,
       Phy,
       Gis
     },

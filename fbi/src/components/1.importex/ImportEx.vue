@@ -11,14 +11,19 @@
 </template>
 
 <script>
-  import {MarvelFrame, MarvelWizard} from "marvel-fui2";
+  import MarvelFrame from "@/walle/widget/frame/MarvelFrame";
+  import MarvelWizard from "@/walle/widget/wizard/MarvelWizard";
   import ImportExFileMgr from "@/components/1.importex/ImportExFileMgr";
   import ImportExParseFixInput from "@/components/1.importex/ImportExParseFixInput";
   import ImportExParseInput from "@/components/1.importex/ImportExParseInput";
+
   export default {
     components: {
       MarvelWizard,
-      MarvelFrame, ImportExFileMgr, ImportExParseFixInput, ImportExParseInput
+      MarvelFrame,
+      ImportExFileMgr,
+      ImportExParseFixInput,
+      ImportExParseInput
     },
     name: 'ImportEx',
     data: function () {
@@ -67,20 +72,22 @@
 </script>
 
 <style scoped>
-.importExWrapper{
-  width: 100%;
-  height:100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
-.importEx_head{
-  height:120px;
-  background-color: #282746;
-  padding: 20px;
-  box-sizing: border-box;
-  padding: 20px;
-}
-.importEx_cont{
+  .importExWrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .importEx_head {
+    height: 120px;
+    background-color: #282746;
+    padding: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+
+  .importEx_cont {
     height: calc(100% - 120px);
     background-color: #282746;
     padding: 0 20px 20px 20px;
