@@ -10,7 +10,7 @@
             dark: {
                 stage: {
                     bgColor: "#272743",
-                    bgImg: "url('static/topo/image/dark/bg.png')"
+                    bgImg: "url('image/dark/bg.png')"
                 },
                 node: {
 
@@ -22,7 +22,7 @@
             default:{
                 stage: {
                     bgColor: "#272743",
-                    bgImg: "url('static/topo/image/dark/bg.png')"
+                    bgImg: "url('image/dark/bg.png')"
                 },
                 node: {
 

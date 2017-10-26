@@ -1,5 +1,5 @@
 <template>
-  <div class="tipDialogBg dark" v-show="showDialog">
+  <div class="tipDialogBg" v-show="showDialog" v-bind:class="theme">
     <div class="tipDialogWrapper"
          v-bind:style="{ width: width + 'px', height: height + 'px', 'margin-top':-height/2 + 'px', 'margin-left':-width/2 + 'px'}">
       <div class="tipDialogTitleArea">
@@ -43,6 +43,7 @@
     left: 0;
     pointer-events: none;
     z-index: 999;
+    background-color: rgba(0,0,0,0.7);
   }
   .tipDialogBg .tipDialogWrapper{
     position: absolute;
@@ -113,21 +114,19 @@
     }
   }
 
-  .dark{
-    background-color: rgba(0,0,0,0.7);
-  }
+  .dark{}
   .dark .tipDialogWrapper{
     box-shadow: 0 0 30px 2px rgba(0,0,0,0);
     background-color: #282746;
   }
   .dark .tipDialogWrapper .tipDialogTitleArea{}
-  .tipDialogTitleArea .titleName:before{
+  .dark .tipDialogTitleArea .titleName:before{
     background-color: #02a888;
   }
-  .tipDialogTitleArea .titleName{
+  .dark .tipDialogTitleArea .titleName{
     color: #8b90b3;
   }
-  .tipDialogTitleArea .closeBtn{
+  .dark .tipDialogTitleArea .closeBtn{
     color: #8b90b3;
   }
   .dark .tipDialogWrapper .tipDialogContArea{}

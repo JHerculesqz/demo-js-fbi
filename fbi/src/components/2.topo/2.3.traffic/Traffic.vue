@@ -234,22 +234,27 @@
       _getData4Tree: function () {
         if (this.debug) {
           var oData4LeftArea = {
-            id: "root",
-            name: 'root',
-            icon: "icon-address-book",
-            children: [{
-              id: 'nodeBase0',
-              name: 'nodeBase0',
+            treeData: [{
+              id: "root",
+              name: 'root',
               icon: "icon-address-book",
-            }, {
-              id: 'nodeBase1',
-              name: 'nodeBase1',
-              icon: "icon-address-book"
-            }, {
-              id: 'nodeBase2',
-              name: 'nodeBase2',
-              icon: "icon-address-book"
-            }]
+              children: [{
+                id: 'nodeBase0',
+                name: 'nodeBase0',
+                icon: "icon-address-book",
+              }, {
+                id: 'nodeBase1',
+                name: 'nodeBase1',
+                icon: "icon-address-book"
+              }, {
+                id: 'nodeBase2',
+                name: 'nodeBase2',
+                icon: "icon-address-book"
+              }]
+            }],
+            treeOptions: {
+              hasActiveStyle: true
+            }
           };
           this.$refs.ref4TrafficTopo.setData4LeftArea(oData4LeftArea);
         }

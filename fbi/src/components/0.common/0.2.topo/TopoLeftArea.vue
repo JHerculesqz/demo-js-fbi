@@ -5,10 +5,13 @@
     show="false"
     canDrag="false">
     <div class="topoLeftAreaZtree" slot="content">
-      <marvel-z-tree theme="dark">
-        <marvel-z-tree-item :model="data4LeftArea" theme="dark"
-                            v-on:onTreeNodeClick="onTreeNodeClick"></marvel-z-tree-item>
+      <marvel-z-tree ref="tree" theme="dark"
+                     :treeData="data4LeftArea.treeData"
+                     :options="data4LeftArea.treeOptions"
+                     @onCheckboxClick="onCheckboxClick"
+                     @onTreeNodeClick="onTreeNodeClick">
       </marvel-z-tree>
+
     </div>
   </marvel-left-ext-panel>
 </template>
@@ -28,7 +31,10 @@
     data: function () {
       return {
         //#region phyTopo
-        data4LeftArea: {}
+        data4LeftArea: {
+          treeData: [],
+          treeOptions: {}
+        }
         //#endregion
       }
     },
@@ -37,13 +43,17 @@
 
       //#endregion
       //#region callback
+      onCheckboxClick: function(oTreeNode){
+        this.$emit("onCheckboxClick", oTreeNode);
+      },
       onTreeNodeClick: function (oTreeNode) {
         this.$emit("onTreeNodeClick", oTreeNode);
       },
       //#endregion
       //#region 3rd
       setData4LeftArea: function (oData4LeftArea) {
-        this.data4LeftArea = oData4LeftArea;
+        this.data4LeftArea.treeData = oData4LeftArea.treeData;
+        this.data4LeftArea.treeOptions = oData4LeftArea.treeOptions;
       },
       //#endregion
     }

@@ -29,7 +29,7 @@
           id: 0,
           label: '拓扑还原',
           icon: 'icon-marvelIcon-30'
-        },{
+        }, {
           id: 1,
           label: '添加',
           icon: 'icon-marvelIcon-31'
@@ -123,27 +123,32 @@
       onGridRowIconClick4Cross: function (oRow, oCell) {
         console.log(oCell);
       },
-      _getData4Tree: function(){
+      _getData4Tree: function () {
         var oData4LeftArea = {};
 
         if (this.debug) {
           oData4LeftArea = {
-            id: "root",
-            name: 'root',
-            icon: "icon-address-book",
-            children: [{
-              id: 'nodeBase0',
-              name: 'nodeBase0',
+            treeData: [{
+              id: "root",
+              name: 'root',
               icon: "icon-address-book",
-            }, {
-              id: 'nodeBase1',
-              name: 'nodeBase1',
-              icon: "icon-address-book"
-            }, {
-              id: 'nodeBase2',
-              name: 'nodeBase2',
-              icon: "icon-address-book"
-            }]
+              children: [{
+                id: 'nodeBase0',
+                name: 'nodeBase0',
+                icon: "icon-address-book",
+              }, {
+                id: 'nodeBase1',
+                name: 'nodeBase1',
+                icon: "icon-address-book"
+              }, {
+                id: 'nodeBase2',
+                name: 'nodeBase2',
+                icon: "icon-address-book"
+              }]
+            }],
+            treeOptions: {
+              hasActiveStyle: true
+            }
           };
         }
         else {
@@ -453,97 +458,97 @@
             [{
               value: "搬迁状态",
               type: "text"
-            },{
+            }, {
               value: "未设计",
               type: "text"
-            }],[{
+            }], [{
               value: "高阶使用容量",
               type: "text"
-            },{
+            }, {
               value: "0.156G",
               type: "text"
-            }],[{
+            }], [{
               value: "高阶交叉个数",
               type: "text"
-            },{
+            }, {
               value: "1",
               type: "text"
-            }],[{
+            }], [{
               value: "低阶使用容量",
               type: "text"
-            },{
+            }, {
               value: "0.156G",
               type: "text"
-            }],[{
+            }], [{
               value: "低阶交叉个数",
               type: "text"
-            },{
+            }, {
               value: "2",
               type: "text"
-            }],[{
+            }], [{
               value: "低阶等效VC4容量",
               type: "text"
-            },{
+            }, {
               value: "4",
               type: "text"
-            }],[{
+            }], [{
               value: "低阶等效VC4个数",
               type: "text"
-            },{
+            }, {
               value: "5",
               type: "text"
-            }],[{
+            }], [{
               value: "网元ID",
               type: "text"
-            },{
+            }, {
               value: strNeId,
               type: "text"
-            }],[{
+            }], [{
               value: "网元名称",
               type: "text"
-            },{
+            }, {
               value: strNeId,
               type: "text"
-            }],[{
+            }], [{
               value: "网元类型",
               type: "text"
-            },{
+            }, {
               value: "SDH",
               type: "text"
-            }],[{
+            }], [{
               value: "设备厂商",
               type: "text"
-            },{
+            }, {
               value: "Huawei",
               type: "text"
-            }],[{
+            }], [{
               value: "子架类型",
               type: "text"
-            },{
+            }, {
               value: "metro001",
               type: "text"
-            }],[{
+            }], [{
               value: "时隙模式",
               type: "text"
-            },{
+            }, {
               value: "华为时隙",
               type: "text"
-            }],[{
+            }], [{
               value: "IP地址",
               type: "text"
-            },{
+            }, {
               value: "-",
               type: "text"
-            }],[{
+            }], [{
               value: "版本号",
               type: "text"
-            },{
+            }, {
               value: "-",
               type: "text"
-            }],[{
+            }], [{
               value: "领域",
               type: "text"
-            },{
+            }, {
               value: "SDH",
               type: "text"
             }]
@@ -563,109 +568,109 @@
             [{
               value: "链路利用率",
               type: "text"
-            },{
+            }, {
               value: "52%",
               type: "text"
-            }],[{
+            }], [{
               value: "光纤名称",
               type: "text"
-            },{
+            }, {
               value: strLinkId,
               type: "text"
-            }],[{
+            }], [{
               value: "光纤级别",
               type: "text"
-            },{
+            }, {
               value: "STM1",
               type: "text"
-            }],[{
+            }], [{
               value: "光纤方向",
               type: "text"
-            },{
+            }, {
               value: "单纤单向",
               type: "text"
-            }],[{
+            }], [{
               value: "光纤长度",
               type: "text"
-            },{
+            }, {
               value: "1",
               type: "text"
-            }],[{
+            }], [{
               value: "源端网络类型",
               type: "text"
-            },{
+            }, {
               value: "SDH",
               type: "text"
-            }],[{
+            }], [{
               value: "源网元ID",
               type: "text"
-            },{
+            }, {
               value: "",
               type: "text"
-            }],[{
+            }], [{
               value: "源网元名称",
               type: "text"
-            },{
+            }, {
               value: "nodeBase0",
               type: "text"
-            }],[{
+            }], [{
               value: "源网元槽位",
               type: "text"
-            },{
+            }, {
               value: "1",
               type: "text"
-            }],[{
+            }], [{
               value: "源单板名称",
               type: "text"
-            },{
+            }, {
               value: "SLNO",
               type: "text"
-            }],[{
+            }], [{
               value: "源端口",
               type: "text"
-            },{
+            }, {
               value: "1",
               type: "text"
-            }],[{
+            }], [{
               value: "宿端网络类型",
               type: "text"
-            },{
+            }, {
               value: "SDH",
               type: "text"
-            }],[{
+            }], [{
               value: "宿网元ID",
               type: "text"
-            },{
+            }, {
               value: "nodeBase1",
               type: "text"
-            }],[{
+            }], [{
               value: "宿网元名称",
               type: "text"
-            },{
+            }, {
               value: "nodeBase1",
               type: "text"
-            }],[{
+            }], [{
               value: "宿网元槽位",
               type: "text"
-            },{
+            }, {
               value: "1",
               type: "text"
-            }],[{
+            }], [{
               value: "宿单板名称",
               type: "text"
-            },{
+            }, {
               value: "SLNO",
               type: "text"
-            }],[{
+            }], [{
               value: "宿端口",
               type: "text"
-            },{
+            }, {
               value: "1",
               type: "text"
-            }],[{
+            }], [{
               value: "数据来源",
               type: "text"
-            },{
+            }, {
               value: "系统导入",
               type: "text"
             }]
@@ -678,10 +683,10 @@
         this.$refs.ref4MainTopo4Phy.setData4RightArea(oData4RightArea);
         this.$refs.ref4MainTopo4Phy.selectLink(strLinkId);
       },
-      _getData4PhyGridPanelNe: function(){
+      _getData4PhyGridPanelNe: function () {
         var oRows4Ne = [];
 
-        if(this.debug){
+        if (this.debug) {
           for (var i = 0; i < 3; i++) {
             var oRow = [{
               value: i + 1,
@@ -736,7 +741,7 @@
             oRows4Ne.push(oRow);
           }
         }
-        else{
+        else {
           //TODO:
         }
 
@@ -745,7 +750,7 @@
       _getData4PhyGridPanelBoard: function () {
         var oRows4Board = [];
 
-        if(this.debug){
+        if (this.debug) {
           for (var i = 0; i < 40; i++) {
             var oRow = [{
               value: i + 1,
@@ -778,7 +783,7 @@
             oRows4Board.push(oRow);
           }
         }
-        else{
+        else {
           //TODO:
         }
 
@@ -787,7 +792,7 @@
       _getData4PhyGridPanelFiber: function () {
         var oRows4Fiber = [];
 
-        if(this.debug){
+        if (this.debug) {
           for (var i = 0; i < 100; i++) {
             var oRow = [{
               value: i + 1,
@@ -836,7 +841,7 @@
             oRows4Fiber.push(oRow);
           }
         }
-        else{
+        else {
           //TODO
         }
 
@@ -845,7 +850,7 @@
       _getData4PhyGridPanelCross: function () {
         var oRows4Cross = [];
 
-        if(this.debug){
+        if (this.debug) {
           for (var i = 0; i < 40; i++) {
             var oRow = [{
               value: i + 1,
@@ -898,7 +903,7 @@
             oRows4Cross.push(oRow);
           }
         }
-        else{
+        else {
           //TODO:
         }
 
@@ -907,18 +912,18 @@
       _getData4PhyGridPanelSubnet: function () {
         var oRows4SubNet = [];
 
-        if(this.debug){
+        if (this.debug) {
           for (var i = 0; i < 100; i++) {
             var oRow = [{
-              value: i+1,
+              value: i + 1,
               type: "text"
-            },{
+            }, {
               value: "复用段线性保护1:N_1",
               type: "text"
-            },{
+            }, {
               value: "复用段线性保护1:N",
               type: "text"
-            },{
+            }, {
               value: "STM16",
               type: "text"
             }];
@@ -926,7 +931,7 @@
             oRows4SubNet.push(oRow);
           }
         }
-        else{
+        else {
           //TODO:
         }
 
@@ -935,33 +940,33 @@
       _getData4PhyGridPanelSite: function () {
         var oRows4Site = [];
 
-        if(this.debug){
+        if (this.debug) {
           for (var i = 0; i < 100; i++) {
             var oRow = [{
-              value: i+1,
+              value: i + 1,
               type: "text"
-            },{
+            }, {
               value: "nodeGroup0",
               type: "text"
-            },{
+            }, {
               value: "100.0",
               type: "text"
-            },{
+            }, {
               value: "20.0",
               type: "text"
-            },{
+            }, {
               value: "nodeBase0,nodeBase1",
               type: "text"
-            },{
+            }, {
               value: "SDH",
               type: "text"
-            },{
+            }, {
               value: "未知",
               type: "text"
-            },{
+            }, {
               value: "-",
               type: "text"
-            },{
+            }, {
               value: [{
                 value: "icon-pencil"
               }],
@@ -971,7 +976,7 @@
             oRows4Site.push(oRow);
           }
         }
-        else{
+        else {
           //TODO:
         }
 

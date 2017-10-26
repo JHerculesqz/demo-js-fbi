@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link type="text/css" rel="stylesheet" href="css/MarvelDevPanel.css"/>
+    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="lib/svg.min.js"></script>
+    <script type="application/javascript" src="js/plugins/MarvelDevPanel_1.js"></script>
+    <script type="application/javascript" src="js/MarvelDevPanel.js"></script>
+    <script>
+        $(document).ready(function () {
+            //1.init
+            var oMarvelDevPanel = new $.MarvelDevPanel();
+            var oOptions = {
+                id: "devPanel",
+                events: {
+                    click4BD: function (oBD, e) {
+                        console.log(oBD);
+                    }
+                },
+                "6000": {
+                    url: "image/dev1.svg",
+                    plugin: new $.MarvelDevPanel_1()
+                }
+            };
+            oMarvelDevPanel.init(oOptions);
+
+            //2.initPlugin
+            oMarvelDevPanel.initPlugin("6000");
+
+            //3.setLightColor
+            $("#id1").click(function () {
+                var oPlugin = oMarvelDevPanel.getPlugin("6000");
+                setInterval(function () {
+                    oPlugin.setLightColor("l1", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l2", Math.random() > 0.5 ? "#FF0001" : "#FFD400");
+                    oPlugin.setLightColor("l3", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l4", Math.random() > 0.5 ? "#FF0001" : "#FFD400");
+                    oPlugin.setLightColor("l5", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l6", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l7", Math.random() > 0.5 ? "#FF0001" : "#FFD400");
+                    oPlugin.setLightColor("l8", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l9", Math.random() > 0.5 ? "#FF0001" : "#FFD400");
+                    oPlugin.setLightColor("l10", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l11", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l12", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l13", Math.random() > 0.5 ? "#FFD400" : "#008C01");
+                    oPlugin.setLightColor("l14", Math.random() > 0.5 ? "#FF0001" : "#FFD400");
+                    oPlugin.setLightColor("l15", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l16", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l17", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l18", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l19", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                }, 1000);
+            });
+        });
+    </script>
+</head>
+<body>
+<button id="id1">设置颜色</button>
+<div id="devPanel"></div>
+</body>
+</html>

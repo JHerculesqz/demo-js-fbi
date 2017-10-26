@@ -18,7 +18,7 @@
               </div>
             </div>
             <div v-else>
-              {{title.label}}aaaa
+              {{title.label}}
             </div>
 
           </th>

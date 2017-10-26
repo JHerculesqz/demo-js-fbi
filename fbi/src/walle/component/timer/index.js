@@ -1,14 +1,14 @@
 export default {
-  timer: undefined,
   startTimer: function (oCallback, iInterval) {
-    this.timer = setInterval(function(){
+    var timer = setInterval(function(){
       oCallback();
     }, iInterval);
+
+    return timer;
   },
-  endTimer: function(){
-    if(this.timer != undefined){
-      clearInterval(this.timer);
-      this.timer = undefined;
+  endTimer: function(timer){
+    if(timer != undefined){
+      clearInterval(timer);
     }
   }
 }

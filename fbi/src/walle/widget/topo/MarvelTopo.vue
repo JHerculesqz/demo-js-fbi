@@ -35,6 +35,10 @@
         };
         var THEME_DARK = {
           dark: {
+            stage: {
+              bgColor: "#272743",
+              bgImg: "url('static/topo/image/dark/bg.png')"
+            },
             node: {
               labelColor: "#fff",
               selectColor: "rgba(255,255,255,0.25)"
@@ -45,7 +49,16 @@
               linkColor: {
                 linkType1: "#ababb5",
                 linkType2: "#FF4c4c",
-                linkType3: "#ff8833"
+                linkType3: "#ff8833",
+                linkType_fiber: "#8b90b3", //光纤
+                linkType_lu_1: "#3b3e4c", //链路利用率=0
+                linkType_lu_2: "#3dcca6", //链路利用率大于0小于等于50
+                linkType_lu_3: "#ff8833", //链路利用率大于50小于等于80
+                linkType_lu_4: "#ff4c4c", //链路利用率大于80
+                linkType_wf: "#006ad4", //正向工作
+                linkType_fp: "#f464ac", //正向保护
+                linkType_rw: "#3399ff", //反向工作
+                linkType_rp: "#94c94f" //反向保护
               }
             }
           }
