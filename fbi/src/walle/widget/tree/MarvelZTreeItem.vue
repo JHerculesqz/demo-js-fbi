@@ -54,6 +54,11 @@
       if (!this.model.hasOwnProperty("check")) {
         this.$set(this.model, "check", false);
       }
+      if (this.treeItemOptions.hasActiveStyle){
+        if(!this.model.hasOwnProperty("active")){
+          this.$set(this.model, "active", false);
+        }
+      }
     },
     computed: {
       isFolder: function () {
@@ -75,9 +80,6 @@
       },
       activeClass: function(){
         if(this.treeItemOptions.hasActiveStyle){
-          if(!this.model.hasOwnProperty("active")){
-            return "";
-          }
           if(this.model.active){
             return "active"
           }

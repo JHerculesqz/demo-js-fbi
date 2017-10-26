@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  import Vue from "vue";
   import MarvelZTreeItem from "./MarvelZTreeItem";
 
   export default {
@@ -125,7 +124,7 @@
           for (let k in this.treeMap) {
             let val = this.treeMap[k];
             if (val.key !== oTreeNode.key) {
-              Vue.set(val, "active", false);
+              val.active = false;
             }
           }
         }
@@ -153,6 +152,14 @@
         return arrRes;
       }
       //endregion
+    },
+    watch: {
+      treeData: function(oNewTreeData, oOldTreeData){
+        this._handleTreeData();
+      },
+      options: function(oNewOptions, oOldOptions){
+        this._handleOptions();
+      }
     }
   }
 </script>
