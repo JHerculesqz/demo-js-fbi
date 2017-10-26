@@ -8,6 +8,7 @@ import SolutionDetails from '@/components/4.buDesign/4.2.solutionDetails/4.2.2.n
 import SolutionDetails4Single from '@/components/4.buDesign/4.2.solutionDetails/4.2.1.singleInsert/SolutionDetails4Single'
 import SolutionDetails4LinkInsert from '@/components/4.buDesign/4.2.solutionDetails/4.2.3.linkInsert/SolutionDetails4LinkInsert'
 import SolutionDetails4E2EInsert from '@/components/4.buDesign/4.2.solutionDetails/4.2.4.e2eInsert/SolutionDetails4E2EInsert'
+import Analysis from '@/components/5.analysis/Analysis'
 
 Vue.use(Router);
 
@@ -22,6 +23,10 @@ export default new Router({
     path: '/Topo',
     name: 'Topo',
     component: Topo
+  }, {
+    path: '/Analysis',
+    name: 'Analysis',
+    component: Analysis
   }, {
     path: '/Plan',
     name: 'Plan',

@@ -10,6 +10,9 @@
           <router-link :to="{name:'Topo'}" exact>网络还原</router-link>
         </li>
         <li>
+          <router-link :to="{name:'Analysis'}" exact>现网分析</router-link>
+        </li>
+        <li>
           <router-link :to="{name:'Plan'}" exact>网络规划</router-link>
         </li>
         <li>
