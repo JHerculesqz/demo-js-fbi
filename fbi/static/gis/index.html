@@ -5,11 +5,17 @@
     <title>Shit</title>
     <link type="text/css" rel="stylesheet" href="lib/leaflet.css"/>
     <link type="text/css" rel="stylesheet" href="lib/leaflet.custom.css"/>
+    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
     <script type="application/javascript" src="lib/leaflet.js"></script>
     <script type="application/javascript" src="lib/plugins/leaflet.heat/leaflet.heat.js"></script>
     <script type="application/javascript"
             src="lib/plugins/leaflet.polylineDecorator/leaflet.polylineDecorator.js"></script>
-    <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="application/javascript" src="lib/plugins/zoomify/leaflet-deepzoom.js"></script>
+    <script type="application/javascript" src="lib/plugins/leaflet-easyPrint/bundle.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css"/>
+    <script type="application/javascript"
+            src="lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
     <script type="application/javascript" src="js/_1_stage/MarvelGisStage.js"></script>
     <script type="application/javascript" src="js/_2_layer/MarvelGisLayer.js"></script>
     <script type="application/javascript" src="js/_3_sprite/MarvelGisSprite.js"></script>
@@ -275,7 +281,10 @@
                 //endregion
             };
             oGis.Api.init("id1", 51.505, -0.09, 13, {
-                hasZoomCtrl: true
+                hasZoomCtrl: true,
+                mess: true,
+                messTmpLine: "#fff",
+                messResLine: "#fff",
             }, eventOptions, oGis);
             //draw
             oGis.Api.draw(oTopoData, oGis);
@@ -406,6 +415,82 @@
                 console.log(oTopoData);
             });
             //endregion
+
+            //#region demo2
+
+            var oGis2 = new $.MarvelGis();
+            //init
+            var eventOptions2 = {
+                //region Stage
+                callbackOnZoom: function(e){
+                    console.log("callbackOnZoom");
+                    console.log(e);
+                },
+                callbackOnClick: function(e){
+                    console.log("callbackOnClick");
+                    console.log(e);
+                },
+                callbackOnContextmenu: function(e){
+                    console.log("callbackOnContextmenu");
+                    console.log(e);
+                },
+                //endregion
+                //region node
+                callbackOnNodeDblClick: function(e){
+                    console.log("callbackOnNodeDblClick");
+                    console.log(e);
+                },
+                callbackOnNodeDrag: function(e){
+                    console.log("callbackOnNodeDrag");
+                    console.log(e);
+                },
+                callbackOnNodeClick: function(e){
+                    console.log("callbackOnNodeClick");
+                    console.log(e);
+                },
+                callbackOnCircleDblclick: function(e){
+                    console.log("callbackOnCircleDblclick");
+                    console.log(e);
+                },
+                callbackOnNodeContextMenu: function (e) {
+                    console.log("callbackOnNodeContextMenu");
+                    console.log(e);
+                },
+                //endregion
+                //region nodeGroup
+                callbackOnNodeGroupClick: function(e){
+                    console.log("callbackOnNodeGroupClick");
+                    console.log(e);
+                },
+                //endregion
+                //region link
+                callbackOnLinkClick: function(e){
+                    console.log("callbackOnLinkClick");
+                    console.log(e);
+                },
+                //endregion
+            };
+            oGis2.Api.init("id2", 0, 0, 0, {
+                hasZoomCtrl: true,
+                indoorMap: true,
+                indoorMapUrl: "image/2/dzc_output_files/"
+            }, eventOptions2, oGis2);
+            oGis2.Api.addMarker("car1", 85.03051981587062, -179.42871093750003,
+                "lib/images/node1.svg", 32, {
+                    id: "marker3",
+                    x: 85.03051981587062,
+                    y: -179.42871093750003,
+                    uiType: "ne",
+                    uiImgUrl: "lib/images/node1.svg",
+                    uiImgWidth: 32,
+                    uiLabel: "marker3",
+                    uiTips: "<b>car1</b><br>111111",
+                    uiDraggable: true,
+                    uiOpacity: 1
+                },
+                oGis2);
+
+            //#endregion
         });
     </script>
 </head>
@@ -427,6 +512,9 @@
 <button id="oTest4Polygon2">test4Polygon(delPolygon)</button>
 <button id="oTest4Topo">test4Topo</button>
 <div class="gisMap" id="id1"
-     style="width: 100%;height: 500px;display:block;"></div>
+     style="width: 100%;height: 500px;"></div>
+<div>室内地图</div>
+<div class="indoorMap" id="id2"
+     style="width: 100%;height: 500px;"></div>
 </body>
 </html>

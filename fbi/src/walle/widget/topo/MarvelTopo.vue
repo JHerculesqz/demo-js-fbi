@@ -25,6 +25,12 @@
       _onLinkClick: function(oLink, oEvent){
         this.$emit("onLinkClick", oLink, oEvent);
       },
+      _onRightClick: function(oBuObj, iX, iY, oEvent){
+        this.$emit("onRightClick", oBuObj, iX, iY, oEvent);
+      },
+      _onPositionUpdate: function(bUpdate){
+        this.$emit("onPositionUpdate", bUpdate);
+      },
       //endregion
       init: function (oAfterCallBack) {
         //#region resources
@@ -83,6 +89,14 @@
           },
           callbackOnLinkClick: function(oLink, oEvent){
             self._onLinkClick(oLink, oEvent);
+          },
+          //endregion
+          //region stage
+          callbackOnRightClick: function (oBuObj, iX, iY, oEvent) {
+            self._onRightClick(oBuObj, iX, iY, oEvent); //oBuObj为"background"表示点击的是背景
+          },
+          callbackOnPositionUpdate: function (bUpdate) {
+            self._onPositionUpdate(bUpdate);
           }
           //endregion
         };
@@ -129,8 +143,20 @@
       updateTopo: function (oTopoData) {
         this.oTopo.Api.updateTopo(this.oTopo, oTopoData);
       },
-      createNode: function(oBuObj){
-        this.oTopo.Api.createNode(oBuObj, this.oTopo);
+      createNode: function(oBuObj, oAfterCallback){
+        this.oTopo.Api.createNode(oBuObj, oAfterCallback, this.oTopo);
+      },
+      savePosition: function(){
+        this.oTopo.Api.savePosition(this.oTopo);
+      },
+      resetPosition: function(){
+        this.oTopo.Api.resetPosition(this.oTopo);
+      },
+      isPositionUpdate: function(){
+        return  this.oTopo.Api.isPositionUpdate(this.oTopo);
+      },
+      setBestView: function(){
+        this.oTopo.Api.setBestView(this.oTopo);
       }
     }
   }

@@ -170,8 +170,156 @@
             self.draw(oTopo, oTopoData);
         };
 
-        this.createNode = function(oBuObj, oTopo){
-            oTopo.Sprite.Node.createNode(oBuObj, oTopo);
+        this.createNode = function(oBuObj, oAfterCallback, oTopo){
+            oTopo.Sprite.Node.createNode(oBuObj, oAfterCallback, oTopo);
+        };
+
+        this.savePosition = function(oTopo){
+            //1.savePos
+            var oTopoData = self.getTopoData(oTopo);
+            oTopoData.nodes.forEach(function(oNode, index){
+                _savePosEx(oNode);
+            });
+            oTopoData.nodeGroups.forEach(function(oNodeGroup, index){
+                _savePosEx(oNodeGroup);
+                oNodeGroup.children.forEach(function(oChildNode, index){
+                    _savePosEx(oChildNode);
+                });
+            });
+            //2.event
+            oTopo.Stage.eventOptions.callbackOnPositionUpdate(false);
+        };
+
+        var _savePosEx = function(oNode){
+            oNode.oX = oNode.x;
+            oNode.oY = oNode.y;
+        };
+
+        this.resetPosition = function(oTopo){
+            //1. resetPos
+            var oTopoData = self.getTopoData(oTopo);
+            oTopoData.nodes.forEach(function(oNode, index){
+                _resetPos(oNode);
+            });
+            oTopoData.nodeGroups.forEach(function(oNodeGroup, index){
+                _resetPos(oNodeGroup);
+                oNodeGroup.children.forEach(function(oChildNode, index){
+                    _resetPos(oChildNode);
+                });
+            });
+            //2.draw
+            _drawTopo(oTopo, oTopoData);
+            //3.event
+            oTopo.Stage.eventOptions.callbackOnPositionUpdate(false);
+        };
+
+        var _resetPos = function(oNode){
+            oNode.x = oNode.oX;
+            oNode.y = oNode.oY;
+        };
+
+        this.isPositionUpdate = function(oTopo){
+            var oTopoData = self.getTopoData(oTopo);
+            for(var i = 0, len = oTopoData.nodes.length; i < len; i++){
+                var oNode = oTopoData.nodes[i];
+                if(oNode.x != oNode.oX){
+                    return true;
+                }
+                if(oNode.y != oNode.oY){
+                    return true;
+                }
+            }
+            for(var i = 0, len = oTopoData.nodeGroups.length; i < len; i++){
+                var oNodeGroup = oTopoData.nodeGroups[i];
+                if(oNodeGroup.x != oNodeGroup.oX){
+                    return true;
+                }
+                if(oNodeGroup.y != oNodeGroup.oY){
+                    return true;
+                }
+                for(var j = 0, jLen = oNodeGroup.children; j < jLen; j++){
+                    var oChildNode = oNodeGroup.children[j];
+                    if(oChildNode.x != oChildNode.oX){
+                        return true;
+                    }
+                    if(oChildNode.y != oChildNode.oY){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+        this.setBestView = function(oTopo){
+            var iStageWidth = oTopo.ins.stage.width();
+            var iStageHeight = oTopo.ins.stage.height();
+            var iXMin = Number.MAX_SAFE_INTEGER;
+            var iYMin = Number.MAX_SAFE_INTEGER;
+            var iXMax = Number.MIN_SAFE_INTEGER;
+            var iYMax = Number.MIN_SAFE_INTEGER;
+            //get MinX MinY MaxX MaxY
+            var oTopoSprites = _getNodeAndNodeGroupSprite(oTopo);
+            oTopoSprites.nodeSprites.forEach(function(oNode, index){
+                iXMin = Math.min(iXMin, oNode.x());
+                iYMin = Math.min(iYMin, oNode.y());
+
+                iXMax = Math.max(iXMax, oNode.x() + oNode.children[0].width());
+                iYMax = Math.max(iYMax, oNode.y() + oNode.children[0].height());
+            });
+
+            oTopoSprites.nodeGroupSprites.forEach(function(oNodeGroup, index){
+                iXMin = Math.min(iXMin, oNodeGroup.x());
+                iYMin = Math.min(iYMin, oNodeGroup.y());
+
+                iXMax = Math.max(iXMax, oNodeGroup.x() + oNodeGroup.children[0].width());
+                iYMax = Math.max(iYMax, oNodeGroup.y() + oNodeGroup.children[0].width());
+            });
+            //预留余量
+            iXMax += 10;
+            iYMax += 10;
+
+            //计算缩放
+            var iScaleX = iStageWidth / (iXMax - iXMin);
+            var iScaleY = iStageHeight / (iYMax - iYMin);
+            var iScale = Math.min(iScaleX, iScaleY);
+            iScale = Math.min(iScale, 1);
+            oTopo.ins.stage.scale({ x: iScale, y: iScale });
+
+            //计算偏移
+            var iFixCenterX = iStageWidth / 2;
+            var iFixCenterY = iStageHeight / 2;
+            var iCenterX = (iXMax + iXMin) / 2;
+            var iCenterY = (iYMax + iYMin) / 2;
+
+            var iOffSetX = iFixCenterX - (iCenterX * iScale + oTopo.ins.stage.x());
+            var iOffSetY = iFixCenterY - (iCenterY * iScale + oTopo.ins.stage.y());
+
+            oTopo.ins.stage.x(oTopo.ins.stage.x() + iOffSetX);
+            oTopo.ins.stage.y(oTopo.ins.stage.y() + iOffSetY);
+
+            //重置backgroundLayer
+            oTopo.Stage.reSetBackgroundLayer(oTopo);
+
+            //重绘
+            oTopo.ins.stage.batchDraw();
+        };
+
+        var _getNodeAndNodeGroupSprite = function(oTopo){
+            var arrRes = {
+                nodeSprites: [],
+                nodeGroupSprites: []
+            };
+            var arrSprites = oTopo.Stage.findGroupByTagAttr("uiNode", true, oTopo);
+            arrSprites.forEach(function(oSprite, index){
+                var oBuObj = oSprite.tag;
+                if(oBuObj.children){
+                    arrRes.nodeGroupSprites.push(oSprite);
+                }
+                else if(oBuObj.uiChild !== true){
+                    arrRes.nodeSprites.push(oSprite);
+                }
+            });
+            return arrRes;
         };
 
         //#endregion

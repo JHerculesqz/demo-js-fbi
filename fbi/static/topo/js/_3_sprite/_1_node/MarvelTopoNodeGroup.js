@@ -89,7 +89,7 @@
                 oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oGroup.tag, oTopo);
             });
             oGroup.on("click", function(evt){
-                evt.evt.stopPropagation();
+                //evt.evt.stopPropagation();
                 self._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
             });
             oGroup.on('dragmove', function(evt){
@@ -186,7 +186,7 @@
                 oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oGroup.tag, oTopo);
             });
             oGroup.on("click", function(evt){
-                evt.evt.stopPropagation();
+                //evt.evt.stopPropagation();
                 self._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
             });
             oGroup.on('dragmove', function(evt){
@@ -230,6 +230,10 @@
             _drawCollapse(oBuObj, oGroup, oTopo);
         };
         this._onNodeGroupOrNodeClick = function(oGroup, evt, oTopo){
+            //0.判断是否是冒泡
+            if(oTopo.Stage.getBuObjByEventTarget(evt.target).id !== oGroup.tag.id){
+                return;
+            }
             //1.ctrl press
             if(keyboardJS.isCtrlPress){
                 if(oGroup.tag.uiSelectNode == undefined || false == oGroup.tag.uiSelectNode){
@@ -269,11 +273,13 @@
             //1.联动关联的链路
             oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oGroup.tag, oTopo);
             //2.更新node的坐标
-            _updatePosition(oGroup.tag, oGroup);
+            _updatePosition(oGroup.tag, oGroup, oTopo);
         };
-        var _updatePosition = function(oBuObj, oGroup){
+        var _updatePosition = function(oBuObj, oGroup, oTopo){
             oBuObj.x = oGroup.x();
             oBuObj.y = oGroup.y();
+            //eventCallback
+            oTopo.Stage.eventOptions.callbackOnPositionUpdate(true);
         };
         //#endregion
 

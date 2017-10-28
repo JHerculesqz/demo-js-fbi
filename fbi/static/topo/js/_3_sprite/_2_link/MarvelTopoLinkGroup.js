@@ -163,7 +163,6 @@
 
             //event
             oLine.on("click", function (evt) {
-                evt.evt.stopPropagation();
                 console.log("link click");
                 _onLinkClick(oGroup, evt, oTopo);
             });

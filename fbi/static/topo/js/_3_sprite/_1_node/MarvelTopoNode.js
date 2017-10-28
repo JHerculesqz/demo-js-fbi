@@ -16,7 +16,8 @@
         const STATUS_FREE = 0;
         var createNodeData = {
             status: STATUS_FREE,
-            buObj: undefined
+            buObj: undefined,
+            callback: undefined
         };
         //endregion
 
@@ -79,8 +80,8 @@
             });
             oGroup.on('click', function(evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
-                evt.cancelBubble = true;
-                evt.evt.stopPropagation();
+                //evt.cancelBubble = true;
+                //evt.evt.stopPropagation();
             });
             oGroup.on('dragmove', function(evt){
                 oTopo.Sprite.NodeGroup.onNodeOrNodeGroupMove(oGroup, oTopo);
@@ -159,8 +160,8 @@
             });
             oGroup.on('click', function(evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
-                evt.evt.cancelBubble = true;
-                evt.evt.stopPropagation();
+                //evt.evt.cancelBubble = true;
+                //evt.evt.stopPropagation();
             });
             oGroup.on('dragmove', function(evt){
                 oTopo.Sprite.NodeGroup.onNodeOrNodeGroupMove(oGroup, oTopo);
@@ -213,18 +214,19 @@
             }
         };
 
-        this.createNode = function(oBuObj, oTopo){
+        this.createNode = function(oBuObj, oAfterCallback, oTopo){
             oTopo.Stage.model = oTopo.Stage.MODEL_CREATE_NODE;
             //save cache
             createNodeData.buObj = oBuObj;
             createNodeData.status = STATUS_START;
+            createNodeData.callback = oAfterCallback;
         };
 
         this.stageEventMouseOver = function(oEvent, oTopo){
             //update buObj prop
-            var oStage = oEvent.currentTarget;
-            createNodeData.buObj.x = oStage.pointerPos.x;
-            createNodeData.buObj.y = oStage.pointerPos.y;
+            var oPos = _getPos4CreateNode(oEvent.currentTarget);
+            createNodeData.buObj.x = oPos.x;
+            createNodeData.buObj.y = oPos.y;
             //绘制网元
             self.draw(createNodeData.buObj, oTopo);
             oTopo.Layer.reDraw(oTopo.ins.layerNode);
@@ -233,9 +235,10 @@
         this.stageEventMouseMove = function(oEvent, oTopo){
             var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
             if(oNode){
+                var oPos = _getPos4CreateNode(oEvent.currentTarget);
                 //更新网元坐标
-                oNode.x(oEvent.currentTarget.pointerPos.x);
-                oNode.y(oEvent.currentTarget.pointerPos.y);
+                oNode.x(oPos.x);
+                oNode.y(oPos.y);
                 oTopo.Layer.reDraw(oTopo.ins.layerNode);
             }
         };
@@ -243,25 +246,38 @@
         this.stageEventMouseDown = function(oEvent, oTopo){
             var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
             if(oNode){
+                var oPos = _getPos4CreateNode(oEvent.currentTarget);
                 //保存原始坐标
-                oNode.tag.oX = oEvent.currentTarget.pointerPos.x;
-                oNode.tag.oY = oEvent.currentTarget.pointerPos.y;
+                oNode.tag.oX = oPos.x;
+                oNode.tag.oY = oPos.y;
                 //保存坐标，在网元移动的时候会同步更新
-                oNode.tag.x = oEvent.currentTarget.pointerPos.x;
-                oNode.tag.y = oEvent.currentTarget.pointerPos.y;
-                oNode.x(oEvent.currentTarget.pointerPos.x);
-                oNode.y(oEvent.currentTarget.pointerPos.y);
+                oNode.tag.x = oPos.x;
+                oNode.tag.y = oPos.y;
+                oNode.x(oPos.x);
+                oNode.y(oPos.y);
                 oTopo.Layer.reDraw(oTopo.ins.layerNode);
             }
             //createNodeEnd
-            _createNodeEnd(oTopo);
+            _createNodeEnd(oTopo, true);
         };
 
-        var _createNodeEnd = function(oTopo){
+        var _getPos4CreateNode = function(oStage){
+            var iScale = oStage.scaleX();
+            return {
+                x: (oStage.pointerPos.x - oStage.x()) / iScale,
+                y: (oStage.pointerPos.y - oStage.y()) / iScale
+            };
+        };
+
+        var _createNodeEnd = function(oTopo, bCreatedSuccessful){
             oTopo.Stage.model = oTopo.Stage.MODEL_EMPTY;
+            if(typeof createNodeData.callback == "function"){
+                createNodeData.callback(createNodeData.buObj, bCreatedSuccessful);
+            }
             //clear cache
             createNodeData.buObj = undefined;
             createNodeData.status = STATUS_FREE;
+            createNodeData.callback = undefined;
         };
 
         this.stageEventMouseOut = function(oEvent, oTopo){
@@ -280,7 +296,7 @@
                     oTopo.Layer.reDraw(oTopo.ins.layerNode);
                 }
                 //取消创建
-                _createNodeEnd(oTopo);
+                _createNodeEnd(oTopo, false);
             }
         };
 

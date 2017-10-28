@@ -17,5 +17,19 @@
             return arrRes;
         };
 
+        this.isRightClick = function(evt){
+            if(evt.button == 2 || evt.which == 3){
+                return true;
+            }
+            return false;
+        };
+
+        this.isLeftClick = function(evt){
+            if(evt.button == 0 || evt.which == 1){
+                return true;
+            }
+            return false;
+        };
+
     };
 })(jQuery);
