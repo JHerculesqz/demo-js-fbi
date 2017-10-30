@@ -134,6 +134,10 @@
           arrItemUiType, this.gisObj);
         return oRes;
       },
+      toGeoJSON: function () {
+        var oRes = this.gisObj.Api.toGeoJSON(this.gisObj);
+        return oRes;
+      },
       //#endregion
 
       //#region topo

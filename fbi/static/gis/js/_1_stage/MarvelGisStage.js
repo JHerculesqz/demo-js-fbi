@@ -96,6 +96,7 @@
                 self._ctrlLayerView(oTileLayer1, oTileLayer2);
                 self._ctrlPrint(oTileLayer1);
                 self._ctrlMessure(oOptions);
+                self._ctrlPM(oOptions);
                 //endregion
 
                 //region 2.event
@@ -106,6 +107,9 @@
                 //endregion
             }
         };
+
+        //#region plugins
+
         this._ctrlScale = function () {
             L.control.scale().addTo(this.mapObj);
         };
@@ -180,6 +184,22 @@
                 }).addTo(this.mapObj);
             }
         };
+        this._ctrlPM = function (oOptions) {
+            if(oOptions.pm){
+                this.mapObj.pm.addControls({
+                    drawMarker: true,  // adds button to draw markers
+                    drawPolyline: true,  // adds button to draw a polyline
+                    drawRectangle: true,  // adds button to draw a rectangle
+                    drawPolygon: true,  // adds button to draw a polygon
+                    drawCircle: true,  // adds button to draw a cricle
+                    cutPolygon: true,  // adds button to cut a hole in a polygon
+                    editMode: true,  // adds button to toggle edit mode for all layers
+                    removalMode: true   // adds a button to remove layers
+                });
+            }
+        };
+
+        //#endregion
 
         //endregion
 

@@ -91,6 +91,18 @@
             return oRes;
         };
 
+        this.toGeoJSON = function (oGis) {
+            var arrRes = [];
+
+            oGis.Stage.mapObj.eachLayer(function (oLayer) {
+                if(typeof oLayer.toGeoJSON == "function"){
+                    arrRes.push(oLayer.toGeoJSON());
+                }
+            });
+
+            return arrRes;
+        };
+
         //endregion
     }
 })(jQuery);

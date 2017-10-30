@@ -36,6 +36,11 @@
             return oRes;
         };
 
+        this.toGeoJSON = function (oGis) {
+            var oRes = oGis.Layer.toGeoJSON(oGis);
+            return oRes;
+        };
+
         //endregion
 
         //region topo
