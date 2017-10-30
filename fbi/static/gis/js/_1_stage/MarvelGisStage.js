@@ -69,7 +69,7 @@
             }
             else{
                 //region 0.init tileLayer
-                var oTileLayer1 = L.tileLayer(URL_GIS_MAP2, {
+                var oTileLayer1 = L.tileLayer(oOptions.mapUrl, {
                     attribution: "",
                     id: 'mapbox.streets',
                     token: "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw"
