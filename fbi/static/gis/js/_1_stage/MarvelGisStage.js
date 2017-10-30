@@ -119,14 +119,16 @@
                 "道路": oTileLayer1,
             }).addTo(this.mapObj);
         };
-        this._ctrlPrint = function (oTileLayer) {
-            L.easyPrint({
-                tileLayer: oTileLayer,
-                sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
-                filename: 'export',
-                exportOnly: true,
-                hideControlContainer: true
-            }).addTo(this.mapObj);
+        this._ctrlPrint = function (oOptions, oTileLayer) {
+            if(oOptions.export){
+                L.easyPrint({
+                    tileLayer: oTileLayer,
+                    sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+                    filename: 'export',
+                    exportOnly: true,
+                    hideControlContainer: true
+                }).addTo(this.mapObj);
+            }
         };
         this._ctrlMessure = function (oOptions) {
             if(oOptions.mess){
