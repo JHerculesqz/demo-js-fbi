@@ -1,9 +1,11 @@
 (function($){
     $.MarvelTopoResource = function() {
+        //region const
+
+        //endregion
+
+        //region Fields
         var self = this;
-
-        //#region Fields
-
         this.themeKey;
         this.m_mapImage;
         this.theme = {
@@ -31,9 +33,9 @@
             }
         };
 
-        //#endregion
+        //endregion
 
-        //#region init
+        //region init
 
         this.init = function(strThemeKey, mapImage, oCustomTheme, oCallbackFinish){
             //region 1.init
@@ -41,9 +43,9 @@
             this.themeKey = strThemeKey;
             this.m_mapImage = {};
 
-            //#endregion
+            //endregion
 
-            //#region 2.images
+            //region 2.images
 
             //2.1.iCount
             var iCount = Object.keys(mapImage).length;
@@ -59,13 +61,13 @@
                 });
             });
 
-            //#endregion
+            //endregion
 
-            //#region 3.customeTheme
+            //region 3.customeTheme
 
             this.theme = $.extend(true, this.theme, oCustomTheme);
 
-            //#endregion
+            //endregion
         };
 
         var _initItem = function(strKey, strImageUrl, oCallbackFinish4Item){
@@ -78,14 +80,14 @@
             oImage.src = strImageUrl;
         };
 
-        //#endregion
+        //endregion
 
-        //#region getTheme
+        //region getTheme
 
         this.getTheme = function(){
             return this.theme[this.themeKey];
         };
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

@@ -1,18 +1,21 @@
 (function ($) {
-    //TODO:待重构
     $.MarvelTopoLinkGroup = function () {
-        var self = this;
-
-        //#region Const
+        //region Const
 
         var OFFSET = 15;
 
         var POINTERWIDTH = 8;
         var POINTERHEIGHT = 8;
 
-        //#endregion
+        //endregion
 
-        //#region draw
+        //region fields
+
+        var self = this;
+
+        //endregion
+
+        //region draw
 
         this.draw = function (arrLinks, oTopo) {
             //对链路按照源宿网元进行分组
@@ -286,23 +289,23 @@
             return oArrow;
         };
 
-        //#endregion
+        //endregion
 
-        //#region event
+        //region event
 
         var _onLinkClick = function (oGroup, evt, oTopo) {
             //1.ctrl press
             if (keyboardJS.isCtrlPress) {
                 if (oGroup.tag.uiSelectLink == undefined || false == oGroup.tag.uiSelectLink) {
                     //1.1.select current oGroup
-                    oGroup.tag.uiSelectLink = true;
-                    _setSelectLinkStyle(oGroup, oTopo);
+                    _handle4SelectLink(oGroup, evt, oTopo);
+
                     oTopo.Layer.reDraw(oTopo.ins.layerLink);
                 }
                 else {
                     //1.2.unSelect current oGroup
-                    oGroup.tag.uiSelectLink = false;
-                    _setUnSelectLinkStyle(oGroup, oTopo);
+                    _handle4UnSelectLink(oGroup, evt, oTopo);
+
                     oTopo.Layer.reDraw(oTopo.ins.layerLink);
                 }
             }
@@ -313,8 +316,8 @@
                 oTopo.Sprite.NodeGroup.unSelectNodeGroupAndNodes(oTopo);
 
                 //2.2.select current oGroup
-                oGroup.tag.uiSelectLink = true;
-                _setSelectLinkStyle(oGroup, oTopo);
+                _handle4SelectLink(oGroup, evt, oTopo);
+
                 oTopo.Layer.reDraw(oTopo.ins.layerLink);
             }
             //3.external event
@@ -326,23 +329,133 @@
             }
         };
 
+        var _handle4SelectLink = function (oGroup, evt, oTopo) {
+            //1.样式
+            oGroup.tag.uiSelectLink = true;
+            _setSelectLinkStyle(oGroup, oTopo);
+            //2.tooltip
+            _addToolTip(oGroup, evt, oTopo);
+        };
+
+        var _addToolTip = function (oGroup, evt, oTopo) {
+            var iScale = 1;
+            var oTooltipContent = new Konva.Label({
+                id: oTopo.Stage.getIdentityValue(oGroup.tag.id + "_linkLabelTitle", oTopo),
+                x: 0,
+                y: 0
+            });
+            oTopo.ins.layerTooltip.add(oTooltipContent);
+
+            var oTagContent = new Konva.Tag({
+                fill: "rgba(0,0,0,0.8)",
+                pointerDirection: "down",
+                pointerWidth: 10 / iScale,
+                pointerHeight: 5 / iScale,
+                lineJoin: "round"
+            });
+            oTooltipContent.add(oTagContent);
+
+            var oTextContent = new Konva.Text({
+                text: _genLinkTitleContent(oGroup.tag, oTopo),
+                padding: 8 / iScale,
+                fontSize: 12 / iScale,
+                lineHeight: 1.5,
+                fill: "#ffffff"
+            });
+            oTooltipContent.add(oTextContent);
+
+            var oTooltipTitle = new Konva.Label({
+                id: oTopo.Stage.getIdentityValue(oGroup.tag.id + "_linkLabelContent", oTopo),
+                x: oTooltipContent.x(),
+                y: -oTooltipContent.height()
+            });
+            oTopo.ins.layerTooltip.add(oTooltipTitle);
+
+            var oTagTitle = new Konva.Tag({
+                fill: "rgba(0,0,0,0.8)",
+                pointerDirection: "down",
+                pointerWidth: 0,
+                pointerHeight: 0,
+                lineJoin: "round"
+            });
+            oTooltipTitle.add(oTagTitle);
+
+            var oTextTitle = new Konva.Text({
+                text: _genLinkTitle(oGroup.tag, oTopo),
+                padding: 8 / iScale,
+                fontSize: 14 / iScale,
+                fontStyle: "bold",
+                fill: "#3dcca6"
+            });
+            oTooltipTitle.add(oTextTitle);
+
+            //1.更新宽度
+            var iTooltipHeight = oTooltipContent.height() + oTextTitle.height();
+            var iTooltipWidth = Math.max(oTooltipContent.getText().width(), oTooltipTitle.getText().width());
+            oTooltipContent.getText().width((iTooltipWidth) * iScale);
+            oTooltipTitle.getText().width((iTooltipWidth) * iScale);
+
+            //1.确定显示的方向和坐标
+            var iMiddleX = oGroup.children[0].points()[6];
+            var iMiddleY = oGroup.children[0].points()[7];
+
+            var strDirection = 'down';
+            //根据坐标值优化strDirection
+            if (strDirection == 'down') {
+                oTooltipContent.x(iMiddleX);
+                oTooltipContent.y(iMiddleY);
+                oTooltipContent.getTag().pointerDirection(strDirection);
+
+                oTooltipTitle.x(oTooltipContent.x());
+                oTooltipTitle.y(oTooltipContent.y() - (oTooltipContent.height() + 5));
+                oTooltipTitle.getTag().pointerDirection(strDirection);
+            }
+
+            //绘制
+            oTopo.ins.layerTooltip.batchDraw();
+        };
+
+        var _handle4UnSelectLink = function (oGroup, evt, oTopo) {
+            //1.样式
+            oGroup.tag.uiSelectLink = false;
+            _setUnSelectLinkStyle(oGroup, oTopo);
+            //2.tooltip
+            _delLinkTip(oGroup.tag.id, oTopo);
+        };
+
+        var _delLinkTip = function(strLinkId, oTopo){
+            var oLabelTitle = oTopo.Stage.findOne(strLinkId + "_linkLabelTitle", oTopo);
+            var oLabelContent = oTopo.Stage.findOne(strLinkId + "_linkLabelContent", oTopo);
+            if(oLabelTitle){
+                oLabelTitle.destroy();
+            }
+            if(oLabelContent){
+                oLabelContent.destroy();
+            }
+            //绘制
+            oTopo.ins.layerTooltip.batchDraw();
+        };
+
         var _setSelectLinkStyle = function (oLinkGroup, oTopo) {
             oLinkGroup.children.forEach(function (oChild, index) {
-                oChild.shadowEnabled(true);
-                oChild.shadowColor(oTopo.Resource.getTheme().link.selectColor);
-                oChild.shadowBlur(5);
-                oChild.shadowOffset({
-                    x: 0,
-                    y: 0
-                });
-                oChild.shadowOpacity(1);
+                if (oChild.className !== "Label") {
+                    oChild.shadowEnabled(true);
+                    oChild.shadowColor(oTopo.Resource.getTheme().link.selectColor);
+                    oChild.shadowBlur(5);
+                    oChild.shadowOffset({
+                        x: 0,
+                        y: 0
+                    });
+                    oChild.shadowOpacity(1);
+                }
             });
-
         };
 
         var _setUnSelectLinkStyle = function (oLinkGroup, oTopo) {
             oLinkGroup.children.forEach(function (oChild, index) {
-                oChild.shadowEnabled(false);
+                if (oChild.className !== "Label") {
+                    oChild.shadowEnabled(false);
+                }
             });
         };
 
@@ -358,7 +471,10 @@
             //如果是捆绑链路
             var oBuObj = oGroup.tag;
             if (_isGroupLink(oBuObj)) {
+                //1.0 删除Group
                 oGroup.destroy();
+                //1.1 删除Tip
+                _delLinkTip(oBuObj.id, oTopo);
                 oBuObj.uiLinkExpand = true;
                 oBuObj.children.forEach(function (oChildLink, index) {
                     oChildLink.uiLinkExpand = true;
@@ -373,7 +489,10 @@
                     oChildLink.uiLinkExpand = false;
                     var oChildLine = oTopo.Stage.findOne(oChildLink.id, oTopo);
                     if (oChildLine) {
+                        //1.0删除Group
                         oChildLine.destroy();
+                        //1.1 删除Tip
+                        _delLinkTip(oChildLink.id, oTopo);
                     }
                 });
                 oBuObj.parent.uiLinkExpand = false;
@@ -386,9 +505,9 @@
             }
         };
 
-        //#endregion
+        //endregion
 
-        //#region style
+        //region style
 
         //可删除
         var _getBezierPoint = function (oPointStart, oPointEnd, iHeight) {
@@ -721,9 +840,27 @@
             return oTopo.Resource.getTheme().link.labelColor;
         };
 
-        //#endregion
+        var _genLinkTitle = function (oBuObj, oTopo) {
+            if (_isGroupLink(oBuObj)) {
+                return oBuObj.children[0].uiTitle;
+            }
+            else {
+                return oBuObj.uiTitle;
+            }
+        };
 
-        //#region imsg
+        var _genLinkTitleContent = function (oBuObj, oTopo) {
+            if (_isGroupLink(oBuObj)) {
+                return oBuObj.children[0].uiTip;
+            }
+            else {
+                return oBuObj.uiTip;
+            }
+        };
+
+        //endregion
+
+        //region imsg
 
         this.response2NodeEvent4ReDraw = function (oNode, oTopo) {
             var arrLinks = [];
@@ -836,8 +973,7 @@
             //2.遍历，unSelect
             for (var i = 0; i < arrSelectLinkGroup.length; i++) {
                 var oSelectLinkGroup = arrSelectLinkGroup[i];
-                oSelectLinkGroup.tag.uiSelectLink = false;
-                _setUnSelectLinkStyle(oSelectLinkGroup);
+                _handle4UnSelectLink(oSelectLinkGroup, null, oTopo);
             }
 
             oTopo.Layer.reDraw(oTopo.ins.layerLink);
@@ -861,17 +997,17 @@
                     _setSelectLinkStyle(oLinkGroup, oTopo);
                 }
                 //如果没有找到，需要在捆绑链路中找
-                else{
+                else {
                     var oLink = _getLinkById(iLinkId, oTopo);
-                    if(oLink){
+                    if (oLink) {
                         oLink.uiSelectLink = true;
                         arrGroupId4Destroy.push(oLink.uiLinkGroupId);
 
                         //找到源宿网元之间的所有链路
                         var oLinks = _getLinksBySrcAndDstNodeId(oLink.srcNodeId, oLink.dstNodeId, oTopo);
-                        $.each(oLinks, function(index, oLinkEx){
+                        $.each(oLinks, function (index, oLinkEx) {
                             //捆绑链路要展开,设置捆绑的子链路的uiLinkExpand
-                            if(oLink.uiLinkGroupId === oLinkEx.uiLinkGroupId){
+                            if (oLink.uiLinkGroupId === oLinkEx.uiLinkGroupId) {
                                 oLinkEx.uiLinkExpand = true;
                             }
                         });
@@ -881,17 +1017,17 @@
             });
 
             //删掉捆绑链路
-            if(arrGroupId4Destroy.length){
-                arrGroupId4Destroy.forEach(function(strGroupId, index){
+            if (arrGroupId4Destroy.length) {
+                arrGroupId4Destroy.forEach(function (strGroupId, index) {
                     var oGroup = oTopo.Stage.findOne(strGroupId, oTopo);
-                    if(oGroup){
+                    if (oGroup) {
                         oGroup.destroy();
                     }
                 });
             }
 
             var arrLink4Redraw = oTopo.Utils.getVaules4JsonObj(oId2Links);
-            if(arrLink4Redraw.length){
+            if (arrLink4Redraw.length) {
                 self.draw(arrLink4Redraw, oTopo);
             }
 
@@ -899,18 +1035,18 @@
         };
 
         //通过链路id找到链路对象
-        var _getLinkById = function(strId, oTopo){
+        var _getLinkById = function (strId, oTopo) {
             var oLink;
             var arrLinkGroups = oTopo.Stage.findGroupByTagAttr("uiLink", true, oTopo);
-            $.each(arrLinkGroups, function(index, oLinkGroup){
+            $.each(arrLinkGroups, function (index, oLinkGroup) {
                 var oBuObj = oLinkGroup.tag;
-                if(oBuObj.id == strId){
+                if (oBuObj.id == strId) {
                     oLink = oBuObj;
                     return false;
                 }
-                if(_isGroupLink(oBuObj)){
-                    for(var i = 0, len = oBuObj.children.length; i< len; i++){
-                        if(oBuObj.children[i].id == strId){
+                if (_isGroupLink(oBuObj)) {
+                    for (var i = 0, len = oBuObj.children.length; i < len; i++) {
+                        if (oBuObj.children[i].id == strId) {
                             oLink = oBuObj.children[i];
                             return false;
                         }
@@ -921,6 +1057,6 @@
             return oLink;
         };
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

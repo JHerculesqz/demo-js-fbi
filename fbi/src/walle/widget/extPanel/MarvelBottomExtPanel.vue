@@ -1,15 +1,19 @@
 <template>
   <div class="bottomExtPanelWrapper"
-       v-bind:class="[theme]"
-       :draggable="canDrag"
-       v-on:dragstart="onDragStart">
+       v-bind:class="[theme]">
     <div class="expandBtn"
          v-bind:class="[icon]"
          v-on:click="onExpandBtnClick"></div>
     <div class="content"
-         v-bind:style="{height: height + 'px'}"
+         v-bind:style="{height: iHeight + 'px'}"
          v-show="showEx">
       <slot name="content"></slot>
+      <div class="draggableHandel" v-show="canDragEx"
+           v-bind:class="[{isDragging:bIsDragging}]"
+           v-on:mousedown="mouseDown"
+           v-on:mousemove="mouseMove"
+           v-on:mouseout="mouseUp"
+           v-on:mouseup="mouseUp"></div>
     </div>
   </div>
 </template>
@@ -20,7 +24,12 @@
     props: ['theme', 'height', 'show', 'canDrag'],
     data: function() {
       return {
-        showEx: this.show == "true"
+        showEx: this.show == "true",
+        canDragEx: this.canDrag == "true",
+        bIsDragging:false,
+        iHeight:0,
+        iBasicHeight:0,
+        iMouseDownY:0
       }
     },
     computed: {
@@ -30,12 +39,31 @@
       }
     },
     methods: {
-      onDragStart: function () {
-        alert("onDragStart");
-      },
       onExpandBtnClick: function () {
         this.showEx = !this.showEx;
+      },
+      mouseDown: function(e){
+        if(this.canDrag){
+          this.bIsDragging = true;
+          this.iMouseDownY = e.pageY;
+        }
+      },
+      mouseMove:function(e){
+        if(this.bIsDragging){
+          var y = e.pageY;
+          this.iHeight = this.iBasicHeight + (this.iMouseDownY - y);
+        }
+      },
+      mouseUp:function(){
+        if(this.bIsDragging){
+          this.bIsDragging = false;
+          this.iBasicHeight = this.iHeight;
+        }
       }
+    },
+    mounted:function(){
+      this.iHeight = parseInt(this.height);
+      this.iBasicHeight = parseInt(this.height);
     }
   }
 </script>
@@ -52,6 +80,7 @@
     background-color: #ffffff;
     padding: 10px;
     box-sizing: border-box;
+    position: relative;
   }
   .bottomExtPanelWrapper .expandBtn{
     margin: 0px auto;
@@ -65,6 +94,21 @@
     line-height: 16px;
     font-size: 12px;
     cursor: pointer;
+  }
+  .draggableHandel{
+    height: 10px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    cursor: row-resize;
+  }
+  .isDragging{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .dark {

@@ -3,14 +3,13 @@
  */
 (function ($) {
     $.MarvelTopoApi = function () {
-
-        //#region Fields
+        //region Fields
 
         var self = this;
 
-        //#enregion
+        //endregion
 
-        //#region imsg
+        //region imsg
 
         /**
          *
@@ -31,9 +30,9 @@
                 var oHeight = document.getElementById(oParams.id).clientHeight;
                 oTopo.ins.stage = oTopo.Stage.init(oParams.id,
                     oWidth, oHeight, oParams.eventOptions, oTopo);
-                oTopo.ins.layerLink = oTopo.Layer.init(oTopo);
-                oTopo.ins.layerNode = oTopo.Layer.init(oTopo);
-                //oTopo.ins.layerLink = oTopo.Layer.init(oTopo);
+                //Layer
+                oTopo.Layer.init(oTopo);
+                //callback
                 oAfterCallBack();
             });
         };
@@ -298,7 +297,7 @@
             oTopo.ins.stage.y(oTopo.ins.stage.y() + iOffSetY);
 
             //重置backgroundLayer
-            oTopo.Stage.reSetBackgroundLayer(oTopo);
+            oTopo.Layer.reSetBackgroundLayer(oTopo);
 
             //重绘
             oTopo.ins.stage.batchDraw();
@@ -322,7 +321,6 @@
             return arrRes;
         };
 
-        //#endregion
-
+        //endregion
     };
 })(jQuery);

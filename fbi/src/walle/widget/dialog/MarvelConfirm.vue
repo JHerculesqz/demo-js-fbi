@@ -31,7 +31,7 @@
   import MarvelIconTxtButton from "../button/MarvelIconTxtButton";
   export default {
     components: {MarvelIconTxtButton},
-    name: 'MarvelDialog',
+    name: 'MarvelConfirmDialog',
     props: ["showConfirm","tipType", "confirmCont", "theme"],
     data: function() {
         return {

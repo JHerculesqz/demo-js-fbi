@@ -22,9 +22,9 @@
     <script type="application/javascript" src="js/MarvelTopo.js"></script>
     <script>
         $(document).ready(function () {
-            //#region Mock
+            //region Mock
 
-            //#region resources
+            //region resources
 
             var THEME_KEY = "dark";
 
@@ -65,9 +65,9 @@
                 }
             };
 
-            //#endregion
+            //endregion
 
-            //#region node
+            //region node
 
             var arrNodeGroup = [];
             for (var i = 0; i < 2; i++) {
@@ -80,6 +80,8 @@
                     uiImgKey: "nodeGroup",
                     uiImgKey4Expand: "nodeGroupExpand",
                     uiLabel: "nodeGroup" + i,
+                    uiTip: "nodeGroup" + i,
+                    uiTitle: "nodeGroup" + i,
                     uiExpandNode: false,
                     uiExpandNodeWidth: 200,
                     uiExpandNodeHeight: 200,
@@ -91,6 +93,8 @@
                         y: 50,
                         uiImgKey: "node",
                         uiLabel: "node" + i + "_1",
+                        uiTip: "node" + i + "_1",
+                        uiTitle: "node" + i + "_1",
                         uiChild: true,
                         uiNode: true
                     }, {
@@ -99,6 +103,8 @@
                         y: 100,
                         uiImgKey: "node",
                         uiLabel: "node" + i + "_2",
+                        uiTip: "node" + i + "_2",
+                        uiTitle: "node" + i + "_2",
                         uiChild: true,
                         uiNode: true
                     }]
@@ -116,14 +122,16 @@
                     y: iY,
                     uiImgKey: "node",
                     uiLabel: "node" + i,
+                    uiTip: "node" + i + "\n" + "This is a tip demo",
+                    uiTitle: "node" + i,
                     uiNode: true
                 };
                 arrNode.push(oNode);
             }
 
-            //#endregion
+            //endregion
 
-            //#region link
+            //region link
 
             for (var i = 0; i < 3; i++) {
                 var iX = Math.random() * 400;
@@ -134,6 +142,8 @@
                     y: iY,
                     uiImgKey: "node",
                     uiLabel: "nodeBase" + i,
+                    uiTip: "nodeBase" + i,
+                    uiTitle: "nodeBase" + i,
                     uiNode: true
                 };
                 arrNode.push(oNode);
@@ -148,6 +158,8 @@
                     dstNodeId: "nodeBase1",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "link" + i,
+                    uiTip: "link" + i,
+                    uiTitle: "link" + i,
                     uiLabelR: "nodeBase1",
                     uiLink: true,
                     uiLinkColorKey: "linkType_fiber",
@@ -170,6 +182,8 @@
                     uiLinkExpand: false,
                     uiLabelL: "nodeBase" + i,
                     uiLabelM: "gLink" + i + "_" + i,
+                    uiTip: "gLink" + i + "_" + i,
+                    uiTitle: "gLink" + i + "_" + i,
                     uiLabelR: "nodeBase" + (i + 1),
                     uiLinkColorKey: "linkType2",
                     uiLinkWidth: 3
@@ -183,6 +197,8 @@
                     uiLinkExpand: false,
                     uiLabelL: "nodeBase" + i,
                     uiLabelM: "gLink" + i + "_" + (i + 1),
+                    uiTip: "gLink" + i + "_" + (i + 1),
+                    uiTitle: "gLink" + i + "_" + (i + 1),
                     uiLabelR: "nodeBase" + (i + 1),
                     uiLinkColorKey: "linkType2",
                     uiLinkWidth: 3
@@ -197,6 +213,8 @@
                     uiLinkExpand: false,
                     uiLabelL: "nodeBase" + i,
                     uiLabelM: "gLink" + i + "_" + (i + 2),
+                    uiTip: "gLink" + i + "_" + (i + 2),
+                    uiTitle: "gLink" + i + "_" + (i + 2),
                     uiLabelR: "nodeBase" + (i + 1),
                     uiLinkColorKey: "linkType3",
                     uiLinkWidth: 3
@@ -211,6 +229,8 @@
                     uiLinkExpand: false,
                     uiLabelL: "nodeBase" + i,
                     uiLabelM: "gLink" + i + "_" + (i + 3),
+                    uiTip: "gLink" + i + "_" + (i + 3),
+                    uiTitle: "gLink" + i + "_" + (i + 3),
                     uiLabelR: "nodeBase" + (i + 1),
                     uiLinkColorKey: "linkType3",
                     uiLinkWidth: 3
@@ -230,6 +250,8 @@
                     dstNodeId: "node1_1",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -243,6 +265,8 @@
                     dstNodeId: "node1_1",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -256,6 +280,8 @@
                     dstNodeId: "node1_2",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -269,6 +295,8 @@
                     dstNodeId: "node1_2",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -290,6 +318,8 @@
                     dstNodeId: "node1_1",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -303,6 +333,8 @@
                     dstNodeId: "node1_1",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -316,6 +348,8 @@
                     dstNodeId: "node1_2",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -330,6 +364,8 @@
                     dstNodeId: "node1_2",
                     uiLabelL: "nodeBase0",
                     uiLabelM: "gLink" + i,
+                    uiTip: "gLink" + i,
+                    uiTitle: "gLink" + i,
                     uiLabelR: "nodeBase1",
                     uiLinkExpand: false,
                     uiLink: true,
@@ -345,11 +381,11 @@
             }
             //endregion
 
-            //#endregion
+            //endregion
 
-            //#endregion
+            //endregion
 
-            //#region demo
+            //region demo
 
             //Topo
             var oEventOptions = {
@@ -470,7 +506,7 @@
             $("#setBestView").click(function () {
                 oTopo.Api.setBestView(oTopo);
             });
-            //#endregion
+            //endregion
         });
     </script>
 </head>

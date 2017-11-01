@@ -1,8 +1,12 @@
 (function($){
     $.MarvelTopo = function() {
-        var self = this;
+        //region const
 
-        //#region Fields
+        //endregion
+
+        //region Fields
+
+        var self = this;
 
         this.Resource = new $.MarvelTopoResource();
         this.Stage = new $.MarvelTopoStage();
@@ -14,9 +18,12 @@
         this.ins = {
             stage: undefined,
             layerNode: undefined,
-            layerLink: undefined
+            layerLink: undefined,
+            layerBg: undefined,
+            layerTemp: undefined,
+            layerTooltip: undefined
         };
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

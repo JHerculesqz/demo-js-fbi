@@ -1,19 +1,18 @@
-(function($){
-    $.MarvelTopoNode = function() {
-        var self = this;
-
-        //#region Const
+(function ($) {
+    $.MarvelTopoNode = function () {
+        //region Const
 
         var ICON_WIDTH = 32;
         var ICON_HEIGHT = 32;
 
-        //#endregion
+        //endregion
 
         //region Fields
+        var self = this;
 
         //region createNode
-        const STATUS_START = 1;
-        const STATUS_FREE = 0;
+        const STATUS_START = "start";
+        const STATUS_FREE = "";
         var createNodeData = {
             status: STATUS_FREE,
             buObj: undefined,
@@ -23,16 +22,16 @@
 
         //endregion
 
-        //#region draw
+        //region draw
 
-        this.draw = function(oBuObj, oTopo){
-            //#region 1.getPos
+        this.draw = function (oBuObj, oTopo) {
+            //region 1.getPos
 
             var oPos = _getPos(oBuObj);
 
-            //#endregion
+            //endregion
 
-            //#region 2.node
+            //region 2.node
 
             var oGroup = new Konva.Group({
                 id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo),
@@ -62,60 +61,62 @@
             oTopo.Sprite.NodeGroup._setLabelCenter(ICON_WIDTH, ICON_HEIGHT, oLabel);
             oGroup.add(oLabel);
 
-            //#endregion
+            //endregion
 
-            //#region 3.parent
+            //region 3.parent
 
             oTopo.ins.layerNode.add(oGroup);
 
-            //#endregion
+            //endregion
 
-            //#region 4.event
+            //region 4.event
 
-            oGroup.on('mouseover', function(evt) {
+            oGroup.on('mouseover', function (evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeMouseOver(oGroup, oTopo);
             });
-            oGroup.on('mouseout', function(evt) {
+            oGroup.on('mouseout', function (evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeMouseOut(oGroup, oTopo);
             });
-            oGroup.on('click', function(evt) {
+            oGroup.on('mousedown', function (evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
                 //evt.cancelBubble = true;
                 //evt.evt.stopPropagation();
             });
-            oGroup.on('dragmove', function(evt){
+            oGroup.on('dragmove', function (evt) {
                 oTopo.Sprite.NodeGroup.onNodeOrNodeGroupMove(oGroup, oTopo);
             });
+
+            //endregion
 
             return oGroup;
         };
 
-        this.drawInGroup = function(oBuObj, oExpandGroupExists, oTopo){
+        this.drawInGroup = function (oBuObj, oExpandGroupExists, oTopo) {
             //region 1.getPos
 
             var oPos = _getPos(oBuObj);
 
-            //#endregion
+            //endregion
 
-            //#region 2.node
+            //region 2.node
 
             var oGroup = new Konva.Group({
                 id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo),
                 x: oPos.x,
                 y: oPos.y,
                 draggable: true,
-                dragBoundFunc: function(pos) {
+                dragBoundFunc: function (pos) {
                     var x = oExpandGroupExists.getChildren()[0].x();
                     var y = oExpandGroupExists.getChildren()[0].y();
                     var radius = oExpandGroupExists.tag.uiRadius;
                     var scale = radius / Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2));
-                    if(scale < 1){
+                    if (scale < 1) {
                         return {
                             y: Math.round((pos.y - y) * scale + y),
                             x: Math.round((pos.x - x) * scale + x)
                         };
                     }
-                    else{
+                    else {
                         return pos;
                     }
                 }
@@ -142,67 +143,67 @@
             oTopo.Sprite.NodeGroup._setLabelCenter(ICON_WIDTH, ICON_HEIGHT, oLabel);
             oGroup.add(oLabel);
 
-            //#endregion
+            //endregion
 
-            //#region 3.parent
+            //region 3.parent
 
             oExpandGroupExists.add(oGroup);
 
-            //#endregion
+            //endregion
 
-            //#region 4.event
+            //region 4.event
 
-            oGroup.on('mouseover', function(evt) {
+            oGroup.on('mouseover', function (evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeMouseOver(oGroup, oTopo);
             });
-            oGroup.on('mouseout', function(evt) {
+            oGroup.on('mouseout', function (evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeMouseOut(oGroup, oTopo);
             });
-            oGroup.on('click', function(evt) {
+            oGroup.on('mousedown', function (evt) {
                 oTopo.Sprite.NodeGroup._onNodeGroupOrNodeClick(oGroup, evt, oTopo);
                 //evt.evt.cancelBubble = true;
                 //evt.evt.stopPropagation();
             });
-            oGroup.on('dragmove', function(evt){
+            oGroup.on('dragmove', function (evt) {
                 oTopo.Sprite.NodeGroup.onNodeOrNodeGroupMove(oGroup, oTopo);
             });
 
-            //#endregion
+            //endregion
 
             return oGroup;
         };
 
-        var _getPos = function(oBuObj){
+        var _getPos = function (oBuObj) {
             return {
                 x: oBuObj.x,
                 y: oBuObj.y
             };
         };
 
-        //#endregion
+        //endregion
 
-        //#region event
+        //region event
 
-        //#endregion
+        //endregion
 
-        //#region style
+        //region style
 
-        //#endregion
+        //endregion
 
-        //#region imsg
+        //region imsg
 
-        this.getCenterPos = function(oGroup){
+        this.getCenterPos = function (oGroup) {
             var width = oGroup.children[0].width();
             var height = oGroup.children[0].height();
             var x = width / 2 + oGroup.x();
             var y = height / 2 + oGroup.y();
-            for(;;){
+            for (; ;) {
                 var oGroup = oGroup.getParent();
-                if(oGroup && oGroup.nodeType === "Group"){
+                if (oGroup && oGroup.nodeType === "Group") {
                     x = x + oGroup.x();
                     y = y + oGroup.y();
                 }
-                else{
+                else {
                     break;
                 }
             }
@@ -214,7 +215,26 @@
             }
         };
 
-        this.createNode = function(oBuObj, oAfterCallback, oTopo){
+        this.getAbsPos = function (oGroup) {
+            var x = oGroup.x();
+            var y = oGroup.y();
+            for (; ;) {
+                var oGroup = oGroup.getParent();
+                if (oGroup && oGroup.nodeType === "Group") {
+                    x = x + oGroup.x();
+                    y = y + oGroup.y();
+                }
+                else {
+                    break;
+                }
+            }
+            return {
+                x: x,
+                y: y
+            }
+        };
+
+        this.createNode = function (oBuObj, oAfterCallback, oTopo) {
             oTopo.Stage.model = oTopo.Stage.MODEL_CREATE_NODE;
             //save cache
             createNodeData.buObj = oBuObj;
@@ -222,9 +242,9 @@
             createNodeData.callback = oAfterCallback;
         };
 
-        this.stageEventMouseOver = function(oEvent, oTopo){
+        this.stageEventMouseOver = function (oEvent, oTopo) {
             //update buObj prop
-            var oPos = _getPos4CreateNode(oEvent.currentTarget);
+            var oPos = oTopo.Stage.getPointerPos4DrawInStage(oTopo);
             createNodeData.buObj.x = oPos.x;
             createNodeData.buObj.y = oPos.y;
             //绘制网元
@@ -232,10 +252,10 @@
             oTopo.Layer.reDraw(oTopo.ins.layerNode);
         };
 
-        this.stageEventMouseMove = function(oEvent, oTopo){
+        this.stageEventMouseMove = function (oEvent, oTopo) {
             var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
-            if(oNode){
-                var oPos = _getPos4CreateNode(oEvent.currentTarget);
+            if (oNode) {
+                var oPos = oTopo.Stage.getPointerPos4DrawInStage(oTopo);
                 //更新网元坐标
                 oNode.x(oPos.x);
                 oNode.y(oPos.y);
@@ -243,10 +263,10 @@
             }
         };
 
-        this.stageEventMouseDown = function(oEvent, oTopo){
+        this.stageEventMouseDown = function (oEvent, oTopo) {
             var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
-            if(oNode){
-                var oPos = _getPos4CreateNode(oEvent.currentTarget);
+            if (oNode) {
+                var oPos = oTopo.Stage.getPointerPos4DrawInStage(oTopo);
                 //保存原始坐标
                 oNode.tag.oX = oPos.x;
                 oNode.tag.oY = oPos.y;
@@ -261,17 +281,9 @@
             _createNodeEnd(oTopo, true);
         };
 
-        var _getPos4CreateNode = function(oStage){
-            var iScale = oStage.scaleX();
-            return {
-                x: (oStage.pointerPos.x - oStage.x()) / iScale,
-                y: (oStage.pointerPos.y - oStage.y()) / iScale
-            };
-        };
-
-        var _createNodeEnd = function(oTopo, bCreatedSuccessful){
+        var _createNodeEnd = function (oTopo, bCreatedSuccessful) {
             oTopo.Stage.model = oTopo.Stage.MODEL_EMPTY;
-            if(typeof createNodeData.callback == "function"){
+            if (typeof createNodeData.callback == "function") {
                 createNodeData.callback(createNodeData.buObj, bCreatedSuccessful);
             }
             //clear cache
@@ -280,18 +292,18 @@
             createNodeData.callback = undefined;
         };
 
-        this.stageEventMouseOut = function(oEvent, oTopo){
+        this.stageEventMouseOut = function (oEvent, oTopo) {
             var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
-            if(oNode){
+            if (oNode) {
                 oNode.destroy();
                 oTopo.Layer.reDraw(oTopo.ins.layerNode);
             }
         };
 
-        this.eventEscPress = function(oEvent, oTopo){
-            if(createNodeData.status == STATUS_START){
+        this.eventEscPress = function (oEvent, oTopo) {
+            if (createNodeData.status == STATUS_START) {
                 var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
-                if(oNode){
+                if (oNode) {
                     oNode.destroy();
                     oTopo.Layer.reDraw(oTopo.ins.layerNode);
                 }
@@ -300,6 +312,6 @@
             }
         };
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

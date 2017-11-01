@@ -1,14 +1,18 @@
 (function($){
     $.MarvelTopoLink = function() {
-        var self = this;
-
-        //#region Const
+        //region Const
 
         var OFFSET = 10;
 
-        //#endregion
+        //endregion
 
-        //#region draw
+        //region fields
+
+        var self = this;
+
+        //endregion
+
+        //region draw
 
         this.draw = function(oBuObj, iOffsetIndex, oTopo){
             //remove
@@ -53,9 +57,9 @@
             return oLine;
         };
 
-        //#endregion
+        //endregion
 
-        //#region style
+        //region style
 
         var _getBezierPoint = function(oPointStart, oPointEnd, iHeight){
             //1.oPointMid
@@ -82,10 +86,10 @@
             };
         };
 
-        //#endregion
+        //endregion
 
-        //#region imsg
+        //region imsg
 
-        //#endregion
+        //endregion
     }
 })(jQuery);

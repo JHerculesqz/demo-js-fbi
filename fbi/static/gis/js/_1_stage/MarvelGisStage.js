@@ -94,7 +94,7 @@
                 self.mapObj.doubleClickZoom.disable();
                 self._ctrlScale();
                 self._ctrlLayerView(oTileLayer1, oTileLayer2);
-                self._ctrlPrint(oTileLayer1);
+                self._ctrlPrint(oOptions, oTileLayer1);
                 self._ctrlMessure(oOptions);
                 self._ctrlPM(oOptions);
                 //endregion
