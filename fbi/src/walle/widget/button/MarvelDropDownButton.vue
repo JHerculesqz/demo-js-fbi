@@ -106,9 +106,14 @@
 
   .dropdownBtn .options{
     border-top: 1px solid #ccc;
+    border-left: 1px solid #3399ff;
+    border-bottom: 1px solid #3399ff;
+    border-right: 1px solid #3399ff;
+    background-color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
     position: absolute;
+    left: -1px;
     width: 100%;
     z-index: 3;
   }
@@ -166,7 +171,7 @@
     overflow: hidden;
   }
   .hide{
-    border-top: none !important;
+    border: none !important;
     height: 0;
     overflow: hidden;
   }
