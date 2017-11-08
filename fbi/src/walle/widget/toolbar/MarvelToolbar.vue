@@ -1,10 +1,13 @@
 <template>
-  <div class="toolbarWrapper" v-bind:class="theme">
+  <div class="toolbarWrapper" v-bind:class="theme" v-click-outside="hideSubMenu">
       <div class="toolbarItem" v-for="item in items"
            v-bind:key="item.id">
         <div class="toolbarItemLabel" v-on:click="onToolbarItemClick($event, item)">
           <div class="toolbarIcon" v-bind:class="item.icon"></div>
           <div class="toolbarName">{{item.label}}</div>
+        </div>
+        <div class="toolbarCustomSubPanel" v-if="item.hasCustomSubPanel" v-bind:class="{dpn: item.label != selectItem.label}">
+          <slot :name="item.label"></slot>
         </div>
         <div class="toolbarSubMenu" v-if="item.subMenu != undefined" v-bind:class="{dpn: item.label != selectItem.label}">
           <div class="toolbarSubMenuItem"  v-for="subItems in item.subMenu"
@@ -33,8 +36,26 @@
         this.$emit("onToolbarItemClick", oItem);
       },
       onToolbarSubItemClick:function(evt, oItem, oParent){
-        this.selectItem = {label:"",icon:""};
+        this.hideSubMenu();
         this.$emit("onToolbarSubItemClick", oItem, oParent);
+      },
+      hideSubMenu:function(){
+        this.selectItem = {label:"",icon:""};
+      }
+    },
+    directives:{
+      'click-outside': {
+        bind: function (el, binding, vnode) {
+          el.event = function (event) {
+            if (!(el == event.target || el.contains(event.target))) {
+              vnode.context[binding.expression](event);
+            }
+          };
+          document.body.addEventListener('click', el.event);
+        },
+        unbind: function (el) {
+          document.body.removeEventListener('click', el.event);
+        }
       }
     }
   }
@@ -79,6 +100,16 @@
   font-size: 14px;
   color: #666;
   float: left;
+}
+.toolbarWrapper .toolbarItem .toolbarCustomSubPanel{
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background-color: #ffffff;
+  min-width: 100%;
+  box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
+  padding: 10px;
+  box-sizing: border-box;
 }
 .toolbarWrapper .toolbarItem .toolbarSubMenu{
   position: absolute;

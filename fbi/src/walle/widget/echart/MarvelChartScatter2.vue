@@ -221,7 +221,6 @@
             categoryData.push(selectedItems[i].name);
             barData.push(selectedItems[i].value[2]);
           }
-          console.log(barData);
 
           this.setOption({
             yAxis: {
