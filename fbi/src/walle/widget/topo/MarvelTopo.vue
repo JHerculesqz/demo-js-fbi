@@ -16,6 +16,12 @@
       _onNodeClick: function(oNode, oEvent){
         this.$emit("onNodeClick", oNode, oEvent);
       },
+      _onGenerateNodeProp: function(oNode){
+        this.$emit("onGenerateNodeProp", oNode);
+      },
+      _onGenerateNodeTip: function(oNode){
+        this.$emit("onGenerateNodeTip", oNode);
+      },
       _onNodeGroupClick: function(oNodeGroup, oEvent){
         this.$emit("onNodeGroupClick", oNodeGroup, oEvent);
       },
@@ -27,6 +33,12 @@
       },
       _onRightClick: function(oBuObj, iX, iY, oEvent){
         this.$emit("onRightClick", oBuObj, iX, iY, oEvent);
+      },
+      _onGenerateLinkProp: function(oLink){
+        this.$emit("onGenerateLinkProp", oLink);
+      },
+      _onGenerateLinkTip: function(oLink){
+        this.$emit("onGenerateLinkTip", oLink);
       },
       _onPositionUpdate: function(bUpdate){
         this.$emit("onPositionUpdate", bUpdate);
@@ -77,6 +89,12 @@
           callbackOnNodeClick: function(oNode, oEvent){
             self._onNodeClick(oNode, oEvent);
           },
+          callbackGenerateNodeProp: function(oNode){
+            self._onGenerateNodeProp(oNode);
+          },
+          callbackGenerateNodeTip: function(oNode){
+            self._onGenerateNodeTip(oNode);
+          },
           //endregion
           //region nodeGroup
           callbackOnNodeGroupClick: function(oNodeGroup, oEvent){
@@ -89,6 +107,12 @@
           },
           callbackOnLinkClick: function(oLink, oEvent){
             self._onLinkClick(oLink, oEvent);
+          },
+          callbackGenerateLinkProp: function(oLink){
+            self._onGenerateLinkProp(oLink);
+          },
+          callbackGenerateLinkTip: function(oLink){
+            self._onGenerateLinkTip(oLink);
           },
           //endregion
           //region stage

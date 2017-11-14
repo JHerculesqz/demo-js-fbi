@@ -20,6 +20,10 @@
             //region node
             callbackOnNodeClick: function (oNode, oEvent) {
             },
+            callbackGenerateNodeProp: function(oNode){
+            },
+            callbackGenerateNodeTip: function(oNode){
+            },
             //endregion
             //region nodeGroup
             callbackOnNodeGroupClick: function (oNodeGroup, oEvent) {
@@ -29,6 +33,10 @@
             callbackOnLinkGroupClick: function (oLinkGroup, oEvent) {
             },
             callbackOnLinkClick: function (oLink, oEvent) {
+            },
+            callbackGenerateLinkProp: function(oNode){
+            },
+            callbackGenerateLinkTip: function(oNode){
             },
             //endregion
             //region stage

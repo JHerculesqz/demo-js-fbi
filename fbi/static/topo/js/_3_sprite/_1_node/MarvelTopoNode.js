@@ -33,10 +33,15 @@
 
             //region 2.node
 
+            //0.1生成属性
+            oTopo.Sprite.NodeGroup.generateProp(oBuObj, oTopo);
+
             var oGroup = new Konva.Group({
                 id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo),
                 x: oPos.x,
                 y: oPos.y,
+                visible: oBuObj.uiHide == true ? false : true,
+                opacity: oBuObj.uiOpacity != undefined ? oBuObj.uiOpacity : 1.0,
                 draggable: true
             });
             oGroup.tag = oBuObj;
@@ -46,6 +51,7 @@
                 x: 0,
                 y: 0,
                 image: oTopo.Resource.m_mapImage[oBuObj.uiImgKey],
+                opacity: oGroup.opacity(),
                 width: ICON_WIDTH,
                 height: ICON_HEIGHT
             });
@@ -56,6 +62,7 @@
                 x: 0,
                 y: 0,
                 text: oBuObj.uiLabel,
+                opacity: oGroup.opacity(),
                 fill: oTopo.Resource.getTheme().node.labelColor
             });
             oTopo.Sprite.NodeGroup._setLabelCenter(ICON_WIDTH, ICON_HEIGHT, oLabel);
@@ -100,11 +107,16 @@
 
             //region 2.node
 
+            //0.1生成属性
+            oTopo.Sprite.NodeGroup.generateProp(oBuObj, oTopo);
+
             var oGroup = new Konva.Group({
                 id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo),
                 x: oPos.x,
                 y: oPos.y,
                 draggable: true,
+                visible: oBuObj.uiHide == true ? false : true,
+                opacity: oBuObj.uiOpacity != undefined ? oBuObj.uiOpacity : 1.0,
                 dragBoundFunc: function (pos) {
                     var x = oExpandGroupExists.getChildren()[0].x();
                     var y = oExpandGroupExists.getChildren()[0].y();
@@ -128,6 +140,7 @@
                 x: 0,
                 y: 0,
                 image: oTopo.Resource.m_mapImage[oBuObj.uiImgKey],
+                opacity: oGroup.opacity(),
                 width: ICON_WIDTH,
                 height: ICON_HEIGHT
             });
@@ -138,6 +151,7 @@
                 x: 0,
                 y: 0,
                 text: oBuObj.uiLabel,
+                opacity: oGroup.opacity(),
                 fill: oTopo.Resource.getTheme().node.labelColor
             });
             oTopo.Sprite.NodeGroup._setLabelCenter(ICON_WIDTH, ICON_HEIGHT, oLabel);

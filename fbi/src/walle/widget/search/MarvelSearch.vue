@@ -33,7 +33,6 @@
 <style scoped>
   .searchWrapper{
     height: 32px;
-    padding-left: 10px;
     width: 100%;
     position: relative;
     background-color: #ffffff;

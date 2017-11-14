@@ -55,23 +55,23 @@ radioBox: 单选框，不能和checkBox同时存在
             <template v-if="title.visible">
               <td v-if="title.type == 'checkBox'" :style="getTdStyle(title, row)">
                 <div class="checkBoxWrapper">
-                  <div class="checkBox">
-                    <input type="checkbox" :id="getCellValueByKey('id', row)"
+                  <div class="checkBox" @click.stop=";">
+                    <input type="checkbox" :id="_generateIdentityId(row)"
                            @change="onRowCheckboxChange(row, $event)"
                            :checked="rowCheckboxChecked(row)">
-                    <label :for="getCellValueByKey('id', row)"></label>
+                    <label :for="_generateIdentityId(row)"></label>
                   </div>
-                  <label :for="getCellValueByKey('id', row)" v-html="getCellValueByKey(title.key, row)"></label>
+                  <label :for="_generateIdentityId(row)" v-html="getCellValueByKey(title.key, row)"></label>
                 </div>
               </td>
               <td v-if="title.type == 'radioBox'" :style="getTdStyle(title, row)">
                 <div class="radioWrapper" @click.stop=";">
                   <div class="radio">
-                    <input type="radio" :id="getCellValueByKey('id', row)"
+                    <input type="radio" :id="_generateIdentityId(row)"
                            :value="getCellValueByKey('id', row)"
                            v-model="radioSelect"
                            @change.stop="onRowRadioboxChange(row, $event)"/>
-                    <label :for="getCellValueByKey('id', row)"></label>
+                    <label :for="_generateIdentityId(row)"></label>
                   </div>
                 </div>
               </td>
@@ -237,6 +237,10 @@ radioBox: 单选框，不能和checkBox同时存在
         else {
           this.rowsInPage = this.rows.slice(this.skip, this.rows.length);
         }
+      },
+      _generateIdentityId(oRow){
+        let strId = this.gridId + "-" + this.getCellValueByKey('id', oRow);
+        return strId;
       },
       //endregion
       //region title

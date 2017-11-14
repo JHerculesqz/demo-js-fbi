@@ -62,21 +62,21 @@
 <style scoped>
   .dropdownBtnWrapper{
     width: 100%;
-    height:100%;
+    height:32px;
   }
   .dropdownBtn{
     border: 1px solid #ccc;
+    box-sizing: border-box;
     white-space: nowrap;
     font-size: 14px;
     display: inline-block;
     border-radius: 2px;
-    position: relative;
   }
   .dropdownBtn:hover{
     border: 1px solid #3399ff;
   }
   .dropdownBtn .label{
-    height: 32px;
+    height: 30px;
     padding: 0 25px 0 15px;
     cursor: pointer;
     position: relative;
@@ -84,36 +84,33 @@
   .dropdownBtn .label .icon{
     color: #3399ff;
     font-size: 14px;
-    line-height: 32px;
-    float: left;
+    line-height: 30px;
+    display: inline-block;
     margin-right: 5px;
   }
   .dropdownBtn .label .name{
     color: #333;
     font-size: 14px;
-    line-height: 32px;
-    float: left;
+    line-height: 30px;
+    display: inline-block;
     margin-right: 10px;
   }
   .dropdownBtn .label .expandAndFolderIcon{
     color: #777;
     position: absolute;
     right: 10px;
+    top: 0;
     font-size: 12px;
-    line-height: 32px;
-    float: left;
+    line-height: 30px;
+    display: inline-block;
   }
 
   .dropdownBtn .options{
     border-top: 1px solid #ccc;
-    border-left: 1px solid #3399ff;
-    border-bottom: 1px solid #3399ff;
-    border-right: 1px solid #3399ff;
     background-color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
-    position: absolute;
-    left: -1px;
+    position: relative;
     width: 100%;
     z-index: 3;
   }
@@ -123,21 +120,22 @@
     cursor: pointer;
     padding: 0 25px 0 15px;
     background-color: #fff;
+    white-space: nowrap;
   }
 
   .dropdownBtn .options .optionItem .icon{
     color: #3399ff;
     font-size: 14px;
     line-height: 32px;
-    float: left;
     margin-right: 5px;
+    display: inline-block;
   }
   .dropdownBtn .options .optionItem .name{
     color: #333;
     font-size: 14px;
     line-height: 32px;
-    float: left;
     margin-right: 10px;
+    display: inline-block;
   }
   .dropdownBtn .options .optionItem:hover{
     background-color: #f5f6f7;
@@ -173,7 +171,7 @@
   .hide{
     border: none !important;
     height: 0;
-    overflow: hidden;
+    overflow: hidden !important;
   }
 
   .dark{}

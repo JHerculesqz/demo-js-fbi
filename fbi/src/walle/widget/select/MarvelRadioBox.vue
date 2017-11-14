@@ -1,6 +1,6 @@
 <template>
   <!--radio start-->
-  <div class="radioWrapper">
+  <div class="radioWrapper" v-bind:class="[theme]">
     <div class="radio">
       <input type="radio" v-bind:id="[id]" v-bind:name="group"
              v-bind:value="label" v-model="$parent[group]" v-on:change="onClick"
@@ -16,7 +16,7 @@
 <script>
   export default {
     name: 'MarvelRadioBox',
-    props: ["id", "group", "label", "showLabel"],
+    props: ["id", "group", "label", "showLabel", "theme"],
     data: function() {
         return {
           isDisable: false,
@@ -143,5 +143,9 @@
     float: left;
     font-size: 14px;
     line-height: 16px;
+    color: #666666;
+  }
+  .dark .radioLabel{
+    color: #8b90b3;
   }
 </style>

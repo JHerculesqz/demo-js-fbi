@@ -9,7 +9,7 @@
       <MarvelDropDownButton ref="ref1"></MarvelDropDownButton>
       <!-- dropdown_button end-->
     </div>
-    <div class="searchArea">
+    <div class="searchArea" v-bind:style="{ width : searchAreaW }">
       <!-- search start-->
       <MarvelSearch @search="search" :placeholder="placeholder" mixin="true"></MarvelSearch>
       <!-- search end-->
@@ -31,7 +31,7 @@
     name: "MarvelSearchWithDropDown",
     data: function () {
       return {
-
+        searchAreaW:""
       }
     },
     props: ["placeholder", "selectItems"],
@@ -50,6 +50,10 @@
         }
       }
       this.$refs.ref1.init(this.selectItems, selectLabel);
+
+      //set searchAreaW
+      var iDropW = parseInt(this.$refs.ref1.$el.clientWidth) + 5;
+      this.searchAreaW = "calc( 100% - " + iDropW + "px)";
     },
   }
 
@@ -64,6 +68,7 @@
     white-space: nowrap;
     border: 1px solid #cccccc;
     box-sizing: border-box;
+    width: 100%;
   }
   .search_dropDown:hover{
     border: 1px solid #3399ff;
@@ -71,41 +76,15 @@
   .search_dropDown .dropdownArea{
     display: inline-block;
     height: 32px;
-  }
-  .search_dropDown .dropdownArea:after{
-    content: "";
-    display: inline-block;
+    float: left;
     position: relative;
-    top:-4px;
-    left: 4px;
-    width: 0.5px;
-    height:24px;
-    background-color: #ccc;
-  }
-  .search_dropDown .dropdownArea .dropdownBtn{
-    border: none;
-  }
-  .search_dropDown .dropdownArea .dropdownBtn .label{
-    position: relative;
-  }
-  .search_dropDown .dropdownArea .dropdownBtn .label:after{
-    content: "";
-    height: 22px;
-    width: 1px;
-    position: absolute;
-    right: 0;
-    top: 5px;
-    background-color: #cccccc;
-  }
-  .search_dropDown .dropdownArea .dropdownBtn .options{
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    top: -1px;
+    left: -1px;
   }
   .search_dropDown .searchArea{
     display: inline-block;
     height: 30px;
     position: relative;
-    top: -2px;
+    float: left;
   }
 </style>

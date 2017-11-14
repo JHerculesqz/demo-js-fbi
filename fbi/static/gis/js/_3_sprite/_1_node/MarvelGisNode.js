@@ -225,7 +225,17 @@
             //找到Marker
             var oMarker = oGis.Layer.findById(strId, oGis);
             if(oMarker){
-                var oAttachedIcon = L.marker([oMarker._latlng.lat, oMarker._latlng.lng]);
+                var oConfig = {};
+                if(strImgUrl !== ""){
+                    var oIcon = L.icon({
+                        iconUrl: strImgUrl,
+                        iconSize:    [18, 36],
+                        iconAnchor:  [9, 36]
+                    });
+                    oConfig.icon = oIcon;
+                }
+                var oAttachedIcon = L.marker([oMarker._latlng.lat, oMarker._latlng.lng], oConfig);
+
                 oMarker.attachIcon = oAttachedIcon;
                 oAttachedIcon.addTo(oGis.Stage.mapObj);
             }

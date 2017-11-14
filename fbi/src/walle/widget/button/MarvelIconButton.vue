@@ -1,6 +1,6 @@
 <template>
   <div class="iconBtn"
-       v-bind:class="[mouseDown, disable, classCustom, icon]"
+       v-bind:class="[mouseDown, disable, classCustom, icon, theme]"
        v-bind:title="label"
        v-on:click="onClick"></div>
 </template>
@@ -8,7 +8,7 @@
 <script>
   export default {
     name: 'MarvelIconButton',
-    props: ["classCustom", "label", "icon"],
+    props: ["classCustom", "label", "icon", "theme"],
     data: function() {
         return {
           mouseDown: "",
@@ -45,5 +45,13 @@
   .disable{
     color: #aaa;
     pointer-events: none;
+  }
+
+  .dark{
+    color: #ffffff;
+  }
+
+  .dark:hover{
+    color: #3dcca6;
   }
 </style>

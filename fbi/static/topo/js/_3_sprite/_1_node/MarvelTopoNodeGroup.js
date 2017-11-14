@@ -52,21 +52,27 @@
 
             //#region 3.collapse Group
 
+            //0.0.生成属性
+            oBuObj.uiExpandNode = false;
+            self.generateProp(oBuObj, oTopo);
+
             //0.oGroup
             var oGroup = new Konva.Group({
                 id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo),
                 x: oGroupExistsPos.x,
                 y: oGroupExistsPos.y,
+                visible: oBuObj.uiHide == true ? false : true,
+                opacity: oBuObj.uiOpacity != undefined ? oBuObj.uiOpacity : 1.0,
                 draggable: true
             });
             oGroup.tag = oBuObj;
-            oGroup.tag.uiExpandNode = false;
 
             //1.oImage
             var oImage = new Konva.Image({
                 x: 0,
                 y: 0,
                 image: oTopo.Resource.m_mapImage[oBuObj.uiImgKey],
+                opacity: oGroup.opacity(),
                 width: ICON_WIDTH,
                 height: ICON_HEIGHT
             });
@@ -77,6 +83,7 @@
                 x: 0,
                 y: 0,
                 text: oBuObj.uiLabel,
+                opacity: oGroup.opacity(),
                 fill: oTopo.Resource.getTheme().node.labelColor
             });
             self._setLabelCenter(ICON_WIDTH, ICON_HEIGHT, oLabel);
@@ -132,22 +139,27 @@
 
             //#region 3.expand Group
 
+            //0.0.生成属性
+            oBuObj.uiExpandNode = true;
+            self.generateProp(oBuObj, oTopo);
+
             //0.oGroup
             var oGroup = new Konva.Group({
                 id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo),
                 x: oGroupExistsPos.x,
                 y: oGroupExistsPos.y,
-                opacity: oBuObj.opacity ? oBuObj.opacity : 1.0,
+                visible: oBuObj.uiHide == true ? false : true,
+                opacity: oBuObj.uiOpacity != undefined ? oBuObj.uiOpacity : 1.0,
                 draggable: true
             });
             oGroup.tag = oBuObj;
-            oGroup.tag.uiExpandNode = true;
 
             //1.oImage
             var oImage = new Konva.Image({
                 x: 0,
                 y: 0,
                 image: oTopo.Resource.m_mapImage[oBuObj.uiImgKey4Expand],
+                opacity: oGroup.opacity(),
                 width: oBuObj.uiExpandNodeWidth,
                 height: oBuObj.uiExpandNodeHeight
             });
@@ -158,6 +170,7 @@
                 x: 0,
                 y: 0,
                 text: oBuObj.uiLabel,
+                opacity: oGroup.opacity(),
                 fill: oTopo.Resource.getTheme().node.labelColor
             });
             self._setLabelCenter(oBuObj.uiExpandNodeWidth, oBuObj.uiExpandNodeHeight, oLabel);
@@ -312,6 +325,13 @@
         };
 
         var _addToolTips = function(oGroup, evt, oTopo){
+            //-1.生成属性
+            self.generateTip(oGroup.tag, oTopo);
+
+            if(oGroup.tag.uiTitle == "" && oGroup.tag.uiTip == ""){
+                return;
+            }
+
             //0.tooltip
             //var iScale = oTopo.ins.stage.scaleX();
             var iScale = 1;
@@ -616,6 +636,14 @@
         this.stageEventDragend = function (oEvent, oTopo) {
            //update cache
             _updateStatus4Drag(DRAG_STATUS_EMPTY);
+        };
+
+        this.generateProp = function(oNodeOrNodeGroup, oTopo){
+            oTopo.Stage.eventOptions.callbackGenerateNodeProp(oNodeOrNodeGroup);
+        };
+
+        this.generateTip = function(oNodeOrNodeGroup, oTopo){
+            oTopo.Stage.eventOptions.callbackGenerateNodeTip(oNodeOrNodeGroup);
         };
 
         //endregion

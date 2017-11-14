@@ -116,10 +116,39 @@
                 else {
                     arrLinks4Draw.push(oLink);
                 }
+
+                //生成链路的属性
+                oTopo.Stage.eventOptions.callbackGenerateLinkProp(oLink);
             });
 
-            arrLinks4Draw.forEach(function (oLink, index) {
-                _drawLinkEx(arrLinks, oLink, index, arrLinks4Draw.length, oTopo);
+            //对arrLinks4Draw分组
+            var arrLinks4Show = [];
+            var arrLinks4Hide = [];
+            for(var i = 0, len = arrLinks4Draw.length; i < len; i++){
+                var oLink = arrLinks4Draw[i];
+                if(oLink.uiHide == true){
+                    arrLinks4Hide.push(oLink);
+                    continue;
+                }
+                var oNodeSrc = oTopo.Sprite.NodeGroup.getDrawnGroupById(oLink.srcNodeId, oTopo);
+                if(!oNodeSrc.isVisible()){
+                    arrLinks4Hide.push(oLink);
+                    continue;
+                }
+                var oNodeDst = oTopo.Sprite.NodeGroup.getDrawnGroupById(oLink.dstNodeId, oTopo);
+                if(!oNodeDst.isVisible()){
+                    arrLinks4Hide.push(oLink);
+                    continue;
+                }
+                arrLinks4Show.push(oLink);
+            }
+
+            //绘制隐藏链路
+            _drawLink4Hide(arrLinks4Hide, oTopo);
+
+            //绘制显示链路
+            arrLinks4Show.forEach(function (oLink, index) {
+                _drawLinkEx(arrLinks, oLink, index, arrLinks4Show.length, oTopo);
             });
         };
 
@@ -190,6 +219,7 @@
                 oLinkExists.destroy();
             }
 
+            //坐标
             var position = _getPositionEx(oBuObj, iOffsetIndex, linkCount, oTopo);
 
             //group
@@ -289,6 +319,26 @@
             return oArrow;
         };
 
+        var _drawLink4Hide = function(arrLinks, oTopo){
+            arrLinks.forEach(function(oBuObj){
+                //remove
+                var oLinkExists = oTopo.Stage.findOne(oBuObj.id, oTopo);
+                if (oLinkExists) {
+                    oLinkExists.destroy();
+                }
+
+                //group
+                var oGroup = new Konva.Group({
+                    x: 0,
+                    y: 0,
+                    visible: false,
+                    id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo)
+                });
+                oGroup.tag = oBuObj;
+
+                oTopo.ins.layerLink.add(oGroup);
+            });
+        };
         //endregion
 
         //region event
@@ -338,6 +388,15 @@
         };
 
         var _addToolTip = function (oGroup, evt, oTopo) {
+            //生成Tip
+            oTopo.Stage.eventOptions.callbackGenerateLinkTip(oGroup.tag);
+
+            var strTitle = _genLinkTitle(oGroup.tag, oTopo);
+            var strContent = _genLinkTitleContent(oGroup.tag, oTopo);
+            if(strTitle == "" && strContent == ""){
+                return;
+            }
+
             var iScale = 1;
             var oTooltipContent = new Konva.Label({
                 id: oTopo.Stage.getIdentityValue(oGroup.tag.id + "_linkLabelTitle", oTopo),
@@ -356,7 +415,7 @@
             oTooltipContent.add(oTagContent);
 
             var oTextContent = new Konva.Text({
-                text: _genLinkTitleContent(oGroup.tag, oTopo),
+                text: strContent,
                 padding: 8 / iScale,
                 fontSize: 12 / iScale,
                 lineHeight: 1.5,
@@ -381,7 +440,7 @@
             oTooltipTitle.add(oTagTitle);
 
             var oTextTitle = new Konva.Text({
-                text: _genLinkTitle(oGroup.tag, oTopo),
+                text: strTitle,
                 padding: 8 / iScale,
                 fontSize: 14 / iScale,
                 fontStyle: "bold",
@@ -799,41 +858,20 @@
             });
         };
 
-        //链路颜色，后续可能回调业务代码来实现
         var _getLinkColor = function (oBuObj, oTopo) {
-            if (_isGroupLink(oBuObj)) {
-                return oTopo.Resource.getTheme().link.linkColor[oBuObj.children[0].uiLinkColorKey];
-            }
-            else {
-                return oTopo.Resource.getTheme().link.linkColor[oBuObj.uiLinkColorKey];
-            }
+            return oTopo.Resource.getTheme().link.linkColor[oBuObj.uiLinkColorKey];
         };
 
-        //链路宽度，后续可能回调业务代码来实现
         var _getLinkWidth = function (oBuObj, oTopo) {
-            if (_isGroupLink(oBuObj)) {
-                return oBuObj.children[0].uiLinkWidth;
-            }
-            return oBuObj.uiLinkWidth;
+            return oBuObj.uiLinkWidth != undefined ? oBuObj.uiLinkWidth : 2.5;
         };
 
         var _getLinkDash = function (oBuObj, oTopo) {
-            if (_isGroupLink(oBuObj)) {
-                return oBuObj.children[0].uiDash ? oBuObj.children[0].uiDash : [];
-            }
-            else {
-                return oBuObj.uiDash ? oBuObj.uiDash : [];
-            }
+            return oBuObj.uiDash ? oBuObj.uiDash : [];
         };
 
-        //链路中间label，后续可能回调业务代码来实现
         var _genLinkCenterLabel = function (oBuObj, oTopo) {
-            if (_isGroupLink(oBuObj)) {
-                return oBuObj.children[0].uiLabelM;
-            }
-            else {
-                return oBuObj.uiLabelM;
-            }
+            return oBuObj.uiLabelM;
         };
 
         var _getCenterLabelColor = function (oBuObj, oTopo) {
@@ -841,21 +879,11 @@
         };
 
         var _genLinkTitle = function (oBuObj, oTopo) {
-            if (_isGroupLink(oBuObj)) {
-                return oBuObj.children[0].uiTitle;
-            }
-            else {
-                return oBuObj.uiTitle;
-            }
+            return oBuObj.uiTitle;
         };
 
         var _genLinkTitleContent = function (oBuObj, oTopo) {
-            if (_isGroupLink(oBuObj)) {
-                return oBuObj.children[0].uiTip;
-            }
-            else {
-                return oBuObj.uiTip;
-            }
+            return oBuObj.uiTip;
         };
 
         //endregion

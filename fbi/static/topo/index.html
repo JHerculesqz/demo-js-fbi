@@ -86,7 +86,7 @@
                     uiExpandNodeWidth: 200,
                     uiExpandNodeHeight: 200,
                     uiNode: true,
-                    opacity: 0,
+                    uiOpacity: 1,
                     children: [{
                         id: "node" + i + "_1",
                         x: 50,
@@ -128,6 +128,18 @@
                 };
                 arrNode.push(oNode);
             }
+            arrNode.push({
+                id: "nodexxx",
+                x: 0,
+                y: 0,
+                uiHide: false, //隐藏
+                uiOpacity: 0.5,
+                uiImgKey: "node",
+                uiLabel: "nodexxx",
+                uiTip: "nodexxx",
+                uiTitle: "nodexxx",
+                uiNode: true
+            });
 
             //endregion
 
@@ -149,7 +161,7 @@
                 arrNode.push(oNode);
             }
 
-            var arrLinkBase = [];
+            var arrLink = [];
             //region 网元之间的虚链路
             for (var i = 0; i < 3; i++) {
                 var oLink = {
@@ -167,7 +179,7 @@
                     uiDirection: 2,
                     uiDash: [10, 5]
                 };
-                arrLinkBase.push(oLink);
+                arrLink.push(oLink);
             }
             //endregion
             //region 网元之间的捆绑链路
@@ -236,10 +248,10 @@
                     uiLinkWidth: 3
                 };
 
-                arrLinkBase.push(oLink1);
-                arrLinkBase.push(oLink2);
-                arrLinkBase.push(oLink3);
-                arrLinkBase.push(oLink4);
+                arrLink.push(oLink1);
+                arrLink.push(oLink2);
+                arrLink.push(oLink3);
+                arrLink.push(oLink4);
             }
             //endregion
             //region 站点内设备与站点外设备之间的链路
@@ -304,10 +316,10 @@
                     uiLinkColorKey: "linkType3",
                     uiLinkWidth: 3
                 };
-                arrLinkBase.push(oLink1);
-                arrLinkBase.push(oLink2);
-                arrLinkBase.push(oLink3);
-                arrLinkBase.push(oLink4);
+                arrLink.push(oLink1);
+                arrLink.push(oLink2);
+                arrLink.push(oLink3);
+                arrLink.push(oLink4);
             }
             //endregion
             //region 站点内设备与站点内的设备之间的链路
@@ -374,10 +386,10 @@
                     uiLinkWidth: 3,
                     uiDirection: 1
                 };
-                arrLinkBase.push(oLink1);
-                arrLinkBase.push(oLink2);
-                arrLinkBase.push(oLink3);
-                arrLinkBase.push(oLink4);
+                arrLink.push(oLink1);
+                arrLink.push(oLink2);
+                arrLink.push(oLink3);
+                arrLink.push(oLink4);
             }
             //endregion
 
@@ -394,6 +406,23 @@
                     console.log("callbackOnNodeClick");
                     console.log(oNode);
                     console.log(oEvent);
+                },
+                callbackGenerateNodeProp: function(oNode){
+                    if(oNode.children){
+                        oNode.uiLabel= "Group:" + oNode.id;
+                    }
+                    else{
+                        oNode.uiLabel= oNode.id;
+                    }
+                },
+                callbackGenerateNodeTip: function(oNode){
+                    oNode.uiTitle = oNode.id;
+                    if(oNode.children){
+                        oNode.uiTip= "This is a nodeGroup";
+                    }
+                    else{
+                        oNode.uiTip= "This is a node";
+                    }
                 },
                 //endregion
                 //region nodeGroup
@@ -413,6 +442,25 @@
                     console.log("callbackOnLinkClick");
                     console.log(oLink);
                     console.log(oEvent);
+                },
+                callbackGenerateLinkProp: function(oLink){
+                    if(oLink.children){
+                        oLink.uiLabelM = "Group: " + oLink.id;
+                        oLink.uiLinkColorKey = oLink.children[0].uiLinkColorKey;
+                    }
+                    else{
+                        oLink.uiLabelM = oLink.id;
+                    }
+                    oLink.uiLinkWidth = 3;
+                },
+                callbackGenerateLinkTip: function(oLink){
+                    oLink.uiTitle = oLink.id;
+                    if(oLink.children){
+                        oLink.uiTip = "This is a group link, has " + oLink.children.length + " links";
+                    }
+                    else{
+                        oLink.uiTip = "This is a link";
+                    }
                 },
                 //endregion
                 //region stage
@@ -438,7 +486,7 @@
                 oTopo.Api.draw(oTopo, {
                     nodeGroups: arrNodeGroup,
                     nodes: arrNode,
-                    links: arrLinkBase
+                    links: arrLink
                 });
             });
 
@@ -506,6 +554,34 @@
             $("#setBestView").click(function () {
                 oTopo.Api.setBestView(oTopo);
             });
+            $("#hideOrShowNode").click(function(){
+                var oTopoData = oTopo.Api.getTopoData(oTopo);
+                oTopoData.nodes.forEach(function(oNode, index){
+                    if(oNode.id == "nodeBase2"){
+                        if(oNode.uiHide == undefined){
+                            oNode.uiHide = true;
+                        }
+                        else{
+                            oNode.uiHide = !oNode.uiHide;
+                        }
+                    }
+                });
+                oTopo.Api.updateTopo(oTopo, oTopoData);
+            });
+            $("#hideOrShowLink").click(function(){
+                var oTopoData = oTopo.Api.getTopoData(oTopo);
+                oTopoData.links.forEach(function(oLink, index){
+                    if(oLink.id == "link0"){
+                        if(oLink.uiHide == undefined){
+                            oLink.uiHide = true;
+                        }
+                        else{
+                            oLink.uiHide = !oLink.uiHide;
+                        }
+                    }
+                });
+                oTopo.Api.updateTopo(oTopo, oTopoData);
+            });
             //endregion
         });
     </script>
@@ -525,6 +601,8 @@
     <button id="resetPosition">resetPosition</button>
     <button id="isPositionUpdate">isPositionUpdate</button>
     <button id="setBestView">setBestView</button>
+    <button id="hideOrShowNode">hideOrShowNode</button>
+    <button id="hideOrShowLink">hideOrShowLink</button>
 </div>
 <div>
     <div id="id1" style="width:1200px; height:600px; z-index: 1000; position: relative;"></div>
