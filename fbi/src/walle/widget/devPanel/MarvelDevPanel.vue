@@ -19,8 +19,14 @@
 
       //#endregion
       //#region callback
+      _afterInitPlugin: function () {
+        this.$emit("_afterInitPlugin");
+      },
       _onClickBD: function (oBD) {
         this.$emit("onClickBD", oBD);
+      },
+      _onContextMenuClickBD: function (oBD, iX, iY) {
+        this.$emit("onContextMenuClickBD", oBD, iX, iY);
       },
       //#endregion
       //#region 3rd
@@ -32,12 +38,21 @@
         var oOptions = {
           id: this.id,
           events: {
+            afterInitPlugin: function () {
+              self._afterInitPlugin();
+            },
             click4BD: function (oBD, e) {
               self._onClickBD(oBD);
-            }
+            },
+            contextMenu4BD: function (oBD, iX, iY, e) {
+              self._onContextMenuClickBD(oBD, iX, iY);
+            },
           },
           "GK_1000": {
             url: "static/devPanel/image/dev1.svg",
+          },
+          "SXL_1": {
+            url: "image/dev2.svg",
           },
         };
         this.m_oMarvelDevPanel.init(oOptions);

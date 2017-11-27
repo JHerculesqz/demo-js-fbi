@@ -12,8 +12,10 @@
 
         this.m_oOptions = {
             "GK_1000": {
-                url: "image/dev1.svg",
                 plugin: new $.MarvelDevPanel_1()
+            },
+            "SXL_1": {
+                plugin: new $.MarvelDevPanel_2()
             }
         };
 
@@ -43,7 +45,8 @@
             if(oOption != undefined){
                 $("#" + this.m_oOptions.id).load(oOption.url, function(oData){
                     self.m_oDraw.svg(oData);
-                    oOption.plugin.init(self.m_oOptions.events);
+                    oOption.plugin.init(self.m_oOptions);
+                    self.m_oOptions.events.afterInitPlugin();
                 });
             }
         };
