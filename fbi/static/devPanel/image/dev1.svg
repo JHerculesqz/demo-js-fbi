@@ -3,7 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%"
 	 height="100%" viewBox="0 0 730 660" enable-background="new 0 0 730 660" xml:space="preserve">
-<g id="background">
+<g id="0">
 	<rect x="0" fill="#DDDDDD" stroke="#000000" stroke-miterlimit="10" width="730" height="660"/>
 	<rect x="0" y="71.699" fill="#DDDDDD" stroke="#000000" stroke-miterlimit="10" width="365" height="482.646"/>
 	<rect x="20" y="143.113" fill="#9897A5" width="325" height="127.921"/>
@@ -42,10 +42,10 @@
 				c15.664-0.018,11.789-14.249,17.755-23.304C159.885,24.266,156.555,24.266,153.226,24.266z"/>
 		</g>
 	</g>
-	<polyline fill="none" stroke="#01488C" stroke-width="4" stroke-miterlimit="10" points="-0.218,644.602 497.36,644.602 
+	<polyline fill="none" stroke="#01488C" stroke-width="4" stroke-miterlimit="10" points="-0.218,644.602 497.36,644.602
 		515.525,629.602 729.782,629.602 	"/>
 	<g>
-		
+
 			<text transform="matrix(1 0 0 1 581.8674 650.6023)" fill="#02478D" font-family="'PingFangHK-Regular-83pv-RKSJ-H'" font-size="18">RFL-C6000</text>
 	</g>
 	<rect x="427.294" y="414.101" fill="#DDDDDD" width="280.489" height="123.921"/>
@@ -61,105 +61,105 @@
 	<rect x="62.511" y="145.113" fill="#DDDDDD" width="280.489" height="123.921"/>
 	<text transform="matrix(1 0 0 1 37 214.6093)" fill="#FFFFFF" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">1</text>
 </g>
-<g id="bd1">
+<g id="1">
 	<rect x="20" y="84.022" fill="#9897A5" width="325" height="53.115"/>
 	<text transform="matrix(1 0 0 1 157.6647 118.1153)" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">主控制板</text>
 </g>
 <g id="l1">
 	<circle fill="#008C01" cx="119.027" cy="110.579" r="11"/>
 </g>
-<g id="bd2">
+<g id="2">
 	<rect x="66.256" y="150.113" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6649 185.0923)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l2">
 	<circle fill="#008C01" cx="119.027" cy="177.556" r="11"/>
 </g>
-<g id="bd3">
+<g id="3">
 	<rect x="66.256" y="209.146" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6648 244.1263)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l3">
 	<circle fill="#008C01" cx="119.027" cy="236.59" r="11"/>
 </g>
-<g id="bd4">
+<g id="4">
 	<rect x="66.256" y="284.607" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6649 319.5863)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l4">
 	<circle fill="#008C01" cx="119.027" cy="312.05" r="11"/>
 </g>
-<g id="bd5">
+<g id="5">
 	<rect x="66.256" y="343.64" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6648 378.6203)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l5">
 	<circle fill="#FF0001" cx="119.027" cy="371.084" r="11"/>
 </g>
-<g id="bd6">
+<g id="6">
 	<rect x="66.256" y="419.101" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6649 454.0802)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l6">
 	<circle fill="#008C01" cx="119.027" cy="446.544" r="11"/>
 </g>
-<g id="bd7">
+<g id="7">
 	<rect x="66.256" y="478.134" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6648 513.1143)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l7">
 	<circle fill="#008C01" cx="119.027" cy="505.578" r="11"/>
 </g>
-<g id="bd8">
+<g id="8">
 	<rect x="384.782" y="84.022" fill="#9897A5" width="325" height="53.115"/>
 	<text transform="matrix(1 0 0 1 522.4469 118.1153)" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">合束模块</text>
 </g>
 <g id="l8">
 	<circle fill="#008C01" cx="483.809" cy="110.579" r="11"/>
 </g>
-<g id="bd9">
+<g id="9">
 	<rect x="431.038" y="150.113" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 185.0923)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l9">
 	<circle fill="#008C01" cx="483.809" cy="177.556" r="11"/>
 </g>
-<g id="bd10">
+<g id="10">
 	<rect x="431.038" y="209.146" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 244.1263)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l10">
 	<circle fill="#008C01" cx="483.809" cy="236.59" r="11"/>
 </g>
-<g id="bd11">
+<g id="11">
 	<rect x="431.038" y="284.607" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 319.5863)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l11">
 	<circle fill="#008C01" cx="483.809" cy="312.05" r="11"/>
 </g>
-<g id="bd12">
+<g id="12">
 	<rect x="431.038" y="343.64" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 378.6203)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l12">
 	<circle fill="#FF0001" cx="483.809" cy="371.084" r="11"/>
 </g>
-<g id="bd13">
+<g id="13">
 	<rect x="431.038" y="419.101" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 454.0802)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l13">
 	<circle fill="#008C01" cx="483.809" cy="446.544" r="11"/>
 </g>
-<g id="bd14">
+<g id="14">
 	<rect x="431.038" y="478.134" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 513.1143)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l14">
 	<circle fill="#008C01" cx="483.809" cy="505.578" r="11"/>
 </g>
-<g id="bd15">
+<g id="15">
 	<rect x="19.782" y="566.57" fill="#9897A5" width="690" height="53.115"/>
 	<text transform="matrix(1 0 0 1 323.1249 600.6642)" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">强电单元</text>
 </g>
@@ -175,7 +175,7 @@
 <g id="l18">
 	<circle fill-rule="evenodd" clip-rule="evenodd" fill="#00FF01" cx="619.056" cy="35.669" r="11"/>
 </g>
-<g id="l19">
+<g id="l0">
 	<circle fill-rule="evenodd" clip-rule="evenodd" fill="#FE0000" cx="677.83" cy="35.669" r="11"/>
 </g>
 </svg>

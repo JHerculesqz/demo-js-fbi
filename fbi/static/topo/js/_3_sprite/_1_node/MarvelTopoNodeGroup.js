@@ -315,7 +315,7 @@
             });
         };
 
-        var _handle4SelectNode = function(oGroup, evt, oTopo){
+        var _handle4SelectNode = function (oGroup, evt, oTopo) {
             //1.选中样式
             oGroup.tag.uiSelectNode = true;
             _setSelectNodeStyle(oGroup.children[0], oTopo);
@@ -324,11 +324,11 @@
             _addToolTips(oGroup, evt, oTopo);
         };
 
-        var _addToolTips = function(oGroup, evt, oTopo){
+        var _addToolTips = function (oGroup, evt, oTopo) {
             //-1.生成属性
             self.generateTip(oGroup.tag, oTopo);
 
-            if(oGroup.tag.uiTitle == "" && oGroup.tag.uiTip == ""){
+            if (oGroup.tag.uiTitle == "" && oGroup.tag.uiTip == "") {
                 return;
             }
 
@@ -354,8 +354,8 @@
                 text: oGroup.tag.uiTip,
                 padding: 8 / iScale,
                 fontSize: 12 / iScale,
-                lineHeight:1.5,
-                fill:"#ffffff"
+                lineHeight: 1.5,
+                fill: "#ffffff"
             });
             oTooltipContent.add(oTextContent);
 
@@ -379,7 +379,7 @@
                 padding: 8 / iScale,
                 fontSize: 14 / iScale,
                 fontStyle: "bold",
-                fill:"#3dcca6"
+                fill: "#3dcca6"
             });
             oTooltipTitle.add(oTextTitle);
 
@@ -401,7 +401,7 @@
             var iSHeight = oTopo.ins.stage.height();
             var strDirection = 'down';
             //根据坐标值优化strDirection
-            if(strDirection == 'down'){
+            if (strDirection == 'down') {
                 oTooltipContent.x(iGWidth / 2);
                 oTooltipContent.y(0);
                 oTooltipContent.getTag().pointerDirection(strDirection);
@@ -412,19 +412,19 @@
             }
         };
 
-        var _handle4UnSelectNode = function(oGroup, evt, oTopo){
+        var _handle4UnSelectNode = function (oGroup, evt, oTopo) {
             //1.去选中样式
             oGroup.tag.uiSelectNode = false;
             _setUnSelectNodeStyle(oGroup.children[0], oTopo);
             //2.tooltips
             var arrLabel = [];
-            arrLabel = oGroup.children.filter(function(oChild, index){
-                if(oChild.nodeType == "Group" && oChild.className=="Label"){
+            arrLabel = oGroup.children.filter(function (oChild, index) {
+                if (oChild.nodeType == "Group" && oChild.className == "Label") {
                     return true;
                 }
                 return false;
             });
-            arrLabel.forEach(function(oLabel, index){
+            arrLabel.forEach(function (oLabel, index) {
                 oLabel.destroy();
             });
         };
@@ -473,10 +473,14 @@
             //2.expand
             for (var i = 0; i < arrCollapseGroupExists.length; i++) {
                 var oCollapseGroupExists = arrCollapseGroupExists[i];
-                _drawExpand(oCollapseGroupExists.tag, oCollapseGroupExists, oTopo);
-                //联动链路
-                oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oCollapseGroupExists.tag, oTopo);
+                _expandOneNodeGroup(oCollapseGroupExists);
             }
+        };
+
+        var _expandOneNodeGroup = function (oCollapseGroupExists, oTopo) {
+            _drawExpand(oCollapseGroupExists.tag, oCollapseGroupExists, oTopo);
+            //联动链路
+            oTopo.Sprite.LinkGroup.response2NodeEvent4ReDraw(oCollapseGroupExists.tag, oTopo);
         };
 
         this.collapseAllNodeGroup = function (oTopo) {
@@ -577,11 +581,40 @@
         };
 
         this.selectNodesById = function (arrNodeIds, oTopo) {
+            //1.
+            var notFoundId = [];
             arrNodeIds.forEach(function (nodeId, index) {
                 var oNodeGroup = oTopo.Stage.findOne(nodeId, oTopo);
-                oNodeGroup.tag.uiSelectNode = true;
-                _setSelectNodeStyle(oNodeGroup.children[0], oTopo);
+                if (oNodeGroup) {
+                    oNodeGroup.tag.uiSelectNode = true;
+                    _setSelectNodeStyle(oNodeGroup.children[0], oTopo);
+                }
+                else {
+                    notFoundId.push(nodeId);
+                }
             });
+            //2.
+            notFoundId.forEach(function (strNodeId) {
+                //2.1.展开站点
+                var arrCollapseGroupExists =
+                    oTopo.Stage.findGroupByTagAttr("uiExpandNode", false, oTopo);
+                for (var i = 0, len = arrCollapseGroupExists.length; i < len; i++) {
+                    var oBuOBj = arrCollapseGroupExists[i].tag;
+                    var bChild = oBuOBj.children.some(function (oChild) {
+                        return oChild.id == strNodeId;
+                    });
+                    if (bChild) {
+                        _expandOneNodeGroup(arrCollapseGroupExists[i], oTopo);
+                    }
+                }
+                //2.2.选中节点
+                var oNodeGroup = oTopo.Stage.findOne(strNodeId, oTopo);
+                if (oNodeGroup) {
+                    oNodeGroup.tag.uiSelectNode = true;
+                    _setSelectNodeStyle(oNodeGroup.children[0], oTopo);
+                }
+            });
+
             oTopo.Layer.reDraw(oTopo.ins.layerNode);
         };
 
@@ -634,15 +667,15 @@
         };
 
         this.stageEventDragend = function (oEvent, oTopo) {
-           //update cache
+            //update cache
             _updateStatus4Drag(DRAG_STATUS_EMPTY);
         };
 
-        this.generateProp = function(oNodeOrNodeGroup, oTopo){
+        this.generateProp = function (oNodeOrNodeGroup, oTopo) {
             oTopo.Stage.eventOptions.callbackGenerateNodeProp(oNodeOrNodeGroup);
         };
 
-        this.generateTip = function(oNodeOrNodeGroup, oTopo){
+        this.generateTip = function (oNodeOrNodeGroup, oTopo) {
             oTopo.Stage.eventOptions.callbackGenerateNodeTip(oNodeOrNodeGroup);
         };
 

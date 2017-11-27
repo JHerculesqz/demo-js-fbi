@@ -19,19 +19,18 @@
                         console.log(oBD);
                     }
                 },
-                "6000": {
+                "GK_1000": {
                     url: "image/dev1.svg",
-                    plugin: new $.MarvelDevPanel_1()
-                }
+                },
             };
             oMarvelDevPanel.init(oOptions);
 
             //2.initPlugin
-            oMarvelDevPanel.initPlugin("6000");
+            oMarvelDevPanel.initPlugin("GK_1000");
 
             //3.setLightColor
             $("#id1").click(function () {
-                var oPlugin = oMarvelDevPanel.getPlugin("6000");
+                var oPlugin = oMarvelDevPanel.getPlugin("GK_1000");
                 setInterval(function () {
                     oPlugin.setLightColor("l1", Math.random() > 0.5 ? "#FF0001" : "#008C01");
                     oPlugin.setLightColor("l2", Math.random() > 0.5 ? "#FF0001" : "#FFD400");
@@ -51,7 +50,7 @@
                     oPlugin.setLightColor("l16", Math.random() > 0.5 ? "#FF0001" : "#008C01");
                     oPlugin.setLightColor("l17", Math.random() > 0.5 ? "#FF0001" : "#008C01");
                     oPlugin.setLightColor("l18", Math.random() > 0.5 ? "#FF0001" : "#008C01");
-                    oPlugin.setLightColor("l19", Math.random() > 0.5 ? "#FF0001" : "#008C01");
+                    oPlugin.setLightColor("l0", Math.random() > 0.5 ? "#FF0001" : "#008C01");
                 }, 1000);
             });
         });

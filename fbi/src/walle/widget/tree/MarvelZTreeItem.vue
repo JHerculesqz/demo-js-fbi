@@ -105,6 +105,11 @@
       onTreeNodeClick: function (oTreeNode) {
         this.$emit("onTreeNodeClick", oTreeNode);
       }
+    },
+    watch: {
+      "model.bOpen": function(oNewValue, oOldValue){
+        this.open = oNewValue;
+      }
     }
   }
 </script>
@@ -132,6 +137,7 @@
 
   .treeItemCont .treeItemCheck {
     float: left;
+    height: 100%;
   }
 
   .treeItemCont .treeItemCustomIcon {

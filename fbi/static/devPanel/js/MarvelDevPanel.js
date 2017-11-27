@@ -11,7 +11,7 @@
         this.m_oDraw;
 
         this.m_oOptions = {
-            "6000": {
+            "GK_1000": {
                 url: "image/dev1.svg",
                 plugin: new $.MarvelDevPanel_1()
             }
@@ -22,7 +22,7 @@
         //region init
 
         this.init = function (oOptions) {
-            this.m_oOptions = oOptions;
+            $.extend(true, this.m_oOptions, oOptions);
             this.m_oDraw = SVG(this.m_oOptions.id);
         };
 

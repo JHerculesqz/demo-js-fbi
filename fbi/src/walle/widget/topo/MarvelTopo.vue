@@ -181,6 +181,9 @@
       },
       setBestView: function(){
         this.oTopo.Api.setBestView(this.oTopo);
+      },
+      getSelectedData: function(){
+        return this.oTopo.Api.getSelectedData(this.oTopo);
       }
     }
   }

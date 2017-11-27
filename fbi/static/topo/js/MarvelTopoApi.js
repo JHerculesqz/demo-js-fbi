@@ -321,6 +321,32 @@
             return arrRes;
         };
 
+        this.getSelectedData = function(oTopo){
+            var arrNodeAndNodeGroup = oTopo.Sprite.NodeGroup.getSelectNodeSprites(oTopo);
+            var arrLinks = oTopo.Sprite.LinkGroup.getSelectLinkSprites(oTopo);
+            var arrNode = [];
+            var arrNodeGroup = [];
+            var arrLink = [];
+            arrNodeAndNodeGroup.forEach(function(oSprite){
+                var oBuObj = oSprite.tag;
+                if(oBuObj.children){
+                    arrNodeGroup.push(oBuObj);
+                }
+                else{
+                    arrNode.push(oBuObj);
+                }
+            });
+            arrLinks.forEach(function(oSprite){
+                var oBuObj = oSprite.tag;
+                arrLink.push(oBuObj);
+            });
+            return {
+                nodeGroups: arrNodeGroup,
+                nodes: arrNode,
+                links: arrLink
+            }
+        };
+
         //endregion
     };
 })(jQuery);

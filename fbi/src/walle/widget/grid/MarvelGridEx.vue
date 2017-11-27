@@ -24,7 +24,7 @@ radioBox: 单选框，不能和checkBox同时存在
   <div class="gridWrapper" :class="[theme]">
     <div class="grid" :class="{ empty: 0 == rows.length }">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
-        <thead>
+        <thead :style="{left: offSetX}">
         <tr>
           <template v-for="(title,index) in titles">
             <template v-if="title.visible">
@@ -157,6 +157,7 @@ radioBox: 单选框，不能和checkBox同时存在
     },
     data: function () {
       return {
+        offSetX: 0,
         totalPageCount: 1,
         curPageIndex: 1,
         limitEx: this.limit || 5,
@@ -168,11 +169,18 @@ radioBox: 单选框，不能和checkBox同时存在
         orderBy: {
           key: "",
           order: 1 //1表示升序排列，-1表示降序排列
-        }
+        },
+        innerChange: false
       }
     },
     created() {
       this._preHandleRowData();
+    },
+    mounted() {
+      let oTbody = this.$el.querySelector("tbody");
+      oTbody.addEventListener("scroll", (oEvent) => {
+        this.offSetX = -oEvent.target.scrollLeft + "px";
+      });
     },
     computed: {
       pagination: function () {
@@ -197,9 +205,8 @@ radioBox: 单选框，不能和checkBox同时存在
 
       },
       _preHandleRowData() {
-        //清空checkBox/radioBox缓存
-        this.selectRowIds.splice(0);
-        this.radioSelect = "";
+        //清空缓存
+        this._handleCache();
 
         //设置checkbox/radio的勾选
         this.titles.forEach((oTitle) => {
@@ -225,6 +232,16 @@ radioBox: 单选框，不能和checkBox同时存在
         //计算需要显示的rows
         this._calcRows4Show();
       },
+      _handleCache() {
+        if (this.innerChange) {
+          this.innerChange = false;
+        }
+        else {
+          this.selectRowIds.splice(0);
+          this.radioSelect = "";
+          this.activeIds.splice(0);
+        }
+      },
       _calcRows4Show() {
         //1.calc this.skip
         this.skip = (this.curPageIndex - 1) * this.limitEx;
@@ -238,7 +255,7 @@ radioBox: 单选框，不能和checkBox同时存在
           this.rowsInPage = this.rows.slice(this.skip, this.rows.length);
         }
       },
-      _generateIdentityId(oRow){
+      _generateIdentityId(oRow) {
         let strId = this.gridId + "-" + this.getCellValueByKey('id', oRow);
         return strId;
       },
@@ -324,6 +341,7 @@ radioBox: 单选框，不能和checkBox同时存在
             }
           });
         }
+        this.innerChange = true;
       },
       onClickRow(oRow) {
         this.$emit("onClickRow", oRow);
@@ -454,11 +472,11 @@ radioBox: 单选框，不能和checkBox同时存在
       //endregion
 
       //region 3rd
-      setRowColor(strRowId, bCancleOtherRowActive) {
-        let index = this.activeIds.indexOf(strRowId);
+      setRowColor(strRowId, bCancleOtherRowActive = true) {
         if (bCancleOtherRowActive) {
           this.activeIds.splice(0);
         }
+        let index = this.activeIds.indexOf(strRowId);
         if (index == -1) {
           this.activeIds.push(strRowId);
         }
@@ -500,12 +518,21 @@ radioBox: 单选框，不能和checkBox同时存在
         if (index > -1) {
           this.rows.splice(index, 1);
         }
-      }
+      },
+      getActiveRows() {
+        let arrRow = this.rows.filter((oRow) => {
+          let strId = this.getCellValueByKey("id", oRow);
+          let index = this.activeIds.indexOf(strId);
+          return index > -1;
+        });
+        return arrRow;
+      },
       //endregion
     },
     watch: {
       rows: {
         handler(oNewRows, oOldRows) {
+          console.log("rows change");
           this._preHandleRowData();
           this._resetCurPage();
         },
@@ -523,10 +550,12 @@ radioBox: 单选框，不能和checkBox同时存在
     width: 100%;
     height: 100%;
     background-color: #fff;
+    box-sizing: border-box;
   }
 
   .gridWrapper .grid {
     height: calc(100% - 32px);
+    width: 100%;
   }
 
   .gridWrapper .empty {

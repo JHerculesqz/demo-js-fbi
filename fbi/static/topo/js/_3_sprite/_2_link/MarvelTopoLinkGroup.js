@@ -996,7 +996,7 @@
 
         this.unSelectLinks = function (oTopo) {
             //1.get arrSelectNode
-            var arrSelectLinkGroup = _getSelectLinkGroups(oTopo);
+            var arrSelectLinkGroup = self.getSelectLinkSprites(oTopo);
 
             //2.遍历，unSelect
             for (var i = 0; i < arrSelectLinkGroup.length; i++) {
@@ -1007,7 +1007,7 @@
             oTopo.Layer.reDraw(oTopo.ins.layerLink);
         };
 
-        var _getSelectLinkGroups = function (oTopo) {
+        this.getSelectLinkSprites = function (oTopo) {
             //1.findAll
             var arrSelectGroupExists =
                 oTopo.Stage.findGroupByTagAttr("uiSelectLink", true, oTopo);

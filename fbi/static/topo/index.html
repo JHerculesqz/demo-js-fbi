@@ -504,7 +504,7 @@
                 oTopo.Api.collapseAllLinkGroup(oTopo);
             });
             $("#selectNodes").click(function () {
-                oTopo.Api.selectNodesById(oTopo, ["node0", "node1"]);
+                oTopo.Api.selectNodesById(oTopo, ["node0", "node1", "node1_1"]);
             });
             $("#selectLinks").click(function () {
                 oTopo.Api.selectLinksById(oTopo, ["link0", "link1", "link2", "gLink1_2"]);
@@ -582,12 +582,16 @@
                 });
                 oTopo.Api.updateTopo(oTopo, oTopoData);
             });
+            $("#getSelectedData").click(function(){
+                var oData = oTopo.Api.getSelectedData(oTopo);
+                console.log(oData);
+            });
             //endregion
         });
     </script>
 </head>
 <body style="box-sizing: border-box; margin: 0; padding: 10px;">
-<div style="width: 100%; height: 30px;">
+<div style="width: 100%">
     <button id="expandNodeGroup">expandNodeGroup</button>
     <button id="collapseNodeGroup">collapseNodeGroup</button>
     <button id="expandLinkGroup">expandLinkGroup</button>
@@ -603,6 +607,7 @@
     <button id="setBestView">setBestView</button>
     <button id="hideOrShowNode">hideOrShowNode</button>
     <button id="hideOrShowLink">hideOrShowLink</button>
+    <button id="getSelectedData">getSelectedData</button>
 </div>
 <div>
     <div id="id1" style="width:1200px; height:600px; z-index: 1000; position: relative;"></div>

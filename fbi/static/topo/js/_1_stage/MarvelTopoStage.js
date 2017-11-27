@@ -272,16 +272,16 @@
 
             oStage.on("click", function (e) {
                 if (oTopo.Utils.isRightClick(e.evt)) {
-                    var oBuObj;
+                    var oData;
                     //点击的是背景画布
                     if (self.eventIsFiredOnBackground(e, oTopo)) {
-                        oBuObj = "background";
+                        oData = "background";
                     }
                     //点击的是画布上的元素
                     else {
-                        oBuObj = self.getBuObjByEventTarget(e.target);
+                        oData = oTopo.Api.getSelectedData(oTopo);
                     }
-                    self.eventOptions.callbackOnRightClick(oBuObj, e.evt.clientX, e.evt.clientY, e);
+                    self.eventOptions.callbackOnRightClick(oData, e.evt.clientX, e.evt.clientY, e);
                 }
                 e.evt.stopPropagation();
             });
@@ -315,7 +315,6 @@
                 y: oSprite.y() * iScale + oTopo.ins.stage.y()
             }
         };
-
 
         this.getBuObjByEventTarget = function (oEventTarget) {
             if (oEventTarget.tag) {

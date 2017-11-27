@@ -36,10 +36,9 @@
               self._onClickBD(oBD);
             }
           },
-          "6000": {
+          "GK_1000": {
             url: "static/devPanel/image/dev1.svg",
-            plugin: new window.$.MarvelDevPanel_1()
-          }
+          },
         };
         this.m_oMarvelDevPanel.init(oOptions);
       },
