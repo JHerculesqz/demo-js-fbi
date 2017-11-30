@@ -115,6 +115,21 @@ radioBox: 单选框，不能和checkBox同时存在
                           v-html="item.value"></option>
                 </select>
               </td>
+              <td v-if="title.type == 'multiDropdown'" class="multiDropdown" :style="getTdStyle(title, row)">
+                <div class="label icon-marvelIcon-24"
+                     :title="multiDropdownText(title.key, row)"
+                     v-text="multiDropdownText(title.key, row)"
+                     @click.stop="onClickMultiDropdown(title.key, row)"></div>
+                <div class="options" v-show="_getCell(title.key, row).showDropdown"
+                     @blur="multiDropdownPanelBlur(title.key, row)">
+                  <div class="optionItem"
+                       v-for="item in getCellValueByKey(title.key, row)"
+                       :class="{mouseDown: item.selected == true}"
+                       @click.stop="onClickMultiDropdownItem(title.key, row, item)"
+                       v-html="item.value">
+                  </div>
+                </div>
+              </td>
             </template>
           </template>
         </tr>
@@ -123,29 +138,28 @@ radioBox: 单选框，不能和checkBox同时存在
     </div>
     <div class="footArea">
       <div class="foot">
-        <div class="pageSwitch">
-          <div class="item icon-marvelIcon-04" @click.stop="onPreClick"></div>
-          <div class="item" v-for="item in pagination"
-               :class="{ current: curPageIndex == item }"
-               @click.stop="onPageItemClick(item)">{{ item }}
-          </div>
-          <div class="item icon-marvelIcon-02" @click.stop="onNextClick"></div>
-        </div>
-        <!--<div class="text">跳转</div><input class="pageDrop"><div class="text">页</div>-->
-        <div class="text">共{{ rows.length}}条</div>
+        <marvel-paging ref="ref4Paging" :totalNum="rows.length" :pages="totalPageCount"
+                       @onPageChange="onPageChange"></marvel-paging>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import MarvelPaging from "../paging/MarvelPaging"
+
   export default {
-    components: {},
+    components: {
+      MarvelPaging
+    },
     name: 'MarvelGridEx',
     props: {
       titles: Array,
       rows: Array,
-      limit: Number,
+      limit: {
+        type: Number,
+        default: 5
+      },
       theme: String,
       gridId: [String, Number],
       activeColor: {
@@ -158,9 +172,7 @@ radioBox: 单选框，不能和checkBox同时存在
     data: function () {
       return {
         offSetX: 0,
-        totalPageCount: 1,
         curPageIndex: 1,
-        limitEx: this.limit || 5,
         skip: 0,
         rowsInPage: [],
         selectRowIds: [],
@@ -170,11 +182,17 @@ radioBox: 单选框，不能和checkBox同时存在
           key: "",
           order: 1 //1表示升序排列，-1表示降序排列
         },
-        innerChange: false
+        innerChange: false,
+        isTest: false
       }
     },
     created() {
+      //预处理数据
       this._preHandleRowData();
+      //关闭multipleDropdown的面板
+      document.body.addEventListener("click", () => {
+        this._closeMultipleDropDownPanel();
+      });
     },
     mounted() {
       let oTbody = this.$el.querySelector("tbody");
@@ -183,16 +201,8 @@ radioBox: 单选框，不能和checkBox同时存在
       });
     },
     computed: {
-      pagination: function () {
-        var arrRes = [];
-
-        //0.get this.totalPageCount/curPageIndex
-        this.totalPageCount = Math.ceil(this.rows.length / this.limitEx);
-        for (var i = 1; i <= this.totalPageCount; i++) {
-          arrRes.push(i);
-        }
-
-        return arrRes;
+      totalPageCount() {
+        return Math.ceil(this.rows.length / this.limit);
       },
       titleCheckboxChecked() {
         return this.selectRowIds.length > 0;
@@ -212,7 +222,7 @@ radioBox: 单选框，不能和checkBox同时存在
         this.titles.forEach((oTitle) => {
           if (oTitle.type == "checkBox") {
             this.rows.forEach((oRow) => {
-              let oCheckBoxCell = this._getCell(oTitle.type, oRow);
+              let oCheckBoxCell = this._getCell(oTitle.key, oRow);
               if (oCheckBoxCell.checked) {
                 let strId = this.getCellValueByKey("id", oRow);
                 this.selectRowIds.push(strId);
@@ -221,7 +231,7 @@ radioBox: 单选框，不能和checkBox同时存在
           }
           if (oTitle.type == "radioBox") {
             this.rows.forEach((oRow) => {
-              let oRadioBoxCell = this._getCell(oTitle.type, oRow);
+              let oRadioBoxCell = this._getCell(oTitle.key, oRow);
               if (oRadioBoxCell.checked) {
                 let strId = this.getCellValueByKey("id", oRow);
                 this.radioSelect = strId;
@@ -229,8 +239,21 @@ radioBox: 单选框，不能和checkBox同时存在
             });
           }
         });
+        //初始化multipleDropdown面板关闭
+        this._closeMultipleDropDownPanel();
+
         //计算需要显示的rows
         this._calcRows4Show();
+      },
+      _closeMultipleDropDownPanel() {
+        this.titles.forEach((oTitle) => {
+          if (oTitle.type == "multiDropdown") {
+            this.rows.forEach((oRow) => {
+              let oMultiDropdownCell = this._getCell(oTitle.key, oRow);
+              this.$set(oMultiDropdownCell, "showDropdown", false);
+            });
+          }
+        });
       },
       _handleCache() {
         if (this.innerChange) {
@@ -244,12 +267,12 @@ radioBox: 单选框，不能和checkBox同时存在
       },
       _calcRows4Show() {
         //1.calc this.skip
-        this.skip = (this.curPageIndex - 1) * this.limitEx;
+        this.skip = (this.curPageIndex - 1) * this.limit;
 
         //2.calc this.rowsInPage
-        var iTmpRowCount = this.curPageIndex * this.limitEx;
+        var iTmpRowCount = this.curPageIndex * this.limit;
         if (iTmpRowCount <= this.rows.length) {
-          this.rowsInPage = this.rows.slice(this.skip, this.skip + this.limitEx);
+          this.rowsInPage = this.rows.slice(this.skip, this.skip + this.limit);
         }
         else {
           this.rowsInPage = this.rows.slice(this.skip, this.rows.length);
@@ -446,23 +469,45 @@ radioBox: 单选框，不能和checkBox同时存在
         this.$emit("onClickTextIcon", oRow, oCell);
       },
       //endregion
+      //region multiDropdown
+      multiDropdownText(strKeyVal, oRow) {
+        let oCellValue = this.getCellValueByKey(strKeyVal, oRow);
+        let arrRes = [];
+        oCellValue.forEach((oValue) => {
+          if (oValue.selected) {
+            arrRes.push(oValue.value);
+          }
+        });
+        return arrRes.join(",");
+      },
+      onClickMultiDropdown(strKeyVal, oRow) {
+        let oCell = this._getCell(strKeyVal, oRow);
+        let bShow = oCell.showDropdown;
+        this.$set(oCell, "showDropdown", !bShow);
+      },
+      onClickMultiDropdownItem(strKeyVal, oRow, oItem) {
+        let oCell = this._getCell(strKeyVal, oRow);
+        if (!oItem.hasOwnProperty("selected")) {
+          this.$set(oItem, "selected", true);
+        }
+        else {
+          let bSelected = oItem.selected;
+          this.$set(oItem, "selected", !bSelected);
+        }
+        this.$emit("onClickMultiDropdownItem", oRow, oCell, oItem);
+      },
+      multiDropdownPanelBlur(strKeyVal, oRow) {
+        let oCell = this._getCell(strKeyVal, oRow);
+        this.$set(oCell, "showDropdown", false);
+      },
+      //endregion
       //endregion
       //region page
       _resetCurPage() {
-        this.curPageIndex = 1;
+        this.$refs.ref4Paging.resetCurPageIndex();
       },
-      onPreClick: function () {
-        if (this.curPageIndex > 1) {
-          this.curPageIndex -= 1;
-        }
-      },
-      onPageItemClick: function (iCurPage) {
-        this.curPageIndex = iCurPage;
-      },
-      onNextClick: function () {
-        if (this.curPageIndex < this.totalPageCount) {
-          this.curPageIndex += 1;
-        }
+      onPageChange(iPage) {
+        this.curPageIndex = iPage;
       },
       //endregion
       //endregion
@@ -546,6 +591,7 @@ radioBox: 单选框，不能和checkBox同时存在
 </script>
 
 <style scoped>
+
   .gridWrapper {
     width: 100%;
     height: 100%;
@@ -679,6 +725,7 @@ radioBox: 单选框，不能和checkBox同时存在
   }
 
   .gridWrapper .grid tr td .customerSelect:hover {
+    cursor: pointer;
     border: 1px solid #3399ff;
   }
 
@@ -687,9 +734,95 @@ radioBox: 单选框，不能和checkBox同时存在
     background-color: #ffffff;
   }
 
-  .gridWrapper .grid tr td .customerSelectOption:hover {
-    color: #3399ff;
+  .gridWrapper .grid tr .multiDropdown {
+    position: relative;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+  }
+
+  .gridWrapper .grid tr .multiDropdown:hover {
+    cursor: pointer;
+  }
+
+  .options {
+    border-top: 1px solid #ccc;
+    background-color: #ffffff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    width: 100%;
+    z-index: 3;
+    max-height: 400px;
+  }
+
+  .label {
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 15px;
+    height: 16px;
+    box-sizing: border-box;
+  }
+
+  .label:before {
+    position: absolute;
+    font-size: 12px;
+    top: 0px;
+    right: 0px;
+  }
+
+  .options .optionItem {
+    height: 32px;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0 25px 0 15px;
+    background-color: #fff;
+    white-space: nowrap;
+    color: #333;
+    font-size: 14px;
+    line-height: 32px;
+  }
+
+  .options .optionItem:hover {
     background-color: #f5f6f7;
+    color: #3399ff;
+  }
+
+  .options .mouseDown {
+    background-color: #3399ff !important;
+    color: #fff !important;
+  }
+
+  .dark .options {
+    border-top: 1px solid #8b90b3;
+    background-color: #1e1f36;
+  }
+
+  .dark .options .optionItem {
+    background-color: #1e1f36;
+    color: #ffffff;
+  }
+
+  .dark .options .optionItem:hover {
+    background-color: #66b3ff;
+    color: #fff;
+  }
+
+  .dark .options .mouseDown {
+    background-color: #3399ff !important;
+    color: #fff !important;
+  }
+
+  /*.gridWrapper .grid tr td .customerSelectOption:hover {*/
+  /*color: #3399ff;*/
+  /*background-color: #f5f6f7;*/
+  /*}*/
+
+  .gridWrapper .grid tr td .multiSelected {
+    background-color: #66b3ff;
   }
 
   .gridWrapper .footArea {
@@ -846,8 +979,12 @@ radioBox: 单选框，不能和checkBox同时存在
     background-color: #1e1f36;
   }
 
-  .dark .grid tr td .customerSelectOption:hover {
-    color: #ffffff;
+  /*.dark .grid tr td .customerSelectOption:hover {*/
+  /*color: #ffffff;*/
+  /*background-color: #66b3ff;*/
+  /*}*/
+
+  .dark .grid tr td .multiSelected {
     background-color: #66b3ff;
   }
 

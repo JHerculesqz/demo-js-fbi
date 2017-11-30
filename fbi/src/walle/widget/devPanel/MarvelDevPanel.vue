@@ -52,7 +52,7 @@
             url: "static/devPanel/image/dev1.svg",
           },
           "SXL_1": {
-            url: "image/dev2.svg",
+            url: "static/devPanel/image/dev2.svg",
           },
         };
         this.m_oMarvelDevPanel.init(oOptions);
