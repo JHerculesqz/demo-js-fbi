@@ -9,6 +9,7 @@ gridId: 表格控件实例的唯一标识
 activeColor：行的激活颜色，默认值#395297
 editCellFinished: 可编辑单元格编辑完成后的回调
 sortRowsFunc: 自定义排序的回调，不传的话，按照默认的规则排序
+canDrag: 是否可以拖拽列
 2.支持的列的类型
 text: 纯文本
 input: 可编辑文本
@@ -17,8 +18,11 @@ textIcon：带文字的可点击图表，一个单元格中只能有一个
 dropdown：下拉选项
 checkBox：多选框，不能和radioBox同时存在
 radioBox: 单选框，不能和checkBox同时存在
+multiDropdown：下拉框多选，支持度不好，待优化
 3.支持列的排序
 在表头列中增加"orderBy: true"表示这一列支持排序
+4.支持列的拖拽功能
+规则：canDrag=true的情况下，列的宽度必须是"200px"的形式不能是百分比的形式
 -->
 <template>
   <div class="gridWrapper" :class="[theme]">
@@ -40,10 +44,13 @@ radioBox: 单选框，不能和checkBox同时存在
                 </div>
                 <div v-else-if="title.type == 'radioBox'">
                 </div>
-                <div v-else :class="{canClick: title.orderBy === true}" @click.stop="onClickTitle(title)">
+                <div v-else :class="{canClick: title.orderBy === true}"
+                     @click.stop="onClickTitle(title)">
                   <span v-html="title.label"></span>
                   <span v-if="showOrderBy(title)" :class="orderByClass(title)"></span>
                 </div>
+                <div v-if="canDrag" class="title-resize"
+                     @mousedown="onResizeMouseDown(title, $event)"></div>
               </th>
             </template>
           </template>
@@ -147,6 +154,7 @@ radioBox: 单选框，不能和checkBox同时存在
 
 <script>
   import MarvelPaging from "../paging/MarvelPaging"
+  import _ from "lodash"
 
   export default {
     components: {
@@ -167,7 +175,11 @@ radioBox: 单选框，不能和checkBox同时存在
         default: "#395297" //浅色 #c6e3ff
       },
       editCellFinished: Function,
-      sortRowsFunc: Function
+      sortRowsFunc: Function,
+      canDrag: {
+        type: Boolean,
+        default: false
+      }
     },
     data: function () {
       return {
@@ -183,16 +195,23 @@ radioBox: 单选框，不能和checkBox同时存在
           order: 1 //1表示升序排列，-1表示降序排列
         },
         innerChange: false,
-        isTest: false
+        //region resize
+        bMousedown: false,
+        resizeTitle: undefined,
+        iClientX: 0,
+        //endregion
       }
     },
     created() {
       //预处理数据
       this._preHandleRowData();
       //关闭multipleDropdown的面板
-      document.body.addEventListener("click", () => {
-        this._closeMultipleDropDownPanel();
-      });
+      document.body.addEventListener("click", this._closeMultipleDropDownPanel);
+      //绑定拖动事件
+      if (this.canDrag) {
+        document.body.addEventListener("mousemove", this.onResizeMouseMove);
+        document.body.addEventListener("mouseup", this.onResizeMouseUp);
+      }
     },
     mounted() {
       let oTbody = this.$el.querySelector("tbody");
@@ -296,6 +315,9 @@ radioBox: 单选框，不能和checkBox同时存在
         }
       },
       onClickTitle(oTitle) {
+        if (oTitle.orderBy !== true) {
+          return;
+        }
         //update
         if (this.orderBy.key === oTitle.key) {
           this.orderBy.order = -this.orderBy.order;
@@ -328,6 +350,30 @@ radioBox: 单选框，不能和checkBox同时存在
         });
         //event
         this.$emit("onTitleCheckOrUncheck", isChecked);
+      },
+      onResizeMouseDown(oTitle, oEvent) {
+        if (oTitle.width.indexOf("px") > 0) {
+          this.bMousedown = true;
+          this.resizeTitle = oTitle;
+          this.iClientX = oEvent.clientX;
+        }
+        else {
+          console.log("Need to resize column, the title.width can not be percentages");
+        }
+      },
+      onResizeMouseMove: _.throttle(function (oEvent) {
+        if (this.bMousedown && this.resizeTitle) {
+          let iDstClientX = oEvent.clientX;
+          let iWidth = Number.parseFloat(this.resizeTitle.width);
+          let iTargetWidth = iWidth + (iDstClientX - this.iClientX);
+          iTargetWidth = Math.max(25, iTargetWidth);//限定最小值为25
+          this.resizeTitle.width = iTargetWidth + "px";
+          this.iClientX = iDstClientX;
+        }
+      }, 50),
+      onResizeMouseUp(oEvent) {
+        this.bMousedown = false;
+        this.resizeTitle = undefined;
       },
       //endregion
       //region row
@@ -586,6 +632,14 @@ radioBox: 单选框，不能和checkBox同时存在
       curPageIndex(iNewVal, iOldVal) {
         this._calcRows4Show();
       }
+    },
+    beforeDestroy() {
+      //移除事件
+      document.body.removeEventListener("click", this._closeMultipleDropDownPanel);
+      if (this.canDrag) {
+        document.body.removeEventListener("mousemove", this.onResizeMouseMove);
+        document.body.removeEventListener("mouseup", this.onResizeMouseUp);
+      }
     }
   }
 </script>
@@ -625,7 +679,7 @@ radioBox: 单选框，不能和checkBox同时存在
   }
 
   table thead .gridTitle {
-
+    line-height: 40px;
   }
 
   table thead .canClick:hover {
@@ -667,6 +721,18 @@ radioBox: 单选框，不能和checkBox同时存在
 
   .gridWrapper .grid .gridCont thead tr .titleIcon {
     float: right;
+  }
+
+  .gridWrapper .grid .gridCont thead tr .title-resize {
+    position: absolute;
+    top: 0px;
+    right: -10px;
+    width: 20px;
+    height: 100%;
+  }
+
+  .gridWrapper .grid .gridCont thead tr .title-resize:hover {
+    cursor: ew-resize;
   }
 
   .gridWrapper .grid .gridCont tbody {
@@ -797,7 +863,8 @@ radioBox: 单选框，不能和checkBox同时存在
   }
 
   .dark .options {
-    border-top: 1px solid #8b90b3;
+    border: 1px solid #3399FF;
+    box-shadow: 0px 3px 6px rgba(255, 255, 255, 0.25);
     background-color: #1e1f36;
   }
 

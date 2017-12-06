@@ -1,7 +1,7 @@
 <template>
   <div class="toolbarWrapper" v-bind:class="theme" v-click-outside="hideSubMenu">
       <div class="toolbarItem" v-for="item in items"
-           v-bind:key="item.id">
+           v-bind:key="item.id" v-bind:class="[{dpn: !item.visible},{disable: item.disable}]">
         <div class="toolbarItemLabel" v-on:click="onToolbarItemClick($event, item)">
           <div class="toolbarIcon" v-bind:class="item.icon"></div>
           <div class="toolbarName">{{item.label}}</div>

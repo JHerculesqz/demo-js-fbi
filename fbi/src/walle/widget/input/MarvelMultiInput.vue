@@ -1,36 +1,44 @@
 <template>
   <div class="inputWrapper" v-bind:class="[status, theme, size]"
        v-bind:style="{height: height + 'px'}">
-    <textarea :placeholder="placeHolder" v-model="inputMsg"></textarea>
+    <textarea :placeholder="placeHolder"
+              v-model="inputMsg"
+              @input="onInput"></textarea>
   </div>
 </template>
 
 <script>
+  import _ from "lodash"
+
   export default {
     name: 'MarvelMultiInput',
     props: ["status", "placeHolder", "theme", "size", "height"],
-    data: function() {
-        return {
-          inputMsg: ""
-        }
+    data: function () {
+      return {
+        inputMsg: ""
+      }
     },
     methods: {
-      setInputMsg: function(strInputMsg){
+      setInputMsg: function (strInputMsg) {
         this.inputMsg = strInputMsg;
       },
-      getInputMsg: function(){
+      getInputMsg: function () {
         return this.inputMsg;
-      }
+      },
+      onInput: _.debounce(function (event) {
+        this.$emit("onInput", this.inputMsg);
+      }, 1000)
     }
   }
 </script>
 
 <style scoped>
-  .inputWrapper{
+  .inputWrapper {
     width: 100%;
     height: 100%;
   }
-  .inputWrapper textarea{
+
+  .inputWrapper textarea {
     padding: 0 10px;
     height: 100%;
     width: 100%;
@@ -43,34 +51,36 @@
     color: #333;
     background-color: transparent;
   }
-  .inputWrapper textarea:hover, .inputWrapper textarea:focus{
+
+  .inputWrapper textarea:hover, .inputWrapper textarea:focus {
     border: 1px solid #3399ff;
   }
 
-
-  .error textarea{
+  .error textarea {
     border: 1px solid #ff4c4c !important;
   }
 
-  .disable textarea{
+  .disable textarea {
     background-color: #f0f0f0;
     pointer-events: none;
   }
 
-  .dark{
+  .dark {
 
   }
-  .dark textarea{
+
+  .dark textarea {
     border: 1px solid #8b90b3;
     font-size: 14px;
     color: #8b90b3;
   }
-  .dark textarea:hover, .dark textarea:focus{
+
+  .dark textarea:hover, .dark textarea:focus {
     border: 1px solid #3dcca6;
     box-shadow: none;
   }
 
-  .mini textarea{
+  .mini textarea {
     height: 32px;
     line-height: 22px;
     font-size: 12px;

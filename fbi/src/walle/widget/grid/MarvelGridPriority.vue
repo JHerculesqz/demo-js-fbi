@@ -1,10 +1,14 @@
 <template>
   <div class="marvelGridPriorityWrapper" v-bind:class="themeClass">
     <div class="priorityLeftPart">
+      <div class="priorityTitle">{{title}}</div>
       <div class="priorityItem"
            v-for="(item, index) in list"
            v-on:click="onClickItem(item, index)"
-           v-bind:class="{isSelected:currentSelectItemIndex == index}">{{item.name}}</div>
+           v-bind:class="{isSelected:currentSelectItemIndex == index}">
+        <div class="priorityItemIndex">{{index}}</div>
+        <div class="priorityItemName">{{item.name}}</div>
+      </div>
     </div>
     <div class="priorityRightPart">
       <div class="changePriorityBtns">
@@ -21,7 +25,7 @@
   export default {
     components: {},
     name: 'MarvelGridPriority',
-    props: ["list", "theme"],
+    props: ["title", "list", "theme"],
     data: function () {
       return {
         themeClass:"",
@@ -100,6 +104,7 @@
   .themeNormal{
     --MarvelGridPriorityBorderColor:#d5d5d5;
     --MarvelGridPriorityBgColor:#ffffff;
+    --MarvelGridPriorityTitleColor:#4d4d4d;
     --MarvelGridPriorityFontColor:#666666;
     --MarvelGridPriorityBtnBgColor:#3399ff;
   }
@@ -107,6 +112,7 @@
   .themeDark{
     --MarvelGridPriorityBorderColor:#8b90b3;
     --MarvelGridPriorityBgColor:#1e1f36;
+    --MarvelGridPriorityTitleColor:#ffffff;
     --MarvelGridPriorityFontColor:#8b90b3;
     --MarvelGridPriorityBtnBgColor:#3dcca6;
   }
@@ -126,24 +132,52 @@
     box-sizing: border-box;
     overflow-y: auto;
   }
-
-  .priorityItem{
+  .priorityTitle{
     height: 32px;
     line-height: 32px;
-    font-size: 14px;
+    font-size: 16px;
     padding: 0 10px;
     box-sizing: border-box;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     border-bottom: 1px dashed var(--MarvelGridPriorityBorderColor);
+    color: var(--MarvelGridPriorityTitleColor);
+    text-align: center;
+  }
+  .priorityItem{
+    height: 32px;
+    border-bottom: 1px dashed var(--MarvelGridPriorityBorderColor);
+  }
+  .priorityItemIndex{
+    width: 40px;
+    height: 100%;
+    float: left;
+    border-right: 1px dashed var(--MarvelGridPriorityBorderColor);
+    text-align: center;
+    line-height: 32px;
+    font-size: 14px;
+    color: var(--MarvelGridPriorityFontColor);
+  }
+  .priorityItemName{
+    width: calc(100% - 42px);
+    height: 100%;
+    float: left;
+    padding: 0 10px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 32px;
+    font-size: 14px;
     color: var(--MarvelGridPriorityFontColor);
   }
 
   .isSelected{
     background-color: var(--MarvelGridPriorityBtnBgColor);
-    color: #ffffff;
   }
+  .isSelected .priorityItemIndex{color: #ffffff;}
+  .isSelected .priorityItemName{color: #ffffff;}
 
   .priorityRightPart{
     width: 46px;

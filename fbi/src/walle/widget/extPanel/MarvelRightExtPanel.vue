@@ -59,6 +59,13 @@
           this.bIsDragging = false;
           this.iBasicWidth = this.iWidth;
         }
+      },
+      expand:function(bIsExpand){
+        if(bIsExpand){
+          this.showEx = true;
+        }else{
+          this.showEx = false;
+        }
       }
     },
     mounted:function(){

@@ -59,6 +59,13 @@
           this.bIsDragging = false;
           this.iBasicHeight = this.iHeight;
         }
+      },
+      expand:function(bIsExpand){
+        if(bIsExpand){
+          this.showEx = true;
+        }else{
+          this.showEx = false;
+        }
       }
     },
     mounted:function(){
