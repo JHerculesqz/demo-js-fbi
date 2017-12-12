@@ -12,7 +12,16 @@
 
         this.m_oOptions = {
             "GK_1000": {
-                plugin: new $.MarvelDevPanel_1()
+                plugin: new $.MarvelDevPanel_3()
+            },
+            "Raycus_6000": {
+                plugin: new $.MarvelDevPanel_3()
+            },
+            "Raycus_12000": {
+                plugin: new $.MarvelDevPanel_4()
+            },
+            "Raycus_2000": {
+                plugin: new $.MarvelDevPanel_5()
             },
             "SXL_1": {
                 plugin: new $.MarvelDevPanel_2()

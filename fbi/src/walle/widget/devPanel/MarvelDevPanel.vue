@@ -48,11 +48,20 @@
               self._onContextMenuClickBD(oBD, iX, iY);
             },
           },
-          "GK_1000": {
-            url: "static/devPanel/image/dev1.svg",
-          },
           "SXL_1": {
             url: "static/devPanel/image/dev2.svg",
+          },
+          "GK_1000": {
+            url: "static/devPanel/image/dev3.svg",
+          },
+          "Raycus_6000": {
+            url: "static/devPanel/image/dev3.svg",
+          },
+          "Raycus_12000": {
+            url: "static/devPanel/image/dev4.svg",
+          },
+          "Raycus_2000": {
+            url: "static/devPanel/image/dev5.svg",
           },
         };
         this.m_oMarvelDevPanel.init(oOptions);

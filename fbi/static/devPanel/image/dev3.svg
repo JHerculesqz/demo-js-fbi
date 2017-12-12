@@ -42,12 +42,8 @@
 				c15.664-0.018,11.789-14.249,17.755-23.304C159.885,24.266,156.555,24.266,153.226,24.266z"/>
 		</g>
 	</g>
-	<polyline fill="none" stroke="#01488C" stroke-width="4" stroke-miterlimit="10" points="-0.218,644.602 497.36,644.602
+	<polyline fill="none" stroke="#01488C" stroke-width="4" stroke-miterlimit="10" points="-0.218,644.602 497.36,644.602 
 		515.525,629.602 729.782,629.602 	"/>
-	<g>
-
-			<text transform="matrix(1 0 0 1 581.8674 650.6023)" fill="#02478D" font-family="'PingFangHK-Regular-83pv-RKSJ-H'" font-size="18">RFL-C6000</text>
-	</g>
 	<rect x="427.294" y="414.101" fill="#DDDDDD" width="280.489" height="123.921"/>
 	<text transform="matrix(1 0 0 1 401.7821 483.5972)" fill="#FFFFFF" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">6</text>
 	<rect x="427.294" y="279.607" fill="#DDDDDD" width="280.489" height="123.921"/>
