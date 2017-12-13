@@ -1,5 +1,5 @@
 <template>
-  <div :id="id"></div>
+  <div :id="id" class="panel"></div>
 </template>
 
 <script>
@@ -79,5 +79,8 @@
 </script>
 
 <style scoped>
-
+  .panel {
+    width: 100%;
+    height: 100%;
+  }
 </style>
