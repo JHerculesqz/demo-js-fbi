@@ -46,7 +46,7 @@
         //region topo
 
         this.init = function (strId, iX, iY, iZoom4Init, oOptions, oEventOptions, oGis) {
-            oGis.Stage.init(strId, iX, iY, iZoom4Init, oOptions, oEventOptions);
+            oGis.Stage.init(strId, iX, iY, iZoom4Init, oOptions, oEventOptions, oGis);
         };
 
         this.draw = function (oTopoData, oGis) {
@@ -132,6 +132,11 @@
         this.delAttachedIcon4Marker = function(strId, oGis){
             oGis.Sprite.Node.delAttachedIcon4Marker(strId, oGis);
         };
+        
+        this.createMarker = function(oBuObj, oAfterCallback, oGis){
+            oGis.Sprite.Node.createMarker(oBuObj, oAfterCallback, oGis);
+        };
+        
         //endregion
 
         //region circle

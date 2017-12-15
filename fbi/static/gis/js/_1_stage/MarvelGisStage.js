@@ -1,12 +1,13 @@
-(function($){
-    $.MarvelGisStage = function() {
+(function ($) {
+    $.MarvelGisStage = function () {
         var self = this;
 
         //region Const
 
         var URL_GIS_MAP = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={token}';
         var URL_GIS_MAP2 = "https://api.mapbox.com/styles/v1/jherculesqz/cj99csbwi2bzy2qp3mhtqcrkx/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamhlcmN1bGVzcXoiLCJhIjoiY2o4anNybjZqMDZnczMybXZxaHNhMDRlMyJ9.fR2DM7aypSp8q4AxE6uL5w";
-
+        this.MODEL_EMPTY = "";
+        this.MODEL_CREATE_MARK = "createMark";
         //endregion
 
         //region Fields
@@ -14,30 +15,41 @@
         this.mapObj;
         this.eventHandler = {
             //region Stage
-            callbackOnZoom: function(e){},
-            callbackOnClick: function(e){},
-            callbackOnContextmenu: function(e){},
+            callbackOnZoom: function (e) {
+            },
+            callbackOnClick: function (e) {
+            },
+            callbackOnContextmenu: function (e) {
+            },
             //endregion
             //region node
-            callbackOnNodeDblClick: function(e){},
-            callbackOnNodeDrag: function(e){},
-            callbackOnNodeClick: function(e){},
-            callbackOnCircleDblclick: function(e){},
-            callbackOnNodeContextMenu: function (e) {},
+            callbackOnNodeDblClick: function (e) {
+            },
+            callbackOnNodeDrag: function (e) {
+            },
+            callbackOnNodeClick: function (e) {
+            },
+            callbackOnCircleDblclick: function (e) {
+            },
+            callbackOnNodeContextMenu: function (e) {
+            },
             //endregion
             //region nodeGroup
-            callbackOnNodeGroupClick: function(e){},
+            callbackOnNodeGroupClick: function (e) {
+            },
             //endregion
             //region link
-            callbackOnLinkClick: function(e){},
+            callbackOnLinkClick: function (e) {
+            },
             //endregion
         };
+        var model = self.MODEL_EMPTY;
         //endregion
 
         //region init
 
-        this.init = function(strId, iX, iY, iZoom4Init, oOptions, eventOptions){
-            if(oOptions.indoorMap){
+        this.init = function (strId, iX, iY, iZoom4Init, oOptions, eventOptions, oGis) {
+            if (oOptions.indoorMap) {
                 //region 0.init mapObj
                 self.mapObj = L.map(strId, {
                     attributionControl: false,
@@ -67,7 +79,7 @@
                 _onContextMenu();
                 //endregion
             }
-            else{
+            else {
                 //region 0.init tileLayer
                 var oTileLayer1 = L.tileLayer(oOptions.mapUrl, {
                     attribution: "",
@@ -89,7 +101,7 @@
                     zoom: iZoom4Init,
                     worldCopyJump: true,
                     doubleClickZoom: false,
-                    layers:[oTileLayer1]
+                    layers: [oTileLayer1]
                 });
                 self.mapObj.doubleClickZoom.disable();
                 self._ctrlScale();
@@ -104,6 +116,16 @@
                 _onZoom();
                 _onClick();
                 _onContextMenu();
+                //region mouse
+                _onMouseOver(oGis);
+                _onMouseDown(oGis);
+                _onMouseOut(oGis);
+                _onMouseMove(oGis);
+                //endregion
+                //region 快捷键
+                _initEventEscPress(oGis);
+                //endregion
+
                 //endregion
             }
         };
@@ -120,7 +142,7 @@
             }).addTo(this.mapObj);
         };
         this._ctrlPrint = function (oOptions, oTileLayer) {
-            if(oOptions.export){
+            if (oOptions.export) {
                 L.easyPrint({
                     tileLayer: oTileLayer,
                     sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
@@ -131,7 +153,7 @@
             }
         };
         this._ctrlMessure = function (oOptions) {
-            if(oOptions.mess){
+            if (oOptions.mess) {
                 L.control.polylineMeasure({
                     position: 'topleft',                    // Position to show the control. Possible values are: 'topright', 'topleft', 'bottomright', 'bottomleft'
                     unit: 'metres',                         // Show imperial or metric distances. Values: 'metres', 'landmiles', 'nauticalmiles'
@@ -187,7 +209,7 @@
             }
         };
         this._ctrlPM = function (oOptions) {
-            if(oOptions.pm){
+            if (oOptions.pm) {
                 this.mapObj.pm.addControls({
                     drawMarker: true,  // adds button to draw markers
                     drawPolyline: true,  // adds button to draw a polyline
@@ -207,32 +229,97 @@
 
         //region event
 
-        var _onZoom = function(){
-            self.mapObj.on("zoomend", function(e){
+        var _onZoom = function () {
+            self.mapObj.on("zoomend", function (e) {
                 self.eventHandler.callbackOnZoom(e);
             });
         };
-        var _onClick = function(){
-            self.mapObj.on('click', function(e) {
+        var _onClick = function () {
+            self.mapObj.on('click', function (e) {
                 self.eventHandler.callbackOnClick(e);
             });
         };
         var _onContextMenu = function () {
-            self.mapObj.on('contextmenu', function(e){
+            self.mapObj.on('contextmenu', function (e) {
                 self.eventHandler.callbackOnContextmenu(e);
+            });
+        };
+
+        //region mouse
+        var _onMouseOver = function (oGis) {
+            self.mapObj.on('mouseover', function (e) {
+                if (model == self.MODEL_CREATE_MARK) {
+                    oGis.Sprite.Node.stageEventMouseOver(e, oGis);
+                }
+                else if (model == self.MODEL_EMPTY) {
+
+                }
+            });
+        };
+        var _onMouseDown = function (oGis) {
+            self.mapObj.on('mousedown', function (e) {
+                if (model == self.MODEL_CREATE_MARK) {
+                    oGis.Sprite.Node.stageEventMouseDown(e, oGis);
+                }
+                else if (model == self.MODEL_EMPTY) {
+
+                }
+            });
+        };
+        var _onMouseOut = function (oGis) {
+            self.mapObj.on('mouseout', function (e) {
+                if (model == self.MODEL_CREATE_MARK) {
+                    oGis.Sprite.Node.stageEventMouseOut(e, oGis);
+                }
+                else if (model == self.MODEL_EMPTY) {
+
+                }
+            });
+        };
+        var _onMouseMove = function (oGis) {
+            self.mapObj.on('mousemove', function (e) {
+                if (model == self.MODEL_CREATE_MARK) {
+                    oGis.Sprite.Node.stageEventMouseMove(e, oGis);
+                }
+                else if (model == self.MODEL_EMPTY) {
+
+                }
+            });
+        };
+        //endregion
+
+        //region 快捷键
+
+        var _initEventEscPress = function(oGis){
+            keyboardJS.bind('esc', function (e) {
+                //down
+                if (model === self.MODEL_CREATE_MARK) {
+                    oGis.Sprite.Node.eventEscPress(e, oGis);
+                }
+                else if(model == self.MODEL_EMPTY){
+
+                }
+            }, function (e) {
+                //up
             });
         };
 
         //endregion
 
+        //endregion
+
         //region imsg
 
-        this.setCenter = function(iX, iY, iZoom4Init){
+        this.setCenter = function (iX, iY, iZoom4Init) {
             self.mapObj.setView([iX, iY], iZoom4Init);
         };
 
-        this.showOrHide = function(bIsShow){
+        this.showOrHide = function (bIsShow) {
             // self.isShow = bIsShow ? "block":"none";
+        };
+
+        this.updateModel = function (strModel) {
+            model = strModel;
         };
 
         //endregion

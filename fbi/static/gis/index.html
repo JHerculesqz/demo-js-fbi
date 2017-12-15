@@ -18,6 +18,7 @@
             src="lib/plugins/leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
     <link type="text/css" rel="stylesheet" href="lib/plugins/leaflet.pm/leaflet.pm.css"/>
     <script type="application/javascript" src="lib/plugins/leaflet.pm/leaflet.pm.min.js"></script>
+    <script type="application/javascript" src="lib/keyboard.min.js"></script>
     <script type="application/javascript" src="js/_1_stage/MarvelGisStage.js"></script>
     <script type="application/javascript" src="js/_2_layer/MarvelGisLayer.js"></script>
     <script type="application/javascript" src="js/_3_sprite/MarvelGisSprite.js"></script>
@@ -234,33 +235,33 @@
             //init
             var eventOptions = {
                 //region Stage
-                callbackOnZoom: function(e){
+                callbackOnZoom: function (e) {
                     console.log("callbackOnZoom");
                     console.log(e);
                 },
-                callbackOnClick: function(e){
+                callbackOnClick: function (e) {
                     console.log("callbackOnClick");
                     console.log(e);
                 },
-                callbackOnContextmenu: function(e){
+                callbackOnContextmenu: function (e) {
                     console.log("callbackOnContextmenu");
                     console.log(e);
                 },
                 //endregion
                 //region node
-                callbackOnNodeDblClick: function(e){
+                callbackOnNodeDblClick: function (e) {
                     console.log("callbackOnNodeDblClick");
                     console.log(e);
                 },
-                callbackOnNodeDrag: function(e){
+                callbackOnNodeDrag: function (e) {
                     console.log("callbackOnNodeDrag");
                     console.log(e);
                 },
-                callbackOnNodeClick: function(e){
+                callbackOnNodeClick: function (e) {
                     console.log("callbackOnNodeClick");
                     console.log(e);
                 },
-                callbackOnCircleDblclick: function(e){
+                callbackOnCircleDblclick: function (e) {
                     console.log("callbackOnCircleDblclick");
                     console.log(e);
                 },
@@ -270,13 +271,13 @@
                 },
                 //endregion
                 //region nodeGroup
-                callbackOnNodeGroupClick: function(e){
+                callbackOnNodeGroupClick: function (e) {
                     console.log("callbackOnNodeGroupClick");
                     console.log(e);
                 },
                 //endregion
                 //region link
-                callbackOnLinkClick: function(e){
+                callbackOnLinkClick: function (e) {
                     console.log("callbackOnLinkClick");
                     console.log(e);
                 },
@@ -389,13 +390,13 @@
             $("#oTest4Line3").click(function () {
                 oGis.Api.setColor4Link("link1", "green", oGis);
             });
-            $("#oTest4AttachedIcon").click(function(){
+            $("#oTest4AttachedIcon").click(function () {
                 oGis.Api.addAttachedIcon4Marker("marker1", "./lib/images/location-01.svg", oGis);
-                setTimeout(function(){
+                setTimeout(function () {
                     oGis.Api.delAttachedIcon4Marker("marker1", oGis);
                 }, 2000);
             });
-            $("#oTest4Polygon").click(function(){
+            $("#oTest4Polygon").click(function () {
                 oGis.Api.addPolygon("polygon2", [
                     [51.50286581276557, -0.10449886322021486],
                     [51.49931274551157, -0.10814666748046876],
@@ -418,13 +419,32 @@
                     uiTips: "polygon2"
                 }, oGis);
             });
-            $("#oTest4Polygon2").click(function(){
+            $("#oTest4Polygon2").click(function () {
                 oGis.Api.delPolygon("polygon2", oGis);
             });
-            $("#oTest4Topo").click(function(){
+            $("#oTest4Topo").click(function () {
                 var oTopoData = oGis.Api.getTopoData(oGis);
                 console.log("TopoCache is ");
                 console.log(oTopoData);
+            });
+            var createMarkerId = "createMarkerId1";
+            $("#oTest4CreateMarker").click(function () {
+                oGis.Api.createMarker({
+                    id: createMarkerId,
+                    x: 51.5,
+                    y: -0.08,
+                    uiType: "ne",
+                    uiImgUrl: "lib/images/node1.svg",
+                    uiImgWidth: 32,
+                    uiLabel: createMarkerId,
+                    uiTips: "<b>marker3</b><br>22",
+                    uiDraggable: true,
+                    uiOpacity: 1
+                }, function (bSuccessful, oBuObj) {
+                    console.log("createMarker: " + bSuccessful);
+                }, oGis);
+
+                createMarkerId += 1;
             });
             //endregion
 
@@ -434,33 +454,33 @@
             //init
             var eventOptions2 = {
                 //region Stage
-                callbackOnZoom: function(e){
+                callbackOnZoom: function (e) {
                     console.log("callbackOnZoom");
                     console.log(e);
                 },
-                callbackOnClick: function(e){
+                callbackOnClick: function (e) {
                     console.log("callbackOnClick");
                     console.log(e);
                 },
-                callbackOnContextmenu: function(e){
+                callbackOnContextmenu: function (e) {
                     console.log("callbackOnContextmenu");
                     console.log(e);
                 },
                 //endregion
                 //region node
-                callbackOnNodeDblClick: function(e){
+                callbackOnNodeDblClick: function (e) {
                     console.log("callbackOnNodeDblClick");
                     console.log(e);
                 },
-                callbackOnNodeDrag: function(e){
+                callbackOnNodeDrag: function (e) {
                     console.log("callbackOnNodeDrag");
                     console.log(e);
                 },
-                callbackOnNodeClick: function(e){
+                callbackOnNodeClick: function (e) {
                     console.log("callbackOnNodeClick");
                     console.log(e);
                 },
-                callbackOnCircleDblclick: function(e){
+                callbackOnCircleDblclick: function (e) {
                     console.log("callbackOnCircleDblclick");
                     console.log(e);
                 },
@@ -470,13 +490,13 @@
                 },
                 //endregion
                 //region nodeGroup
-                callbackOnNodeGroupClick: function(e){
+                callbackOnNodeGroupClick: function (e) {
                     console.log("callbackOnNodeGroupClick");
                     console.log(e);
                 },
                 //endregion
                 //region link
-                callbackOnLinkClick: function(e){
+                callbackOnLinkClick: function (e) {
                     console.log("callbackOnLinkClick");
                     console.log(e);
                 },
@@ -525,6 +545,7 @@
 <button id="oTest4Polygon">test4Polygon(addPolygon)</button>
 <button id="oTest4Polygon2">test4Polygon(delPolygon)</button>
 <button id="oTest4Topo">test4Topo(getCache)</button>
+<button id="oTest4CreateMarker">test4CreateMarker</button>
 <div class="gisMap" id="id1"
      style="width: 100%;height: 500px;"></div>
 <div>室内地图</div>

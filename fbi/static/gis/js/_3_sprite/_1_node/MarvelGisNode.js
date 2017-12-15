@@ -3,10 +3,21 @@
      * Marker/Icon/DivIcon/Circle
      */
     $.MarvelGisNode = function () {
-        var self = this;
-
         //region Const
 
+        const STATUS_EMPTY = "";
+        const STATUS_START = "start";
+
+        //endregion
+
+        //region fields
+        var self = this;
+
+        var createMarkData = {
+            status: STATUS_EMPTY,
+            buObj: undefined,
+            callback: undefined
+        };
         //endregion
 
         //region init
@@ -256,6 +267,81 @@
         };
 
         //#endregion
+
+        //region createMarker
+
+        this.createMarker = function (oBuObj, oAfterCallback, oGis) {
+            //updateModel
+            oGis.Stage.updateModel(oGis.Stage.MODEL_CREATE_MARK);
+            //updateCache
+            createMarkData.status = STATUS_START;
+            createMarkData.buObj = oBuObj;
+            createMarkData.callback = oAfterCallback;
+        };
+
+        this.stageEventMouseOver = function (oEvent, oGis) {
+            if (createMarkData.status == STATUS_START) {
+                //updateBuObj x/y
+                createMarkData.buObj.x = oEvent.latlng.lat;
+                createMarkData.buObj.y = oEvent.latlng.lng;
+                //drawMark
+                var oBuObj = createMarkData.buObj;
+                self.addMarker(oBuObj.id, oBuObj.x, oBuObj.y,
+                    oBuObj.uiImgUrl, oBuObj.uiImgWidth,
+                    oBuObj, oGis);
+            }
+        };
+
+        this.stageEventMouseDown = function (oEvent, oGis) {
+            if (createMarkData.status == STATUS_START) {
+                //updatePos
+                _updateMarkerPos(oEvent, oGis);
+                //createMarkerEnd
+                _createMarkerEnd(true, oGis);
+            }
+        };
+
+        var _createMarkerEnd = function (bSuccessful, oGis) {
+            //updateModel
+            oGis.Stage.updateModel(oGis.Stage.MODEL_EMPTY);
+            //callback
+            if (typeof createMarkData.callback == "function") {
+                createMarkData.callback(bSuccessful, createMarkData.buObj);
+            }
+            //updateCache
+            createMarkData.status = STATUS_EMPTY;
+            createMarkData.buObj = undefined;
+            createMarkData.callback = undefined;
+        };
+
+        this.stageEventMouseOut = function (oEvent, oGis) {
+            if (createMarkData.status == STATUS_START) {
+                self.delMarker(createMarkData.buObj.id, oGis);
+            }
+        };
+
+        this.stageEventMouseMove = function (oEvent, oGis) {
+            if (createMarkData.status == STATUS_START) {
+                _updateMarkerPos(oEvent, oGis);
+            }
+        };
+
+        var _updateMarkerPos = function (oEvent, oGis) {
+            var iX = oEvent.latlng.lat;
+            var iY = oEvent.latlng.lng;
+            self.setPos4Marker(createMarkData.buObj.id, iX, iY, oGis);
+        };
+
+        this.eventEscPress = function (oEvent, oGis) {
+            if (createMarkData.status == STATUS_START) {
+                //删除
+                self.delMarker(createMarkData.buObj.id, oGis);
+                //createMarkerEnd
+                _createMarkerEnd(false, oGis);
+            }
+        };
+
+        //endregion
 
         //endregion
 
