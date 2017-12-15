@@ -59,10 +59,11 @@
 </script>
 
 <style scoped>
+
   .userInfoWrapper {
     height: 100%;
     position: relative;
-    background-color: #1a1827;
+    background-color: #ffffff;
   }
 
   .userInfoWrapper .userInfoLabel {
@@ -108,13 +109,13 @@
     overflow: hidden;
     background-color: transparent;
     border-radius: 0;
-    color: #ffffff;
+    color: #333;
   }
 
   .userInfoWrapper .userInfoLabel .labelText {
     float: left;
     height: 100%;
-    color: #ffffff;
+    color: #333;
     line-height: 60px;
     font-size: 12px;
     margin-right: 8px;
@@ -139,12 +140,12 @@
     width: 0;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
-    border-bottom: 5px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 5px solid #f0f0f0;
     margin: 0 auto;
   }
 
   .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont {
-    background-color: #101a35;
+    background-color: #f0f0f0;
     padding: 9px;
   }
 
@@ -166,7 +167,7 @@
     display: inline-block;
     height: 18px;
     width: 18px;
-    color: #ffffff;
+    color: #666666;
   }
 
   .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemName {
@@ -176,8 +177,59 @@
     height: 18px;
     line-height: 18px;
     font-size: 12px;
-    color: #ffffff;
+    color: #666666;
     white-space: nowrap;
   }
+
+  /*region dark theme*/
+
+  .dark .userInfoWrapper {
+    background-color: #1a1827;
+  }
+
+  .dark .userInfoWrapper .userInfoLabel .labelIcon:before {
+    background-color: #e6e6e6;
+    color: #c4c4c4;
+  }
+
+  .dark .userInfoWrapper .userInfoLabel .hasNoBgColor:before {
+    color: #ffffff;
+  }
+
+  .dark .userInfoWrapper .userInfoLabel .labelText {
+    float: left;
+    height: 100%;
+    color: #ffffff;
+  }
+
+  .dark .userInfoWrapper .userInfoLabel .labelDropDownIcon {
+    border-top: 5px solid #cccccc;
+  }
+
+  .dark .userInfoWrapper .userInfoSubMenu {
+  }
+
+  .dark .userInfoWrapper .userInfoSubMenu .topTriangle {
+    border-bottom: 5px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont {
+    background-color: #101a35;
+  }
+
+  .dark .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem:hover {
+    background-color: rgba(61, 204, 166, 0.6);
+    border: 1px solid #3dcaa6;
+  }
+
+  .dark .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemIcon {
+    color: #ffffff;
+  }
+
+  .dark .userInfoWrapper .userInfoSubMenu .userInfoSubMenuCont .userInfoSubMenuItem .userInfoSubMenuItemName {
+    color: #ffffff;
+  }
+
+  /*endregion*/
 
 </style>

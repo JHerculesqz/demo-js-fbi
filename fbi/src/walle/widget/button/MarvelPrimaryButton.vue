@@ -73,4 +73,27 @@
     background-color: #aaa;
     pointer-events: none;
   }
+
+  /*region dark theme*/
+
+  .dark .primaryBtn{
+    color: #fff;
+    background-color: #3dcca6;
+    border-radius: 32px;
+  }
+  .dark .primaryBtn:hover{
+    background-color: #45e0b7;
+  }
+  .dark .mouseDown{
+    background-color: #2eb08d !important;
+  }
+  .dark .focus{
+    background-color: #2eb08d;
+  }
+  .dark .disable{
+    background-color: #075641;
+    pointer-events: none;
+  }
+
+  /*endregion*/
 </style>

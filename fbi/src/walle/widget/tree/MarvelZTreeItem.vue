@@ -185,8 +185,6 @@
     padding-left: 16px;
   }
 
-  .dark {
-  }
 
   .dark .treeItemIcon {
     color: #FFFFFF;

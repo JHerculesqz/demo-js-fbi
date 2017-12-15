@@ -29,26 +29,44 @@
 </script>
 
 <style scoped>
+
   .btn {
     height: 22px;
     line-height: 22px;
     float: left;
-    color: #a7abbe;
+    color: #333;
     font-size: 14px;
     cursor: pointer;
-    border: 0.4px dashed #a7abbe;
+    border: 0.4px dashed #cccccc;
     margin-right: 20px;
     padding: 0 10px;
   }
   .btn:hover {
-    color: #3dcaa6;
+    color: #3399ff;
   }
   .btn:last-child{
     margin-right: 0;
   }
   .active {
+    border: 0.4px solid #3399ff;
+    color: #333;
+    background-color: rgba(51, 153, 255, 0.2);
+  }
+
+  /*region dark theme*/
+
+  .dark .btn {
+    color: #a7abbe;
+    border: 0.4px dashed #a7abbe;
+  }
+  .dark .btn:hover {
+    color: #3dcaa6;
+  }
+  .dark .active {
     border: 0.4px solid #3dcaa6;
     color: #fff;
     background-color: rgba(61, 202, 166, 0.2);
   }
+
+  /*endregion*/
 </style>

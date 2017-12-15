@@ -1,7 +1,7 @@
 <template>
-  <div class="toolbarWrapper" v-bind:class="theme" v-click-outside="hideSubMenu">
+  <div class="toolbarWrapper" v-click-outside="hideSubMenu">
       <div class="toolbarItem" v-for="item in items"
-           v-bind:key="item.id" v-bind:class="[{dpn: !item.visible},{disable: item.disable}]">
+           v-bind:key="item.id" v-bind:class="[{dpn: item.visible === false},{disable: item.disable === true}]">
         <div class="toolbarItemLabel" v-on:click="onToolbarItemClick($event, item)">
           <div class="toolbarIcon" v-bind:class="item.icon"></div>
           <div class="toolbarName">{{item.label}}</div>
@@ -24,7 +24,7 @@
 <script>
   export default {
     name: 'MarvelToolbar',
-    props: ['items', 'theme'],
+    props: ['items'],
     data: function(){
       return {
         selectItem:{label:"",icon:""}
@@ -161,8 +161,8 @@
   color: #999;
 }
 
-.dark{}
-.dark .toolbarItem{}
+
+/*region dark theme*/
 .dark .toolbarItem .toolbarItemLabel .toolbarIcon{
   color: #3dcca6;
 }
@@ -172,6 +172,10 @@
 .dark .toolbarItem:hover{
   border: 1px solid #3dcca6;
   background-color: rgba(61, 204, 166, 0.2);
+}
+.toolbarWrapper .toolbarItem .toolbarCustomSubPanel{
+  background-color: #000000;
+  box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
 }
 .dark .toolbarItem .toolbarSubMenu{
   background-color: #000000;
@@ -197,4 +201,6 @@
 .dark .disable .toolbarItemLabel .toolbarName{
   color: #999;
 }
+
+/*endregion*/
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="gridWrapper" v-bind:class="[theme]">
+  <div class="gridWrapper">
     <div class="grid" v-bind:class="{ empty: 0 == rows.length }">
       <table class="gridCont" cellspacing="0" cellpadding="0" border="0">
         <thead>
@@ -95,7 +95,7 @@
   export default {
     components: {MarvelCheckBox},
     name: 'MarvelGrid',
-    props: ["titles", "rows", "limit", "theme","inputMsgs","gridId"],
+    props: ["titles", "rows", "limit","inputMsgs","gridId"],
     data: function() {
       return {
         totalPageCount: 1,
@@ -285,7 +285,7 @@
     position: relative;
     border-bottom: 1px solid #ffffff;
     border-right: 1px solid #ffffff;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
   }
@@ -395,7 +395,9 @@
     font-size: 12px;
   }
 
-  .dark{
+  /*region dark theme*/
+
+  .dark .gridWrapper{
     background-color: #161C36;
   }
   .dark .grid{}
@@ -472,6 +474,8 @@
   .dark .footArea .foot .text{
     color: #ffffff;
   }
+
+  /*endregion*/
 
   /*sl start*/
   /*check start*/
@@ -686,7 +690,9 @@
     background-color: #f0f0f0;
     pointer-events: none;
   }
-  .dark{
+
+  /*region dark theme*/
+  .dark .inputWrapper{
     background-color: transparent;
   }
   .dark .inputDefault{
@@ -695,6 +701,7 @@
     color: #ffffff;
     background-color: transparent;
   }
+  /*endregion*/
 
   .mini .inputDefault{
     height: 22px;

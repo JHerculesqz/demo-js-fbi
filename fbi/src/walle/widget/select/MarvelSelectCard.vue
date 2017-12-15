@@ -40,6 +40,7 @@
     border-right: 1px solid #ccc;
     cursor: pointer;
     font-size: 14px;
+    color: #333;
   }
   .selectCard .selected{
     background-color: #3399ff !important;
@@ -66,4 +67,27 @@
     line-height: 24px;
     padding: 0 20px;
   }
+
+  /*region dark theme*/
+
+  .dark .selectCard{
+    border: 1px solid #8b90b3;
+    background-color: #17191f;
+  }
+  .dark .selectCard .selectCardItem{
+    border-right: 1px solid #8b90b3;
+    color: #8b90b3;
+  }
+  .dark .selectCard .selected{
+    background-color: #3dcca6 !important;
+    color: #fff !important;
+  }
+  .dark .selectCard .selectCardItem:last-child{
+    border-right: none;
+  }
+  .dark .selectCard .selectCardItem:hover{
+    background-color: #393b70;
+    color: #8b90b3;
+  }
+  /*endregion*/
 </style>

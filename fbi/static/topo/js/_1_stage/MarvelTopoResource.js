@@ -1,5 +1,5 @@
-(function($){
-    $.MarvelTopoResource = function() {
+(function ($) {
+    $.MarvelTopoResource = function () {
         //region const
 
         //endregion
@@ -10,25 +10,21 @@
         this.m_mapImage;
         this.theme = {
             dark: {
-                stage: {
-
-                },
-                node: {
-
-                },
+                stage: {},
+                node: {},
                 link: {
-
+                    linkColor: {
+                        mockLinkKey: "#ff8833"
+                    }
                 }
             },
-            default:{
-                stage: {
-
-                },
-                node: {
-
-                },
+            default: {
+                stage: {},
+                node: {},
                 link: {
-
+                    linkColor: {
+                        mockLinkKey: "#ff8833"
+                    }
                 }
             }
         };
@@ -37,7 +33,7 @@
 
         //region init
 
-        this.init = function(strThemeKey, mapImage, oCustomTheme, oCallbackFinish){
+        this.init = function (strThemeKey, mapImage, oCustomTheme, oCallbackFinish) {
             //region 1.init
 
             this.themeKey = strThemeKey;
@@ -51,8 +47,8 @@
             var iCount = Object.keys(mapImage).length;
 
             //2.2.遍历
-            $.each(mapImage, function(strKey, strImageUrl){
-                _initItem(strKey, strImageUrl, function() {
+            $.each(mapImage, function (strKey, strImageUrl) {
+                _initItem(strKey, strImageUrl, function () {
                     iCount--;
                     if (0 == iCount) {
                         console.log("[MarvelTopoResource.init]finish...");
@@ -70,9 +66,9 @@
             //endregion
         };
 
-        var _initItem = function(strKey, strImageUrl, oCallbackFinish4Item){
+        var _initItem = function (strKey, strImageUrl, oCallbackFinish4Item) {
             var oImage = new Image();
-            oImage.onload = function() {
+            oImage.onload = function () {
                 self.m_mapImage[strKey] = oImage;
                 console.log("[MarvelTopoResource._initItem]" + strKey + " finish...");
                 oCallbackFinish4Item();
@@ -84,7 +80,7 @@
 
         //region getTheme
 
-        this.getTheme = function(){
+        this.getTheme = function () {
             return this.theme[this.themeKey];
         };
 

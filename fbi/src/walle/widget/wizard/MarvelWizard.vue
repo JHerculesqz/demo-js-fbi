@@ -122,4 +122,13 @@
   .wizardsWrapper .complected .decoration .num{
     color: #fff;
   }
+
+  /*region dark theme*/
+  .dark .wizardsWrapper .wizardsItem .name{
+    color:#8b90b3;
+  }
+  .dark .wizardsWrapper .complected .name{
+    color: #3dcca6;
+  }
+  /*endregion*/
 </style>

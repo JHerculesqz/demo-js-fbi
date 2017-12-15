@@ -28,7 +28,7 @@
             });
         };
 
-        var _onMarkClick = function(oMarker, oGis){
+        var _onMarkClick = function (oMarker, oGis) {
             oMarker.on("click", function (e) {
                 oGis.Stage.eventHandler.callbackOnNodeClick(e);
             });
@@ -46,8 +46,8 @@
             });
         };
 
-        var _onPolygonMouseover = function(oPolygon, oGis){
-            oPolygon.on("mouseover", function(){
+        var _onPolygonMouseover = function (oPolygon, oGis) {
+            oPolygon.on("mouseover", function () {
                 oPolygon.setStyle({
                     color: "#ffa600",
                     weight: 5
@@ -55,8 +55,8 @@
             });
         };
 
-        var _onPolygonMouseout = function(oPolygon, oGis){
-            oPolygon.on("mouseout", function(){
+        var _onPolygonMouseout = function (oPolygon, oGis) {
+            oPolygon.on("mouseout", function () {
                 oPolygon.setStyle({
                     color: oPolygon.buObj.uiColor,
                     weight: 2
@@ -112,7 +112,11 @@
             });
             oMarker.id = strId;
             oMarker.buObj = oBuObj;
-            oMarker.bindPopup(oBuObj.uiTips);
+            //popup
+            var oPopup = L.popup({
+                maxWidth: 99999999,
+            }).setContent(oBuObj.uiTips);
+            oMarker.bindPopup(oPopup);
             oMarker.addTo(oGis.Stage.mapObj);
 
             return oMarker;
@@ -150,7 +154,7 @@
             if (oMarker) {
                 oMarker.remove();
                 //删除附属图标
-                if(oMarker.attachIcon){
+                if (oMarker.attachIcon) {
                     oMarker.attachIcon.remove();
                 }
             }
@@ -221,16 +225,16 @@
 
         //#region attachMarker
 
-        this.addAttachedIcon4Marker = function(strId, strImgUrl, oGis){
+        this.addAttachedIcon4Marker = function (strId, strImgUrl, oGis) {
             //找到Marker
             var oMarker = oGis.Layer.findById(strId, oGis);
-            if(oMarker){
+            if (oMarker) {
                 var oConfig = {};
-                if(strImgUrl !== ""){
+                if (strImgUrl !== "") {
                     var oIcon = L.icon({
                         iconUrl: strImgUrl,
-                        iconSize:    [18, 36],
-                        iconAnchor:  [9, 36]
+                        iconSize: [18, 36],
+                        iconAnchor: [9, 36]
                     });
                     oConfig.icon = oIcon;
                 }
@@ -241,11 +245,11 @@
             }
         };
 
-        this.delAttachedIcon4Marker = function(strId, oGis){
+        this.delAttachedIcon4Marker = function (strId, oGis) {
             //找到Marker
             var oMarker = oGis.Layer.findById(strId, oGis);
-            if(oMarker){
-                if(oMarker.attachIcon){
+            if (oMarker) {
+                if (oMarker.attachIcon) {
                     oMarker.attachIcon.remove();
                 }
             }
@@ -315,9 +319,9 @@
             //endregion
         };
 
-        this.setOpacity4Circle = function(strId, iOpacity, oGis){
+        this.setOpacity4Circle = function (strId, iOpacity, oGis) {
             var oCircle = oGis.Layer.findById(strId, oGis);
-            if(oCircle){
+            if (oCircle) {
                 oCircle.setStyle({
                     opacity: iOpacity
                 });
@@ -350,9 +354,9 @@
             //endregion
         };
 
-        this.delPolygon = function(strId, oGis){
+        this.delPolygon = function (strId, oGis) {
             var oPolygon = oGis.Layer.findById(strId, oGis);
-            if(oPolygon){
+            if (oPolygon) {
                 oPolygon.remove();
             }
         };

@@ -347,6 +347,10 @@
             }
         };
 
+        this.createLink = function(oTopo, oAfterCallback){
+            oTopo.Sprite.LinkGroup.createLink(oAfterCallback, oTopo);
+        };
+
         //endregion
     };
 })(jQuery);

@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdownBtnWrapper" v-bind:class="theme">
+  <div class="dropdownBtnWrapper">
     <div class="dropdownBtn"
          v-bind:class="disable"
          v-bind:style="{ width: width }">
@@ -26,7 +26,7 @@
 <script>
   export default {
     name: 'MarvelDropDownButton',
-    props: ["disable", "theme", "width", "maxHeight"],
+    props: ["disable", "width", "maxHeight"],
     data: function() {
         return {
           items: [],
@@ -106,10 +106,7 @@
   }
 
   .dropdownBtn .options{
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #3399ff;
-    border-right: 1px solid #3399ff;
-    border-bottom: 1px solid #3399ff;
+    border: 1px solid #ccc;
     background-color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
@@ -118,6 +115,11 @@
     bottom: -1px;
     width: 100%;
     z-index: 3;
+  }
+  .dropdownBtn .options:hover{
+    border-left: 1px solid #3399ff;
+    border-right: 1px solid #3399ff;
+    border-bottom: 1px solid #3399ff;
   }
   .dropdownBtn .options .optionItem{
     height: 32px;
@@ -179,16 +181,17 @@
     overflow: hidden !important;
   }
 
-  .dark{}
+  /*region dark theme*/
+
   .dark .dropdownBtn{
     border: 1px solid #8b90b3;
   }
   .dark .dropdownBtn:hover{
-    border: 1px solid #3399ff;
+    border: 1px solid #3dcca6;
   }
   .dark .dropdownBtn .label{}
   .dark .dropdownBtn .label .icon{
-    color: #3399ff;
+    color: #3dcca6;
   }
   .dark .dropdownBtn .label .name{
     color: #fff;
@@ -198,30 +201,35 @@
   }
 
   .dark .dropdownBtn .options{
-    border-top: 1px solid #8b90b3;
+    border: 1px solid #8b90b3;
     background-color: #1e1f36;
+  }
+  .dark .dropdownBtn .options:hover{
+    border-left: 1px solid #3dcca6;
+    border-right: 1px solid #3dcca6;
+    border-bottom: 1px solid #3dcca6;
   }
   .dark .dropdownBtn .options .optionItem{
     background-color: #1e1f36;
   }
 
   .dark .dropdownBtn .options .optionItem .icon{
-    color: #3399ff;
+    color: #3dcca6;
   }
   .dark .dropdownBtn .options .optionItem .name{
     color: #ffffff;
   }
   .dark .dropdownBtn .options .optionItem:hover{
-    background-color: #66b3ff;
+    background-color: #393b70;
   }
   .dark .dropdownBtn .options .optionItem:hover .name{
-    color: #fff;
+    /*color: #fff;*/
   }
   .dark .dropdownBtn .options .optionItem:hover .icon{
-    color: #fff;
+    /*color: #fff;*/
   }
   .dark .dropdownBtn .options .mouseDown{
-    background-color: #3399ff !important;
+    background-color: #3dcca6 !important;
   }
   .dark .dropdownBtn .options .mouseDown .name,.dropdownBtn .options .mouseDown .icon{
     color:#fff !important;
@@ -238,8 +246,6 @@
   .dark .disable .label .name{
     color: #8d8d8d;
   }
-  .dark .disable .options{
-  }
-  .dark .hide{
-  }
+
+  /*endregion*/
 </style>

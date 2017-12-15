@@ -1,5 +1,5 @@
 <template>
-  <div class="tipDialogBg" v-show="showConfirm" v-bind:class="[theme]">
+  <div class="tipDialogBg" v-show="showConfirm">
     <div class="tipDialogWrapper">
       <div class="tipDialogTitleArea">
         <div class="titleName">Confirm</div>
@@ -32,7 +32,7 @@
   export default {
     components: {MarvelIconTxtButton},
     name: 'MarvelConfirmDialog',
-    props: ["showConfirm","tipType", "confirmCont", "theme"],
+    props: ["showConfirm","tipType", "confirmCont"],
     data: function() {
         return {
 
@@ -178,7 +178,9 @@
     }
   }
 
-  .dark{
+  /*region dark theme*/
+
+  .dark .tipDialogBg{
     background-color: rgba(0,0,0,0.7);
   }
   .dark .tipDialogWrapper{
@@ -205,11 +207,7 @@
   .dark .tipDialogWrapper .tipDialogBtnArea{
     background-color: #1e1f36;
   }
-  @media (max-width: 440px){
-    .tipDialogBg .tipDialogWrapper{
-      width: 90%;
-      left: 5%;
-      margin-left: 0px;
-    }
-  }
+
+  /*endregion*/
+
 </style>

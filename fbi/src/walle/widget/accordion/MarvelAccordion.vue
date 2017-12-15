@@ -233,4 +233,49 @@
   }
   .select .accordionItemCont .icon{color:#3399ff}
   .select .accordionItemCont .name{color:#3399ff}
+
+
+  /*region dark theme*/
+
+  .dark .accordionWrapper{
+    background-color: #1e1f37;
+  }
+  .dark .accordionWrapper .expandAndFoldBtn{
+    color: #adb3dd;
+  }
+  .dark .accordionWrapper .titleArea .titleIcon{
+    color: #adb3dd;
+  }
+  .dark .accordionWrapper .titleArea .titleName{
+    color: #8b90b3;
+  }
+  .dark .accordionWrapper .accordionItem{
+    border-top: 1px solid #a7abbe;
+  }
+  .dark .accordionWrapper .accordionItem:last-child{
+    border-bottom: 1px solid #a7abbe;
+  }
+  .dark .accordionItem .accordionItemCont .icon{
+    color: #adb3dd;
+  }
+  .dark .accordionItem .accordionItemCont .name{
+    color: #8b90b3;
+  }
+  .dark .accordionItem .accordionItemCont .showAndHideSubMenu{
+    color: #adb3dd;
+  }
+  .dark .accordionItem .accordionItemSubMenu .accordionItemSubMenuItem{
+    border-top: 1px solid #a7abbe;
+    color: #8b90b3;
+  }
+  .dark .select{
+    color:#3dcca6 !important;
+  }
+  .dark .select .accordionItemCont .icon{
+    color:#3dcca6;
+  }
+  .dark .select .accordionItemCont .name{
+    color:#3dcca6;
+  }
+  /*endregion*/
 </style>

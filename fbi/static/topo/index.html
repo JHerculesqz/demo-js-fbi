@@ -586,6 +586,29 @@
                 var oData = oTopo.Api.getSelectedData(oTopo);
                 console.log(oData);
             });
+            var createLinkId = "createLinkId1";
+            $("#createLink").click(function(){
+                oTopo.Api.createLink(oTopo, function(bSuccessful, oSrcNode, oDstNode){
+                    if(bSuccessful){
+                        var oTopoData = oTopo.Api.getTopoData(oTopo);
+                        var oLink = {
+                            id: createLinkId,
+                            srcNodeId: oSrcNode.id,
+                            dstNodeId: oDstNode.id,
+                            uiLabelL: "nodeBase0",
+                            uiLabelM: createLinkId,
+                            uiLabelR: "nodeBase1",
+                            uiLink: true,
+                            uiLinkColorKey: "linkType_lu_2",
+                            uiLinkWidth: 3
+                        };
+                        oTopoData.links.push(oLink);
+                        oTopo.Api.updateTopo(oTopo, oTopoData);
+
+                        createLinkId += 1;
+                    }
+                });
+            });
             //endregion
         });
     </script>
@@ -608,6 +631,7 @@
     <button id="hideOrShowNode">hideOrShowNode</button>
     <button id="hideOrShowLink">hideOrShowLink</button>
     <button id="getSelectedData">getSelectedData</button>
+    <button id="createLink">createLink</button>
 </div>
 <div>
     <div id="id1" style="width:1200px; height:600px; z-index: 1000; position: relative;"></div>

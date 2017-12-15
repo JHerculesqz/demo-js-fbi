@@ -1,5 +1,5 @@
 <template>
-  <div class="inputWrapper" v-bind:class="[status, theme, size]">
+  <div class="inputWrapper" v-bind:class="[status, size]">
     <input class="inputDefault" type="text"
            :placeholder="placeHolder"
            v-model="inputMsg"
@@ -13,7 +13,7 @@
 
   export default {
     name: 'MarvelInput',
-    props: ["status", "placeHolder", "errMsg", "theme", "size"],
+    props: ["status", "placeHolder", "errMsg", "size"],
     data: function () {
       return {
         inputMsg: ""
@@ -79,7 +79,14 @@
     pointer-events: none;
   }
 
-  .dark {
+  .mini .inputDefault {
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+  }
+
+  /*region dark theme*/
+  .dark .inputWrapper{
     background-color: transparent;
   }
 
@@ -90,9 +97,11 @@
     background-color: transparent;
   }
 
-  .mini .inputDefault {
-    height: 22px;
-    line-height: 22px;
-    font-size: 12px;
+  .dark .inputWrapper .inputDefault:hover, .inputWrapper .inputDefault:focus {
+    border: 1px solid #3dcca6;
   }
+
+  /*endregion*/
+
+
 </style>

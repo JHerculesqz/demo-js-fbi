@@ -147,4 +147,41 @@
     color: #3dcca6;
     cursor: pointer;
   }
+
+  /*region dark theme*/
+
+  .dark .marvelGridItem {
+    background-color: #161C36;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  .dark .titleArea .taskName {
+    color: #ffffff;
+  }
+
+  .dark .titleArea .taskId {
+    color: #8b90b3;
+  }
+
+  .dark .contArea {
+    border-bottom: 2px dashed #8b90b3;
+  }
+
+  .dark .contDetailsTitle {
+    color: #8b90b3;
+  }
+
+  .dark .details {
+    color: #8b90b3;
+  }
+
+  .dark .footArea .time {
+    color: #8b90b3;
+  }
+
+  .dark .footArea .more {
+    color: #3dcca6;
+  }
+
+  /*endregion*/
 </style>

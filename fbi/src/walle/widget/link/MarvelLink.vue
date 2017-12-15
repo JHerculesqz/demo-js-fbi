@@ -47,4 +47,24 @@
     color:#666;
     pointer-events: none;
   }
+
+  /*region dark theme*/
+
+  .dark .linkWrapper{
+    color: #3dcca6;
+  }
+  .dark .linkWrapper:hover{
+    color: #02a888;
+  }
+  .dark .convertLink{
+    color: #ffffff;
+  }
+  .dark .convertLink:hover{
+    color: #02a888;
+  }
+  .dark .disable{
+    color:#8b90b3;
+  }
+
+  /*endregion*/
 </style>

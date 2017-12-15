@@ -66,10 +66,11 @@
     position: fixed;
     max-width: 144px;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.8);
+    background-color: #ffffff;
     border-radius: 4px;
     padding: 2px;
     z-index: 1000;
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.15);
   }
   .contextMenuWrapper .contextMenuItem{
     width: 32px;
@@ -88,7 +89,22 @@
     transition: font-size 0.4s ease-in-out 0s;
   }
   .contextMenuWrapper .contextMenuItem:hover{
-    box-shadow: 0 0 2px 3px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.15);
     font-size: 22px;
   }
+
+  /*region dark theme*/
+
+  .dark .contextMenuWrapper{
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: none;
+  }
+  .dark .contextMenuWrapper .contextMenuItem{
+    color: #33bbff;
+  }
+  .dark .contextMenuWrapper .contextMenuItem:hover{
+    box-shadow: 0 0 2px 3px rgba(255, 255, 255, 0.15);
+  }
+
+  /*endregion*/
 </style>

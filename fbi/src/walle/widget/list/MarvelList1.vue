@@ -40,6 +40,9 @@
 </script>
 
 <style scoped>
+
+  /*endregion*/
+
   .animate{
     -webkit-transition: all 1s ease-in-out 0s;
     -moz-transition: all 1s ease-in-out 0s;
@@ -51,7 +54,7 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: #41475a;
+    background-color: #ffffff;
     box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
     border-radius: 24px;
     width: 46px;
@@ -88,7 +91,7 @@
     border-radius: 4px;
   }
   .expand .dashboardExpandFolderIcon{
-    background-color: #41475a;
+    background-color: #ffffff;
     top: -10px;
     left: -10px;
     border-radius: 100%;
@@ -116,7 +119,7 @@
     margin-right: 20px;
     /*border: 1px solid transparent;*/
     box-sizing: border-box;
-    border: 1px dashed rgba(255,255,255,0.2);
+    border: 1px dashed #ccc;
   }
   .dashboardContArea .deviceItem .deviceIcon{
     float: left;
@@ -154,6 +157,38 @@
     line-height: 22px;
     font-size: 12px;
     font-family: arial, "微软雅黑", sans-serif;
+    color: #666;
+  }
+
+  /*region dark theme*/
+
+  .dark .dashboard2Wrapper{
+    background-color: #41475a;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
+  }
+  .dark .dashboard2Wrapper .dashboardExpandFolderIcon{
+    color: #3399ff;
+  }
+  .dark .dashboard2Wrapper .dashboardExpandFolderIcon .tipInfo{
+    background-color: #ff4c4c;
+    color: #ffffff;
+  }
+
+  .dark .expand .dashboardExpandFolderIcon{
+    background-color: #41475a;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.15);
+  }
+
+  .dark .dashboardContArea .deviceItem{
+    border: 1px dashed rgba(255,255,255,0.2);
+  }
+  .dark .dashboardContArea .deviceItem .deviceIcon .addBtn{
+    background-color: #3dcca6;
+    color: #ffffff;
+  }
+  .dark .dashboardContArea .deviceItem:hover .deviceInfo{
     color: rgba(255,255,255,0.6);
   }
+
+  /*endregion*/
 </style>

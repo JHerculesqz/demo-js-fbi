@@ -10,8 +10,19 @@
         //endregion
 
         //region fields
-
         var self = this;
+
+        const CREATE_MOCK_LINKID = "createMockLinkId";
+        const STATUS_PENDING = "pendging";
+        const STATUS_START = "start";
+        const STATUS_END = "end";
+        const STATUS_FREE = "";
+        var createLinkData = {
+            status: STATUS_FREE,
+            startObj: undefined,
+            endObj: undefined,
+            callback: undefined
+        };
 
         //endregion
 
@@ -124,19 +135,19 @@
             //对arrLinks4Draw分组
             var arrLinks4Show = [];
             var arrLinks4Hide = [];
-            for(var i = 0, len = arrLinks4Draw.length; i < len; i++){
+            for (var i = 0, len = arrLinks4Draw.length; i < len; i++) {
                 var oLink = arrLinks4Draw[i];
-                if(oLink.uiHide == true){
+                if (oLink.uiHide == true) {
                     arrLinks4Hide.push(oLink);
                     continue;
                 }
                 var oNodeSrc = oTopo.Sprite.NodeGroup.getDrawnGroupById(oLink.srcNodeId, oTopo);
-                if(!oNodeSrc.isVisible()){
+                if (!oNodeSrc.isVisible()) {
                     arrLinks4Hide.push(oLink);
                     continue;
                 }
                 var oNodeDst = oTopo.Sprite.NodeGroup.getDrawnGroupById(oLink.dstNodeId, oTopo);
-                if(!oNodeDst.isVisible()){
+                if (!oNodeDst.isVisible()) {
                     arrLinks4Hide.push(oLink);
                     continue;
                 }
@@ -319,8 +330,8 @@
             return oArrow;
         };
 
-        var _drawLink4Hide = function(arrLinks, oTopo){
-            arrLinks.forEach(function(oBuObj){
+        var _drawLink4Hide = function (arrLinks, oTopo) {
+            arrLinks.forEach(function (oBuObj) {
                 //remove
                 var oLinkExists = oTopo.Stage.findOne(oBuObj.id, oTopo);
                 if (oLinkExists) {
@@ -393,7 +404,7 @@
 
             var strTitle = _genLinkTitle(oGroup.tag, oTopo);
             var strContent = _genLinkTitleContent(oGroup.tag, oTopo);
-            if(strTitle == "" && strContent == ""){
+            if (strTitle == "" && strContent == "") {
                 return;
             }
 
@@ -482,13 +493,13 @@
             _delLinkTip(oGroup.tag.id, oTopo);
         };
 
-        var _delLinkTip = function(strLinkId, oTopo){
+        var _delLinkTip = function (strLinkId, oTopo) {
             var oLabelTitle = oTopo.Stage.findOne(strLinkId + "_linkLabelTitle", oTopo);
             var oLabelContent = oTopo.Stage.findOne(strLinkId + "_linkLabelContent", oTopo);
-            if(oLabelTitle){
+            if (oLabelTitle) {
                 oLabelTitle.destroy();
             }
-            if(oLabelContent){
+            if (oLabelContent) {
                 oLabelContent.destroy();
             }
             //绘制
@@ -1084,6 +1095,130 @@
 
             return oLink;
         };
+
+        //region createLink
+
+        this.createLink = function (oAfterCallback, oTopo) {
+            oTopo.Stage.updateModel(oTopo.Stage.MODEL_CREATE_LINK);
+            //cache
+            createLinkData.status = STATUS_PENDING;
+            createLinkData.callback = oAfterCallback;
+        };
+
+        this.stageEventMouseDown = function (evt, oTopo) {
+            var oBuObj = oTopo.Stage.getBuObjByEventTarget(evt.target);
+            if (_isNodeBuObj(oBuObj)) {
+                if (createLinkData.status == STATUS_PENDING) {
+                    createLinkData.status = STATUS_START;
+                    createLinkData.startObj = oBuObj;
+                }
+                else if (createLinkData.status == STATUS_START) {
+                    if (createLinkData.startObj.id != oBuObj.id) { //确保源宿节点不同
+                        createLinkData.endObj = oBuObj;
+                        _createLinkEnd(true, oTopo);
+                    }
+                }
+            }
+        };
+
+        var _createLinkEnd = function (bSuccessful, oTopo) {
+            oTopo.Stage.updateModel(oTopo.Stage.MODEL_EMPTY);
+
+            var oLinkGroup = oTopo.Stage.findOne(CREATE_MOCK_LINKID, oTopo);
+            if (oLinkGroup) {
+                //刪除
+                oLinkGroup.destroy();
+                oTopo.Layer.reDraw(oTopo.ins.layerLink);
+            }
+            //callback
+            if (typeof createLinkData.callback == "function") {
+                createLinkData.callback(bSuccessful, createLinkData.startObj, createLinkData.endObj);
+            }
+            //cache
+            createLinkData.status = STATUS_FREE;
+            createLinkData.callback = undefined;
+            createLinkData.startObj = undefined;
+            createLinkData.endObj = undefined;
+        };
+
+        this.stageEventMouseMove = function (evt, oTopo) {
+            if (createLinkData.status == STATUS_START) {
+                var oLinkGroup = oTopo.Stage.findOne(CREATE_MOCK_LINKID, oTopo);
+                if (oLinkGroup) {
+                    //刪除
+                    oLinkGroup.destroy();
+                }
+                //绘制
+                _drawAMockLike(evt, oTopo);
+            }
+        };
+
+        var _drawAMockLike = function (evt, oTopo) {
+            //mockBuObj
+            var oBuObj = {
+                id: CREATE_MOCK_LINKID,
+                uiLinkColorKey: "mockLinkKey",
+                uiLinkWidth: 2.5,
+                uiDash: [10, 10]
+            };
+
+            //pos
+            var oNodeSrc = oTopo.Sprite.NodeGroup.getDrawnGroupById(createLinkData.startObj.id, oTopo);
+            var oNodeSrcPos = oTopo.Sprite.Node.getCenterPos(oNodeSrc);
+            var oPos = oTopo.Stage.getPointerPos4DrawInStage(oTopo);
+
+            var position = {
+                start1: {
+                    x: oNodeSrcPos.x,
+                    y: oNodeSrcPos.y,
+                },
+                end1: {
+                    x: oPos.x,
+                    y: oPos.y,
+                }
+            };
+
+            //group
+            var oGroup = new Konva.Group({
+                x: 0,
+                y: 0,
+                id: oTopo.Stage.getIdentityValue(oBuObj.id, oTopo)
+            });
+            oGroup.tag = oBuObj;
+
+            //箭头
+            var oArrow = _drawArrow({
+                sX: position.start1.x,
+                sY: position.start1.y,
+                eX: position.end1.x,
+                eY: position.end1.y
+            }, oBuObj, oTopo);
+            oArrow.dash([10, 10]);
+            oGroup.add(oArrow);
+
+            //绘制
+            oTopo.ins.layerLink.add(oGroup);
+            oTopo.Layer.reDraw(oTopo.ins.layerLink);
+        };
+
+        var _isNodeBuObj = function (oBuObj) {
+            if (oBuObj) {
+                if (oBuObj.uiNode === true) {
+                    if (!oBuObj.children) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+        this.eventEscPress = function (evt, oTopo) {
+            if (createLinkData.status != STATUS_FREE) {
+                _createLinkEnd(false, oTopo);
+            }
+        };
+
+        //endregion
 
         //endregion
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="menuNavWrapper" v-bind:class="[theme]">
+  <div class="menuNavWrapper">
     <div class="menuNavItemsWrapper">
       <div class="menuItem" v-for="item in items"
            v-bind:class="{ active: item.active }"
@@ -29,7 +29,7 @@
 <script>
   export default {
     name: 'MarvelMenu',
-    props: ["items", "theme"],
+    props: ["items"],
     data: function() {
         return {
           curMenuItem: {},
@@ -146,7 +146,9 @@
     margin-bottom: 0;
   }
 
-  .dark{
+  /*region dark theme*/
+
+  .dark .menuNavWrapper{
     background-color: #17191f;
   }
   .dark .menuNavItemsWrapper{}
@@ -173,4 +175,6 @@
   }
   .dark .subMenuItemsWrapper .subMenuGroup .subMenuSession .subMenuItem:last-child{
   }
+
+  /*endregion*/
 </style>

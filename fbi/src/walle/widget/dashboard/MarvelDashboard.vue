@@ -67,4 +67,15 @@
     background: url("/static/walle/emptyTip3.png") no-repeat center;
     background-size: 18%;
   }
+
+  /*region dark theme*/
+
+  .dark .dashboardWrapper{
+    background-color: #282746;
+  }
+  .dark .dashboardWrapper .title .titleArea{
+    color: #8b90b3;
+  }
+
+  /*endregion region*/
 </style>

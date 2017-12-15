@@ -13,7 +13,7 @@
 <script>
   export default {
     name: 'MarvelAccordion3',
-    props: ["theme", "items", "title"],
+    props: ["items", "title"],
     data: function () {
       return {};
     },
@@ -33,7 +33,7 @@
   .titleArea{
     height: 40px;
     line-height: 40px;
-    color: #FFFFFF;
+    color: #333;
     font-size: 16px;
     font-weight: bold;
     padding-left: 20px;
@@ -43,7 +43,7 @@
     height: 34px;
     padding-left: 30px;
     width: 196px;
-    background-color: #36365b;
+    background-color: #e8e8e8;
     box-sizing: border-box;
     margin-bottom: 10px;
     cursor: pointer;
@@ -55,7 +55,7 @@
     float: left;
     line-height: 34px;
     font-size: 14px;
-    color: #fff;
+    color: #666;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -64,17 +64,38 @@
     display: none;
     border-top: 17px solid transparent;
     border-bottom: 17px solid transparent;
-    border-left: 14px solid #3dcca6;
+    border-left: 14px solid #3399ff;
     position: absolute;
     right: -14px;
     top:0;
     z-index: 2;
   }
   .active {
-    background-color: #3dcca6;
+    background-color: #3399ff;
     width: 200px;
   }
   .active .mark{
     display: block;
   }
+
+  /*region dark theme*/
+
+  .dark .titleArea{
+    color: #FFFFFF;
+  }
+  .dark .itemsClass {
+    background-color: #36365b;
+  }
+
+  .dark .labelName{
+    color: #fff;
+  }
+  .dark .mark{
+    border-left: 14px solid #3dcca6;
+  }
+  .dark .active {
+    background-color: #3dcca6;
+  }
+
+  /*endregion*/
 </style>

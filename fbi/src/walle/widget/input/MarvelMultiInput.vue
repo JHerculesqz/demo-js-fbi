@@ -1,5 +1,5 @@
 <template>
-  <div class="inputWrapper" v-bind:class="[status, theme, size]"
+  <div class="inputWrapper" v-bind:class="[status, size]"
        v-bind:style="{height: height + 'px'}">
     <textarea :placeholder="placeHolder"
               v-model="inputMsg"
@@ -12,7 +12,7 @@
 
   export default {
     name: 'MarvelMultiInput',
-    props: ["status", "placeHolder", "theme", "size", "height"],
+    props: ["status", "placeHolder", "size", "height"],
     data: function () {
       return {
         inputMsg: ""
@@ -65,10 +65,13 @@
     pointer-events: none;
   }
 
-  .dark {
-
+  .mini textarea {
+    height: 32px;
+    line-height: 22px;
+    font-size: 12px;
   }
 
+  /*region dark theme*/
   .dark textarea {
     border: 1px solid #8b90b3;
     font-size: 14px;
@@ -80,9 +83,6 @@
     box-shadow: none;
   }
 
-  .mini textarea {
-    height: 32px;
-    line-height: 22px;
-    font-size: 12px;
-  }
+  /*endregion*/
+
 </style>

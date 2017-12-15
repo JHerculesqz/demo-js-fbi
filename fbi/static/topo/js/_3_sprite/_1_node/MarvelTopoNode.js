@@ -249,7 +249,7 @@
         };
 
         this.createNode = function (oBuObj, oAfterCallback, oTopo) {
-            oTopo.Stage.model = oTopo.Stage.MODEL_CREATE_NODE;
+            oTopo.Stage.updateModel(oTopo.Stage.MODEL_CREATE_NODE);
             //save cache
             createNodeData.buObj = oBuObj;
             createNodeData.status = STATUS_START;
@@ -296,7 +296,7 @@
         };
 
         var _createNodeEnd = function (oTopo, bCreatedSuccessful) {
-            oTopo.Stage.model = oTopo.Stage.MODEL_EMPTY;
+            oTopo.Stage.updateModel(oTopo.Stage.MODEL_EMPTY);
             if (typeof createNodeData.callback == "function") {
                 createNodeData.callback(createNodeData.buObj, bCreatedSuccessful);
             }

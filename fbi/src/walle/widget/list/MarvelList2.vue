@@ -1,7 +1,8 @@
  <template>
   <div class="dashboard2Wrapper animate" v-bind:class="{ expand: isExpand }">
     <div class="dashboardExpandFolderIcon animate icon-marvelIcon-26"
-         v-on:click="onExpandBtnClick">
+         v-on:click="onExpandBtnClick"
+         :title="title">
       <div class="tipInfo" v-if="bargeCount>0">{{ bargeCount }}</div>
     </div>
     <div class="dashboardContArea">
@@ -28,6 +29,7 @@
 </script>
 
 <style scoped>
+
   .animate{
     -webkit-transition: all 1s ease-in-out 0s;
     -moz-transition: all 1s ease-in-out 0s;
@@ -39,7 +41,7 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: #41475a;
+    background-color: #ffffff;
     box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
     border-radius: 24px;
     width: 46px;
@@ -76,7 +78,7 @@
     border-radius: 4px;
   }
   .expand .dashboardExpandFolderIcon{
-    background-color: #41475a;
+    background-color: #ffffff;
     top: -10px;
     left: -10px;
     border-radius: 100%;
@@ -92,4 +94,24 @@
     padding: 10px;
     box-sizing: border-box;
   }
+
+  /*region dark theme*/
+
+  .dark .dashboard2Wrapper{
+    background-color: #41475a;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.25);
+  }
+  .dark .dashboard2Wrapper .dashboardExpandFolderIcon{
+    color: #3399ff;
+  }
+  .dark .dashboard2Wrapper .dashboardExpandFolderIcon .tipInfo{
+    background-color: #ff4c4c;
+    color: #ffffff;
+  }
+  .dark .expand .dashboardExpandFolderIcon{
+    background-color: #41475a;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.15);
+  }
+
+  /*endregion*/
 </style>

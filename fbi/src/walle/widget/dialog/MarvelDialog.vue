@@ -1,5 +1,5 @@
 <template>
-  <div class="tipDialogBg" v-show="showDialog" v-bind:class="theme">
+  <div class="tipDialogBg" v-show="showDialog">
     <div class="tipDialogWrapper"
          v-bind:style="{ width: width + 'px', height: height + 'px', 'margin-top':-height/2 + 'px', 'margin-left':-width/2 + 'px'}">
       <div class="tipDialogTitleArea">
@@ -20,7 +20,7 @@
 <script>
   export default {
     name: 'MarvelDialog',
-    props: ["showDialog", "theme", "title", "width", "height"],
+    props: ["showDialog","title", "width", "height"],
     data: function() {
         return {
 
@@ -114,7 +114,8 @@
     }
   }
 
-  .dark{}
+  /*region dark theme*/
+
   .dark .tipDialogWrapper{
     box-shadow: 0 0 30px 2px rgba(0,0,0,0);
     background-color: #282746;
@@ -133,11 +134,6 @@
   .dark .tipDialogWrapper .tipDialogBtnArea{
     background-color: #1e1f36;
   }
-  @media (max-width: 440px){
-    .tipDialogBg .tipDialogWrapper{
-      width: 90%;
-      left: 5%;
-      margin-left: 0px;
-    }
-  }
+
+  /*endregion*/
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="marvelGridPriorityWrapper" v-bind:class="themeClass">
+  <div class="marvelGridPriorityWrapper">
     <div class="priorityLeftPart">
       <div class="priorityTitle">{{title}}</div>
       <div class="priorityItem"
@@ -25,18 +25,10 @@
   export default {
     components: {},
     name: 'MarvelGridPriority',
-    props: ["title", "list", "theme"],
+    props: ["title", "list"],
     data: function () {
       return {
-        themeClass:"",
         currentSelectItemIndex:0
-      }
-    },
-    mounted:function(){
-      if(this.theme == "dark"){
-        this.themeClass = "themeDark"
-      }else{
-        this.themeClass = "themeNormal"
       }
     },
     methods: {
@@ -101,34 +93,18 @@
 
 <style scoped>
 
-  .themeNormal{
-    --MarvelGridPriorityBorderColor:#d5d5d5;
-    --MarvelGridPriorityBgColor:#ffffff;
-    --MarvelGridPriorityTitleColor:#4d4d4d;
-    --MarvelGridPriorityFontColor:#666666;
-    --MarvelGridPriorityBtnBgColor:#3399ff;
-  }
-
-  .themeDark{
-    --MarvelGridPriorityBorderColor:#8b90b3;
-    --MarvelGridPriorityBgColor:#1e1f36;
-    --MarvelGridPriorityTitleColor:#ffffff;
-    --MarvelGridPriorityFontColor:#8b90b3;
-    --MarvelGridPriorityBtnBgColor:#3dcca6;
-  }
-
   .marvelGridPriorityWrapper{
     width: 100%;
     height: 100%;
-    border: 1px solid var(--MarvelGridPriorityBorderColor);
-    background-color: var(--MarvelGridPriorityBgColor);
+    border: 1px solid #d5d5d5;
+    background-color: #ffffff;
     box-sizing: border-box;
   }
   .priorityLeftPart{
     width: calc(100% - 46px);
     height: 100%;
     float: left;
-    border-right: 1px solid var(--MarvelGridPriorityBorderColor);
+    border-right: 1px solid #d5d5d5;
     box-sizing: border-box;
     overflow-y: auto;
   }
@@ -141,23 +117,23 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    border-bottom: 1px dashed var(--MarvelGridPriorityBorderColor);
-    color: var(--MarvelGridPriorityTitleColor);
+    border-bottom: 1px dashed #d5d5d5;
+    color: #4d4d4d;
     text-align: center;
   }
   .priorityItem{
     height: 32px;
-    border-bottom: 1px dashed var(--MarvelGridPriorityBorderColor);
+    border-bottom: 1px dashed #d5d5d5;
   }
   .priorityItemIndex{
     width: 40px;
     height: 100%;
     float: left;
-    border-right: 1px dashed var(--MarvelGridPriorityBorderColor);
+    border-right: 1px dashed #d5d5d5;
     text-align: center;
     line-height: 32px;
     font-size: 14px;
-    color: var(--MarvelGridPriorityFontColor);
+    color: #666666;
   }
   .priorityItemName{
     width: calc(100% - 42px);
@@ -170,11 +146,11 @@
     white-space: nowrap;
     line-height: 32px;
     font-size: 14px;
-    color: var(--MarvelGridPriorityFontColor);
+    color: #666666;
   }
 
   .isSelected{
-    background-color: var(--MarvelGridPriorityBtnBgColor);
+    background-color: #3399ff;
   }
   .isSelected .priorityItemIndex{color: #ffffff;}
   .isSelected .priorityItemName{color: #ffffff;}
@@ -198,11 +174,48 @@
     height: 26px;
     text-align: center;
     border-radius: 100%;
-    background-color: var(--MarvelGridPriorityBtnBgColor);
+    background-color: #3399ff;
     font-size: 12px;
     line-height: 26px;
     color: #ffffff;
     margin: 16px 0;
     cursor: pointer;
   }
+
+  /*region dark theme*/
+
+  .dark .marvelGridPriorityWrapper{
+    border: 1px solid #8b90b3;
+    background-color: #1e1f36;
+  }
+  .dark .priorityLeftPart{
+    border-right: 1px solid #8b90b3;
+  }
+  .dark .priorityTitle{
+    border-bottom: 1px dashed #8b90b3;
+    color: #ffffff;
+  }
+  .dark .priorityItem{
+    border-bottom: 1px dashed #8b90b3;
+  }
+  .dark .priorityItemIndex{
+    border-right: 1px dashed #8b90b3;
+    color: #8b90b3;
+  }
+  .dark .priorityItemName{
+    color: #8b90b3;
+  }
+
+  .dark .isSelected{
+    background-color: #3dcca6;
+  }
+  .dark .isSelected .priorityItemIndex{color: #ffffff;}
+  .dark .isSelected .priorityItemName{color: #ffffff;}
+
+  .dark .changePriorityBtn{
+    background-color: #3dcca6;
+    color: #ffffff;
+  }
+
+  /*endregion*/
 </style>

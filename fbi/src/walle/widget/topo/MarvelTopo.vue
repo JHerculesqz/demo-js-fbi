@@ -184,7 +184,10 @@
       },
       getSelectedData: function(){
         return this.oTopo.Api.getSelectedData(this.oTopo);
-      }
+      },
+      createLink: function(oAfterCallback){
+        this.oTopo.Api.createLink(this.oTopo, oAfterCallback);
+      },
     }
   }
 </script>

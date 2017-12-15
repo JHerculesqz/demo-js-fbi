@@ -1,5 +1,5 @@
 <template>
-  <div class="alarmGroup" v-bind:class="[theme]">
+  <div class="alarmGroup">
     <div class="alarm emergent" v-for="item in items"
          v-bind:class="[item.level]">
       {{ item.label }}
@@ -10,7 +10,7 @@
 <script>
   export default {
     name: 'MarvelWarning',
-    props: ["theme", "items"],
+    props: ["items"],
     data: function() {
         return {
 
@@ -60,7 +60,10 @@
   .alarmGroup .level6:before{
     background-color: rgba(255, 255, 255, 0.5);
   }
+
+  /*region dark theme*/
   .dark .alarm{
     color: #fff;
   }
+  /*endregion*/
 </style>

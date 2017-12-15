@@ -110,7 +110,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.15);
-    z-index: 1002;
+    z-index: 2002;
   }
 
   .maskLoading .loadingBoard{
@@ -154,4 +154,24 @@
     float: left;
     cursor: pointer;
   }
+
+  /*region dark theme*/
+
+  .dark .maskLoading{
+    background-color: rgba(0,0,0,0.7);
+  }
+
+  .dark .maskLoading .loadingBoard{
+    background-color: #282746;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0);
+  }
+  .dark .maskLoading .loadingBoard .loadingTip{
+    color: #8b90b3;
+  }
+  .dark .maskLoading .loadingBoard .loadingCancel{
+    background-color: #3dcca6;
+    color: #fff;
+  }
+
+  /*endregion*/
 </style>

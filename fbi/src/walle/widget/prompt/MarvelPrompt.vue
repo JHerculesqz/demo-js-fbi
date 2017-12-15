@@ -68,17 +68,17 @@
     overflow: hidden;
   }
   .promptInfo{
-    background-color: #f5fafc;
+    background-color: rgba(61, 204, 166,0.3);
     border-color: #3dcca6;
     color: #3dcca6;
   }
   .promptTip{
-    background-color: #f5faff;
+    background-color: rgba(51, 153, 255, 0.3);
     border-color: #3399ff;
     color: #3399ff;
   }
   .promptError{
-    background-color: #fff6f6;
+    background-color: rgba(255,76,76,0.3);
     border-color: #ff4c4c;
     color: #ff4c4c;
   }

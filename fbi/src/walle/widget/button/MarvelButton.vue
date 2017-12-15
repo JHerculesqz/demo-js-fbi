@@ -71,4 +71,32 @@
     border: 1px solid #ccc;
     pointer-events: none;
   }
+
+  /*region dark theme*/
+
+  .dark .defaultBtn{
+    border: 1px solid #36365b;
+    color: #ffffff;
+    border-radius: 32px;
+    background-color: #36365b;
+  }
+  .dark .defaultBtn:hover{
+    border: 1px solid #6262a8;
+  }
+  .dark .mouseDown{
+    background-color: #6262a8;
+    color: #3dcca6;
+    border: 1px solid #3dcca6;
+  }
+  .dark .focus{
+    color: #3dcca6;
+    border: 1px solid #3dcca6;
+  }
+  .dark .disable{
+    background-color: #15153d;
+    color: #36365b;
+    border: 1px solid #15153d;
+  }
+
+  /*endregion*/
 </style>

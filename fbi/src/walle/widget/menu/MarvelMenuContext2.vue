@@ -65,6 +65,7 @@
     border-radius: 4px;
     padding: 2px 0px;
     border: 1px solid #cccccc;
+    box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.15);
     z-index: 1000;
   }
   .contextMenuWrapper_text .contextMenuItem{
@@ -80,4 +81,21 @@
     background-color: #f0f0f0;
     color: #3399ff;
   }
+
+  /*region dark theme*/
+
+  .dark .contextMenuWrapper_text{
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid #3dcca6;
+    box-shadow: none;
+  }
+  .dark .contextMenuWrapper_text .contextMenuItem{
+    color: #8b90b3;
+  }
+  .dark .contextMenuWrapper_text .contextMenuItem:hover{
+    background-color: #1d3b60;
+    color: #3dcca6;
+  }
+
+  /*endregion*/
 </style>

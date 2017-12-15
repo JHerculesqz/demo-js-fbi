@@ -1,6 +1,5 @@
 <template>
-  <div class="bottomExtPanelWrapper"
-       v-bind:class="[theme]">
+  <div class="bottomExtPanelWrapper">
     <div class="expandBtn"
          v-bind:class="[icon]"
          v-on:click="onExpandBtnClick"></div>
@@ -21,7 +20,7 @@
 <script>
   export default{
     name: 'MarvelBottomExtPanel',
-    props: ['theme', 'height', 'show', 'canDrag'],
+    props: ['height', 'show', 'canDrag'],
     data: function() {
       return {
         showEx: this.show == "true",
@@ -118,8 +117,7 @@
     height: 100%;
   }
 
-  .dark {
-  }
+  /*region dark theme*/
   .dark .content{
     background-color: #1a1927;
   }
@@ -129,4 +127,6 @@
     border-bottom:16px solid #1a1927;
     color: #3dcca6;
   }
+
+  /*endregion*/
 </style>

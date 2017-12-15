@@ -133,7 +133,7 @@
     height: 0;
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 8px;
   }
   .right .rightContainer{
     box-sizing: border-box;
@@ -149,5 +149,50 @@
     font-size: 14px;
     color: #666666;
   }
+
+  /*region dark theme*/
+
+  .dark .timeLineContainer .title{
+    color: #ffffff;
+  }
+  .dark .timeLineContent .circle{
+    background-color: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .dark .timeLineContent .left{
+  }
+  .dark .left .leftTitle{
+    color: #ffffff;
+  }
+  .dark .left .leftContent{
+    color: #8b90b3;
+  }
+  .dark .timeLineContent .right{
+    border-left: 1px solid rgba(255,255,255,0.1);
+  }
+  .dark .right .icon{
+    position: absolute;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    background-color: #3fcca7;
+    color: #FFFFFF;
+  }
+  .dark .timeLineContent .fail{
+    background-color: red;
+  }
+  .dark .right .triangle{
+    border: 10px solid transparent;
+    border-right-color: rgba(255,255,255,0.1);
+  }
+  .dark .right .rightContainer{
+    background-color: rgba(255,255,255,0.1);
+  }
+  .dark .right .rightContainer .rightTitle{
+    color: #ffffff;
+  }
+  .dark .right .rightContainer .rightContent{
+    color: #8b90b3;
+  }
+
+  /*endregion*/
 
 </style>

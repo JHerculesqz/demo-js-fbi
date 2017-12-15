@@ -1,6 +1,6 @@
 <template>
   <!--tab start-->
-  <div class="tabOutsideBox" v-bind:class="[theme]">
+  <div class="tabOutsideBox">
     <div class="tabWrapper theme1">
       <div class="headArea">
         <div class="headItem" v-for="tabItem in tabItems"
@@ -20,7 +20,7 @@
 <script>
   export default {
     name: 'MarvelTab',
-    props: ["tabItems", "theme"],
+    props: ["tabItems"],
     data: function() {
         return {
 
@@ -107,6 +107,8 @@
 
   }
 
+  /*region dark theme*/
+
   .dark .tabWrapper{
     border: 1px solid transparent;
     background-color: #161C36;
@@ -147,4 +149,7 @@
     background-color: #161C36;
 
   }
+
+  /*endregion*/
+
 </style>

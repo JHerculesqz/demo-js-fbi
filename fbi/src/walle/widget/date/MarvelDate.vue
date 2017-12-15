@@ -155,4 +155,34 @@
   .dateSelectWrapper .dateArea .dateOptions .option:hover{
     background-color: #d8f5ed;
   }
+
+  /*region dark theme*/
+
+  .dark .dateSelectWrapper{
+    border: 1px solid #8b90b3;
+    color: #3dcca6;
+  }
+  .dark .dateSelectWrapper:hover{
+    border: 1px solid #3dcca6;
+  }
+  .dark .dateSelectWrapper .LabelArea{
+    color: #ffffff;
+  }
+  .dark .dateSelectWrapper .dateArea{
+    background-color: #1e1f36;
+    border: 1px solid #8b90b3;
+  }
+  .dark .dateSelectWrapper .dateArea .dateOptions{
+    color: #8b90b3;
+    border-right: 1px solid #8b90b3;
+  }
+  .dark .dateSelectWrapper .dateArea .dateOptions .select{
+    background-color: #3dcca6;
+    color: #ffffff;
+  }
+  .dark .dateSelectWrapper .dateArea .dateOptions .option:hover{
+    background-color: #393b70;
+  }
+
+  /*endregion*/
 </style>

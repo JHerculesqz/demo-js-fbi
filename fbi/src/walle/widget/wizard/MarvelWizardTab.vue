@@ -194,14 +194,7 @@
     color: #3399ff;
   }
 
-  .dark {
-  }
-
-  .dark .wizard2Item {
-  }
-
-  .dark .wizard2Item .decorationArea {
-  }
+  /*region dark theme*/
 
   .dark .wizard2Item .decorationArea .decorationLeft {
     background-color: rgba(54, 54, 90, 0.4);
@@ -260,4 +253,6 @@
   .dark .active .contArea .wizardRight {
     color: #3dcca6;
   }
+
+  /*endregion*/
 </style>

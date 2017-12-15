@@ -174,7 +174,11 @@
             oPolyline.id = strId;
             oPolyline.buObj = oBuObj;
             oPolyline.children = [];
-            oPolyline.bindPopup(oBuObj.uiTips);
+            //popup
+            var oPopup = L.popup({
+                maxWidth: 99999999,
+            }).setContent(oBuObj.uiTips);
+            oPolyline.bindPopup(oPopup);
             oPolyline.addTo(oGis.Stage.mapObj);
 
             //单向

@@ -34,6 +34,7 @@
 </script>
 
 <style scoped>
+
   .legendWrapper{
     width: 100%;
     height: 100%;
@@ -48,7 +49,8 @@
     display: inline-block;
     padding: 10px 16px;
     border-radius: 2px;
-    background-color: #181b21;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
   }
   .legendWrapper .LegendItem{
     height: 26px;
@@ -78,13 +80,13 @@
     background-color: #3dcca6;
   }
   .legendWrapper .LegendItem  .level6{
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
   }
   .legendWrapper .LegendItem .text{
     display: inline-block;
     margin-right: 10px;
     font-size: 14px;
-    color: #FFFFFF;
+    color: #666;
     line-height: 26px;
   }
   .legendWrapper .LegendItem .visibleIcon{
@@ -96,4 +98,21 @@
   .legendWrapper .LegendItem .inVisibleIcon{
     color: #818495;
   }
+
+  /*region dark theme*/
+
+  .dark .legendWrapper .legendCont{
+    background-color: #181b21;
+  }
+  .dark .legendWrapper .LegendItem .text{
+    color: #FFFFFF;
+  }
+  .dark .legendWrapper .LegendItem .visibleIcon{
+    color: #3399ff;
+  }
+  .dark .legendWrapper .LegendItem .inVisibleIcon{
+    color: #818495;
+  }
+
+  /*endregion*/
 </style>

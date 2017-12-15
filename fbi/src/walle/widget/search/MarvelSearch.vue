@@ -35,7 +35,7 @@
     height: 32px;
     width: 100%;
     position: relative;
-    background-color: #ffffff;
+    background-color: transparent;
   }
   .searchWrapper .searchInput{
     height: 100%;
@@ -49,6 +49,7 @@
     font-size: 14px;
     box-sizing: border-box;
     border-radius: 2px;
+    background-color: transparent;
   }
   .searchWrapper .searchInput:hover{
     border: 1px solid #3399ff;
@@ -96,4 +97,35 @@
     border: none;
   }
   .dpn{display: none}
+
+
+  /*region dark theme*/
+  .dark .searchWrapper .searchInput{
+    border: 1px solid #8b90b3;
+    color: #ffffff;
+  }
+  .dark .searchWrapper .searchInput:hover{
+    border: 1px solid #3dcca6;
+  }
+  .dark .searchWrapper .searchBtn{
+    color: #8b90b3;
+  }
+  .dark .searchWrapper .searchBtn:hover{
+    color: #3dcca6 !important;
+  }
+  .dark .searchWrapper .deleBtn{
+    color: #8b90b3;
+    border-right: 1px solid #8b90b3;
+  }
+  .dark .searchWrapper .deleBtn:hover{
+    color: #3dcca6;
+  }
+  .dark .searchInputEx .searchInput{
+    border: none;
+  }
+  .dark .searchInputEx .searchInput:hover{
+    border: none;
+  }
+
+  /*endregion*/
 </style>

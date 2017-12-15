@@ -1,6 +1,6 @@
 <template>
   <!--checkBox start-->
-  <div class="checkBoxWrapper" v-bind:class="[theme]">
+  <div class="checkBoxWrapper">
     <div class="checkBox">
       <input type="checkbox" v-bind:id="[id]"
              v-bind:value="label" v-model="checkItem"
@@ -16,7 +16,7 @@
 <script>
   export default {
     name: 'MarvelCheckBox',
-    props: ["id", "label", "showLabel", "check", "buObj", "theme"],
+    props: ["id", "label", "showLabel", "check", "buObj"],
     data: function() {
         return {
           checkItem: this.check === true ? true : false,
@@ -143,7 +143,10 @@
     line-height: 16px;
     color: #666666;
   }
+
+  /*region dark theme*/
   .dark .checkBoxLabel{
     color: #8b90b3;
   }
+  /*endregion*/
 </style>

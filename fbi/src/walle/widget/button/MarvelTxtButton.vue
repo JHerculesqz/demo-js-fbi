@@ -56,4 +56,21 @@
     border-radius: 100%;
     background-color: #ff4400;
   }
+
+  /*region dark theme*/
+
+  .dark .textBtn{
+    color: #3dcca6;
+  }
+  .dark .textBtn:hover{
+    color: #45e0b7;
+  }
+  .dark .disable{
+    color: #8d8d8d;
+  }
+  .dark .tip:after{
+    background-color: #ff4400;
+  }
+
+  /*endregion*/
 </style>

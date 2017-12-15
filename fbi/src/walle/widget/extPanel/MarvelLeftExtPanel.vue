@@ -1,6 +1,5 @@
 <template>
-  <div class="leftExtPanelWrapper"
-       v-bind:class="[theme]">
+  <div class="leftExtPanelWrapper">
     <div class="content"
          v-bind:style="{width: iWidth + 'px'}"
          v-show="showEx">
@@ -21,7 +20,7 @@
 <script>
   export default{
     name: 'MarvelLeftExtPanel',
-    props: ['theme', 'width', 'show', 'canDrag'],
+    props: ['width', 'show', 'canDrag'],
     data: function() {
       return {
         showEx: this.show == "true",
@@ -125,8 +124,8 @@
     height: 100%;
   }
 
-  .dark {
-  }
+  /*region dark theme*/
+
   .dark .content{
     background-color: #1a1927;
   }
@@ -136,4 +135,6 @@
     border-left:16px solid #1a1927;
     color: #3dcca6;
   }
+
+  /*endregion*/
 </style>

@@ -241,6 +241,8 @@
     font-size: 12px;
   }
 
+  /*region dark theme*/
+
   .dark .pageSwitch {
   }
 
@@ -265,5 +267,7 @@
   .dark .text {
     color: #ffffff;
   }
+
+  /*endregion*/
 
 </style>

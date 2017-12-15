@@ -1,5 +1,5 @@
 <template>
-  <div class="uploadWrapper" v-bind:class="[theme]">
+  <div class="uploadWrapper">
     <input class="uploadFile" type="file" v-on:change="onSelectFileBtnClick">
     <input class="uploadFileName" readonly="readonly" disabled type="text"
            :placeholder="placeHolder" :value="fileName">
@@ -11,7 +11,7 @@
 <script>
   export default {
     name: 'MarvelUpload',
-    props: ["theme", "placeHolder"],
+    props: [ "placeHolder"],
     data: function() {
         return {
           file: undefined,
@@ -80,17 +80,21 @@
     color: #777;
   }
 
-.dark{
-  border:1px solid #8b90b3;
-}
-.dark .uploadFile{
-}
-.dark .uploadFileName{
-  color: #8b90b3;
-}
+  /*region dark theme*/
 
-.dark .uploadFileSelectBtn{
-  color: #8b90b3;
-}
+  .dark .uploadWrapper{
+    border:1px solid #8b90b3;
+  }
+  .dark .uploadFile{
+  }
+  .dark .uploadFileName{
+    color: #8b90b3;
+  }
+
+  .dark .uploadFileSelectBtn{
+    color: #8b90b3;
+  }
+
+  /*region dark theme*/
 
 </style>

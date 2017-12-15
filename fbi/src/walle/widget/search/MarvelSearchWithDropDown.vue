@@ -84,7 +84,20 @@
   .search_dropDown .searchArea{
     display: inline-block;
     height: 30px;
-    position: relative;
+    position: absolute;
+    right: -1px;
+    top: -1px;
     float: left;
   }
+
+  /*region dark theme*/
+
+  .dark .search_dropDown{
+    border: 1px solid #8b90b3;
+  }
+  .dark .search_dropDown:hover{
+    border: 1px solid #3dcca6;
+  }
+
+  /*endregion*/
 </style>

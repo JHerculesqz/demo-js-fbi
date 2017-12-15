@@ -1,5 +1,5 @@
 <template>
-  <div class="foldPanelWrapper" v-bind:class="[theme,{fold: !item.bIsExpand}]"
+  <div class="foldPanelWrapper" v-bind:class="{fold: !item.bIsExpand}"
        :style="{height: item.height}">
     <div class="foldPanelTitle" v-on:click="expandOrFold">
       <div class="title">{{item.name}}</div>
@@ -14,7 +14,7 @@
 <script>
   export default{
     name: 'MarvelFoldPanel',
-    props: ['theme',"item"],
+    props: ["item"],
     data: function() {
       return {
       }
@@ -65,6 +65,8 @@
   }
 
 
+  /*region dark theme*/
+
   .dark .foldPanelTitle{
     background-color: #36365b;
   }
@@ -74,4 +76,6 @@
   .dark .btn{
     color: #3dcca6;
   }
+
+  /*endregion*/
 </style>

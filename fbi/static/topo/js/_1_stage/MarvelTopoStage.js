@@ -7,6 +7,7 @@
 
         this.MODEL_EMPTY = '';
         this.MODEL_CREATE_NODE = 'createNode';
+        this.MODEL_CREATE_LINK = 'createLink';
 
         //endregion
 
@@ -20,9 +21,9 @@
             //region node
             callbackOnNodeClick: function (oNode, oEvent) {
             },
-            callbackGenerateNodeProp: function(oNode){
+            callbackGenerateNodeProp: function (oNode) {
             },
-            callbackGenerateNodeTip: function(oNode){
+            callbackGenerateNodeTip: function (oNode) {
             },
             //endregion
             //region nodeGroup
@@ -34,9 +35,9 @@
             },
             callbackOnLinkClick: function (oLink, oEvent) {
             },
-            callbackGenerateLinkProp: function(oNode){
+            callbackGenerateLinkProp: function (oNode) {
             },
-            callbackGenerateLinkTip: function(oNode){
+            callbackGenerateLinkTip: function (oNode) {
             },
             //endregion
             //region stage
@@ -195,6 +196,9 @@
                 if (self.model === self.MODEL_CREATE_NODE) {
                     oTopo.Sprite.Node.eventEscPress(e, oTopo);
                 }
+                else if(self.model == self.MODEL_CREATE_LINK){
+                    oTopo.Sprite.LinkGroup.eventEscPress(e, oTopo);
+                }
             }, function (e) {
                 //up
             });
@@ -218,6 +222,9 @@
                 if (self.model === self.MODEL_CREATE_NODE) {
                     oTopo.Sprite.Node.stageEventMouseDown(e, oTopo);
                 }
+                else if (self.model == self.MODEL_CREATE_LINK) {
+                    oTopo.Sprite.LinkGroup.stageEventMouseDown(e, oTopo);
+                }
                 else if (self.model === self.MODEL_EMPTY) {
                     oTopo.Sprite.Box.stageEventMouseDown(e, oTopo);
                 }
@@ -239,6 +246,9 @@
             oStage.on("mousemove", function (e) {
                 if (self.model === self.MODEL_CREATE_NODE) {
                     oTopo.Sprite.Node.stageEventMouseMove(e, oTopo);
+                }
+                else if (self.model == self.MODEL_CREATE_LINK) {
+                    oTopo.Sprite.LinkGroup.stageEventMouseMove(e, oTopo);
                 }
                 else if (self.model === self.MODEL_EMPTY) {
                     oTopo.Sprite.Box.stageEventMouseMove(e, oTopo);
@@ -308,7 +318,7 @@
             };
         };
 
-        this.getPosInCanvas = function(oSprite, oTopo){
+        this.getPosInCanvas = function (oSprite, oTopo) {
             var iScale = oTopo.ins.stage.scaleX();
             return {
                 x: oSprite.x() * iScale + oTopo.ins.stage.x(),
@@ -317,6 +327,9 @@
         };
 
         this.getBuObjByEventTarget = function (oEventTarget) {
+            if (!oEventTarget) {
+                return undefined;
+            }
             if (oEventTarget.tag) {
                 return oEventTarget.tag;
             }
@@ -356,6 +369,10 @@
 
         this.getIdentityValue = function (value, oTopo) {
             return oTopo.ins.stage.id() + "_" + value;
+        };
+
+        this.updateModel = function (strModel) {
+            self.model = strModel;
         };
 
         //endregion

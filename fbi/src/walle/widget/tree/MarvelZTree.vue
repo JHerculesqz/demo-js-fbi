@@ -1,5 +1,5 @@
 <template>
-  <ul id="demo" class="treeWrapper" v-bind:class="theme">
+  <ul id="demo" class="treeWrapper">
     <div v-for="(item, index) in treeNodes">
       <marvel-z-tree-item v-bind:model="item"
                           v-bind:theme="theme"
@@ -19,7 +19,7 @@
       MarvelZTreeItem
     },
     name: 'MarvelZTree',
-    props: ["theme", "treeData", "options"],
+    props: ["treeData", "options"],
     data: function () {
       return {
         //region zTreeItem

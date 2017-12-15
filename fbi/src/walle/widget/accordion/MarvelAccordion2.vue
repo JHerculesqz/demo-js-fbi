@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="theme" class="listMenuWrapper">
+  <div  class="listMenuWrapper">
     <div class="listMenu" v-for="item in items">
       <div class="listMenuItem"
            v-bind:class="[isItemOrSubItemSelect(item) ? 'active' : '', item.icon]"
@@ -23,7 +23,7 @@
 <script>
   export default {
     name: 'MarvelAccordion2',
-    props: ["theme", "items"],
+    props: ["items"],
     data: function () {
       return {
         curSelectItemOrSubItem: undefined
@@ -116,6 +116,8 @@
     display: none;
   }
 
+  /*region dark theme*/
+
   .dark .listMenuItem {
     color: #ffffff;
   }
@@ -123,5 +125,7 @@
   .dark .listMenuItem:hover {
     color: #3dcca6;
   }
+
+  /*endregion*/
 
 </style>
