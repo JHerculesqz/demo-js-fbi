@@ -1,5 +1,5 @@
 (function ($) {
-    $.MarvelDevPanel_5 = function () {
+    $.MarvelDevPanel_7 = function () {
         var self = this;
 
         //region Const
@@ -7,27 +7,6 @@
         var ITEMS = [{
             id: "0",
             name: "整机"
-        }, {
-            id: "1",
-            name: "光学模块"
-        }, {
-            id: "2",
-            name: "光学模块"
-        }, {
-            id: "3",
-            name: "电学模块"
-        }, {
-            id: "4",
-            name: "电学模块"
-        }, {
-            id: "5",
-            name: "主控制板"
-        }, {
-            id: "6",
-            name: "合束模块"
-        }, {
-            id: "7",
-            name: "强电模块"
         }];
 
         //endregion

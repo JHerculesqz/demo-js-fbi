@@ -1,5 +1,5 @@
 (function ($) {
-    $.MarvelDevPanel_5 = function () {
+    $.MarvelDevPanel_8 = function () {
         var self = this;
 
         //region Const
@@ -9,25 +9,28 @@
             name: "整机"
         }, {
             id: "1",
-            name: "光学模块"
+            name: "铲斗油缸"
         }, {
             id: "2",
-            name: "光学模块"
+            name: "斗杆油缸"
         }, {
             id: "3",
-            name: "电学模块"
+            name: "照明灯"
         }, {
             id: "4",
-            name: "电学模块"
+            name: "履带杆"
         }, {
             id: "5",
-            name: "主控制板"
+            name: "履带"
         }, {
             id: "6",
-            name: "合束模块"
+            name: "发动机"
         }, {
             id: "7",
-            name: "强电模块"
+            name: "剩余燃油量"
+        }, {
+            id: "8",
+            name: "驱动轮"
         }];
 
         //endregion

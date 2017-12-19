@@ -63,6 +63,15 @@
           "Raycus_2000": {
             url: "static/devPanel/image/dev5.svg",
           },
+          "manhole": {
+            url: "static/devPanel/image/manhole.svg",
+          },
+          "env": {
+            url: "static/devPanel/image/env.svg",
+          },
+          "car": {
+            url: "static/devPanel/image/car.svg",
+          },
         };
         this.m_oMarvelDevPanel.init(oOptions);
       },
