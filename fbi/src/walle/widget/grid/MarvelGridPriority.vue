@@ -1,12 +1,14 @@
 <template>
   <div class="marvelGridPriorityWrapper">
     <div class="priorityLeftPart">
-      <div class="priorityTitle">{{title}}</div>
+      <div class="priorityTitle">
+        <div class="priorityItemIndex">{{col1Title}}</div>
+        <div class="priorityItemName">{{col2Title}}</div></div>
       <div class="priorityItem"
            v-for="(item, index) in list"
            v-on:click="onClickItem(item, index)"
            v-bind:class="{isSelected:currentSelectItemIndex == index}">
-        <div class="priorityItemIndex">{{index}}</div>
+        <div class="priorityItemIndex">{{index + 1}}</div>
         <div class="priorityItemName">{{item.name}}</div>
       </div>
     </div>
@@ -25,7 +27,7 @@
   export default {
     components: {},
     name: 'MarvelGridPriority',
-    props: ["title", "list"],
+    props: ["col1Title", "col2Title", "list"],
     data: function () {
       return {
         currentSelectItemIndex:0
@@ -110,33 +112,31 @@
   }
   .priorityTitle{
     height: 32px;
-    line-height: 32px;
-    font-size: 16px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
     border-bottom: 1px dashed #d5d5d5;
+    background-color: #f0f0f0;
+  }
+  .priorityTitle .priorityItemIndex,.priorityTitle .priorityItemName{
     color: #4d4d4d;
-    text-align: center;
   }
   .priorityItem{
     height: 32px;
     border-bottom: 1px dashed #d5d5d5;
   }
   .priorityItemIndex{
-    width: 40px;
+    width: 240px;
     height: 100%;
     float: left;
     border-right: 1px dashed #d5d5d5;
     text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     line-height: 32px;
     font-size: 14px;
     color: #666666;
   }
   .priorityItemName{
-    width: calc(100% - 42px);
+    width: calc(100% - 242px);
     height: 100%;
     float: left;
     padding: 0 10px;
@@ -147,6 +147,7 @@
     line-height: 32px;
     font-size: 14px;
     color: #666666;
+    text-align: center;
   }
 
   .isSelected{
@@ -193,6 +194,9 @@
   }
   .dark .priorityTitle{
     border-bottom: 1px dashed #8b90b3;
+    background-color: #2a3255;
+  }
+  .dark .priorityTitle .priorityItemIndex,.dark .priorityTitle .priorityItemName{
     color: #ffffff;
   }
   .dark .priorityItem{

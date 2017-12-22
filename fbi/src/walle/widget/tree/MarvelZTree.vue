@@ -2,7 +2,6 @@
   <ul id="demo" class="treeWrapper">
     <div v-for="(item, index) in treeNodes">
       <marvel-z-tree-item v-bind:model="item"
-                          v-bind:theme="theme"
                           v-bind:key="item.key"
                           v-bind:treeItemOptions="treeItemOptions"
                           v-on:onCheckboxClick="onCheckboxClick"
@@ -37,7 +36,7 @@
     },
     methods: {
       //region inner
-      _handleOptions(){
+      _handleOptions() {
         Object.assign(this.treeItemOptions, {
           hasCheckbox: false,
           hasRadiobox: false,
@@ -48,7 +47,7 @@
         this.treeNodes = this.treeData.slice(0);
         this._setKey(this.treeNodes, "1");
       },
-      _setKey(oTreeData, parentKey){
+      _setKey(oTreeData, parentKey) {
         var self = this;
         oTreeData.forEach(function (oTreeNode, index) {
           oTreeNode.key = parentKey + "-" + index;
@@ -140,7 +139,7 @@
         }
         return arrRes;
       },
-      getCheckLeafNodes(){
+      getCheckLeafNodes() {
         var arrRes = [];
         for (let k in this.treeMap) {
           if (this.treeMap[k].check === true) {
@@ -150,14 +149,26 @@
           }
         }
         return arrRes;
+      },
+      getActiveNodes() {
+        let activeNodes = [];
+        if (this.treeItemOptions.hasActiveStyle) {
+          for (let k in this.treeMap) {
+            let val = this.treeMap[k];
+            if (val.active === true) {
+              activeNodes.push(val);
+            }
+          }
+        }
+        return activeNodes;
       }
       //endregion
     },
     watch: {
-      treeData: function(oNewTreeData, oOldTreeData){
+      treeData: function (oNewTreeData, oOldTreeData) {
         this._handleTreeData();
       },
-      options: function(oNewOptions, oOldOptions){
+      options: function (oNewOptions, oOldOptions) {
         this._handleOptions();
       }
     }

@@ -50,11 +50,23 @@
 
         this.devPanelObj.init(options, oEventOptions);
       },
-      addNode(strSubBuObjId, strNodeImsgUrl, oAfterCallback) {
-        this.devPanelObj.addNode(strSubBuObjId, strNodeImsgUrl, oAfterCallback);
+      addNode(strSlotId, oBuObj, oAfterCallback, oEventCallback) {
+        this.devPanelObj.addNode(strSlotId, oBuObj, oAfterCallback, oEventCallback);
       },
-      removeNode(strStartBuObjId) {
-        this.devPanelObj.removeNode(strStartBuObjId);
+      removeNode(strSlotId) {
+        this.devPanelObj.removeNode(strSlotId);
+      },
+      addMainNode(strSlotId, oBuObj, oAfterCallback, oEventCallback) {
+        this.devPanelObj.addMainNode(strSlotId, oBuObj, oAfterCallback, oEventCallback);
+      },
+      removeSubNode(strFirstSlotId, strSecondSlotId) {
+        this.devPanelObj.removeNode(strFirstSlotId, strSecondSlotId);
+      },
+      setActiveStyle(...args) {
+        this.devPanelObj.setActiveStyle.call(this.devPanelObj, args);
+      },
+      removeAllActiveStyle() {
+        this.devPanelObj.removeAllActiveStyle();
       }
       //endregion
     }

@@ -1,5 +1,5 @@
 <template>
-  <div :class="theme">
+  <div>
     <div class="pageSwitch">
       <div class="item icon-marvelIcon-04" @click.stop="onPreClick"></div>
 
@@ -53,9 +53,6 @@
         validator: function (value) {
           return value > 5 && value % 2 == 1;
         }
-      },
-      theme: {
-        default: "dark"
       }
     },
     data() {

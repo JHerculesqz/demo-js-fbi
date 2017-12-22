@@ -185,8 +185,8 @@
       delAttachedIcon4Marker: function (strId) {
         this.gisObj.Api.delAttachedIcon4Marker(strId, this.gisObj);
       },
-      createMarker: function(oBuObj, oAfterCallback){
-        this.gisObj.Api.createMarker(oBuObj, oAfterCallback, this.gisObj);
+      createMarker: function(oBuObj, oAfterCallback, bAutoCreate){
+        this.gisObj.Api.createMarker(oBuObj, oAfterCallback, bAutoCreate, this.gisObj);
       },
       //#endregion
 

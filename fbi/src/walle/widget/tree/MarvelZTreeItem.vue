@@ -1,17 +1,17 @@
 <template>
   <li v-show="showNode">
-    <div class="treeItemCont" v-bind:class="theme">
+    <div class="treeItemCont">
       <div class="treeItemIcon" v-bind:class="openEx"
            v-on:click="toggle"></div>
       <div class="treeItemCheck" v-if="treeItemOptions.hasCheckbox">
-        <input type="checkbox" v-model="model.check"
+        <input class="treeitemCheckbox" type="checkbox" v-model="model.check"
                v-on:change.stop="onCheckboxClick(model)">
       </div>
       <div class="treeItemCustomIcon"
            v-if="hasIcon"
            v-bind:class="model.icon"
            v-on:click.stop="onTreeNodeClickInner"></div>
-      <div class="treeItemName"
+      <div class="treeItemName" v-bind:style="{'max-width':getWidth}"
            v-bind:class="activeClass"
            v-bind:title="model.name"
            v-on:click.stop="onTreeNodeClickInner">
@@ -21,7 +21,6 @@
     <ul class="treeItemSubItems" v-show="open" v-if="isFolder">
       <marvel-z-tree-item
         v-for="(child, index) in model.children"
-        v-bind:theme="theme"
         v-bind:key="child.key"
         v-bind:model="child"
         v-bind:treeItemOptions="treeItemOptions"
@@ -35,7 +34,7 @@
 <script>
   export default {
     name: 'MarvelZTreeItem',
-    props: ["model", "theme", "treeItemOptions"],
+    props: ["model", "treeItemOptions"],
     data: function () {
       return {
         open: this.model.bOpen === true
@@ -85,6 +84,15 @@
           }
         }
         return "";
+      },
+      getWidth: function(){
+        if(this.model.icon != undefined && this.treeItemOptions.hasCheckbox){
+          return  "calc(100% - 66px)";
+        }else if(this.model.icon != undefined || this.treeItemOptions.hasCheckbox){
+          return  "calc(100% - 50px)";
+        }else{
+          return  "calc(100% - 34px)";
+        }
       }
     },
     methods: {
@@ -135,9 +143,21 @@
     float: left;
   }
 
-  .treeItemCont .treeItemCheck {
+  .treeItemCont .treeItemCheck{
     float: left;
+    height: 12px;
+    width: 12px;
+    position: relative;
+    margin-right: 4px;
+  }
+
+  .treeItemCont .treeItemCheck .treeitemCheckbox{
+    width: 100%;
     height: 100%;
+    position: absolute;
+    margin: 0;
+    top: 2px;
+    left: 0;
   }
 
   .treeItemCont .treeItemCustomIcon {
@@ -160,7 +180,6 @@
   }
 
   .treeItemCont .treeItemName {
-    /*width: calc(100% - 36px);*/
     line-height: 16px;
     height: 16px;
     color: #333333;

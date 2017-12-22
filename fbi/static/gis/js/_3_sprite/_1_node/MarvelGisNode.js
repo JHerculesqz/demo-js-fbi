@@ -16,7 +16,8 @@
         var createMarkData = {
             status: STATUS_EMPTY,
             buObj: undefined,
-            callback: undefined
+            callback: undefined,
+            autoCreate: true,
         };
         //endregion
 
@@ -270,13 +271,14 @@
 
         //region createMarker
 
-        this.createMarker = function (oBuObj, oAfterCallback, oGis) {
+        this.createMarker = function (oBuObj, oAfterCallback, bAutoCreate, oGis) {
             //updateModel
             oGis.Stage.updateModel(oGis.Stage.MODEL_CREATE_MARK);
             //updateCache
             createMarkData.status = STATUS_START;
             createMarkData.buObj = oBuObj;
             createMarkData.callback = oAfterCallback;
+            createMarkData.autoCreate = bAutoCreate;
         };
 
         this.stageEventMouseOver = function (oEvent, oGis) {
@@ -304,6 +306,10 @@
         var _createMarkerEnd = function (bSuccessful, oGis) {
             //updateModel
             oGis.Stage.updateModel(oGis.Stage.MODEL_EMPTY);
+            //autoCreate
+            if (createMarkData.autoCreate === false) {
+                self.delMarker(createMarkData.buObj.id, oGis);
+            }
             //callback
             if (typeof createMarkData.callback == "function") {
                 createMarkData.callback(bSuccessful, createMarkData.buObj);
@@ -312,6 +318,7 @@
             createMarkData.status = STATUS_EMPTY;
             createMarkData.buObj = undefined;
             createMarkData.callback = undefined;
+            createMarkData.autoCreate = true;
         };
 
         this.stageEventMouseOut = function (oEvent, oGis) {
@@ -329,6 +336,8 @@
         var _updateMarkerPos = function (oEvent, oGis) {
             var iX = oEvent.latlng.lat;
             var iY = oEvent.latlng.lng;
+            createMarkData.buObj.x = iX;
+            createMarkData.buObj.y = iY;
             self.setPos4Marker(createMarkData.buObj.id, iX, iY, oGis);
         };
 

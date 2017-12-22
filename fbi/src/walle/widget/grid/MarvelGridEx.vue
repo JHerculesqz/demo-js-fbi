@@ -144,7 +144,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
     </div>
     <div v-if="hasFoot" class="footArea">
       <div class="foot">
-        <marvel-paging ref="ref4Paging" :totalNum="rows.length" :pages="totalPageCount"
+        <marvel-paging ref="ref4Paging" :totalNum="totalCount" :pages="totalPageCount"
                        @onPageChange="onPageChange"></marvel-paging>
       </div>
     </div>
@@ -181,6 +181,16 @@ multiDropdown：下拉框多选，支持度不好，待优化
       hasFoot: {
         type: Boolean,
         default: true
+      },
+      dynamicPaging: {
+        type: Boolean,
+        default: false
+      },
+      totalNum: {
+        type: Number
+      },
+      totalPage: {
+        type: Number
       }
     },
     data: function () {
@@ -223,8 +233,21 @@ multiDropdown：下拉框多选，支持度不好，待优化
       });
     },
     computed: {
+      totalCount() {
+        if (this.dynamicPaging) {
+          return this.totalNum;
+        }
+        else {
+          return this.rows.length;
+        }
+      },
       totalPageCount() {
-        return Math.ceil(this.rows.length / this.limit);
+        if (this.dynamicPaging) {
+          return this.totalPage;
+        }
+        else {
+          return Math.ceil(this.rows.length / this.limit);
+        }
       },
       titleCheckboxChecked() {
         return this.selectRowIds.length > 0;
@@ -300,16 +323,21 @@ multiDropdown：下拉框多选，支持度不好，待优化
         }
       },
       _calcRows4Show() {
-        //1.calc this.skip
-        this.skip = (this.curPageIndex - 1) * this.limit;
-
-        //2.calc this.rowsInPage
-        var iTmpRowCount = this.curPageIndex * this.limit;
-        if (iTmpRowCount <= this.rows.length) {
-          this.rowsInPage = this.rows.slice(this.skip, this.skip + this.limit);
+        if (this.dynamicPaging) {
+          this.rowsInPage = this.rows.slice(0);
         }
         else {
-          this.rowsInPage = this.rows.slice(this.skip, this.rows.length);
+          //1.calc this.skip
+          this.skip = (this.curPageIndex - 1) * this.limit;
+
+          //2.calc this.rowsInPage
+          var iTmpRowCount = this.curPageIndex * this.limit;
+          if (iTmpRowCount <= this.rows.length) {
+            this.rowsInPage = this.rows.slice(this.skip, this.skip + this.limit);
+          }
+          else {
+            this.rowsInPage = this.rows.slice(this.skip, this.rows.length);
+          }
         }
       },
       _generateIdentityId(oRow) {
@@ -565,12 +593,17 @@ multiDropdown：下拉框多选，支持度不好，待优化
       //endregion
       //region page
       _resetCurPage() {
-        if (this.hasFoot) {
+        if (this.hasFoot && !this.dynamicPaging) {
           this.$refs.ref4Paging.resetCurPageIndex();
         }
       },
       onPageChange(iPage) {
-        this.curPageIndex = iPage;
+        if (this.dynamicPaging) {
+          this.$emit("onPageChange", iPage);
+        }
+        else {
+          this.curPageIndex = iPage;
+        }
       },
       //endregion
       //endregion
@@ -594,8 +627,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
         if (index > -1) {
           this.activeIds.splice(index, 1);
         }
-      }
-      ,
+      },
       getSelectRows4Checkbox() {
         let arrSelectRows = this.rows.filter((oRow) => {
           let oCell = this._getCell("checkBox", oRow);

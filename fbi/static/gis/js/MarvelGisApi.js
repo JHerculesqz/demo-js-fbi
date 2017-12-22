@@ -133,8 +133,8 @@
             oGis.Sprite.Node.delAttachedIcon4Marker(strId, oGis);
         };
         
-        this.createMarker = function(oBuObj, oAfterCallback, oGis){
-            oGis.Sprite.Node.createMarker(oBuObj, oAfterCallback, oGis);
+        this.createMarker = function(oBuObj, oAfterCallback, bAutoCreate, oGis){
+            oGis.Sprite.Node.createMarker(oBuObj, oAfterCallback, bAutoCreate, oGis);
         };
         
         //endregion
