@@ -80,7 +80,7 @@
     background-color: #3dcca6;
   }
   .legendWrapper .LegendItem  .level6{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #808080;
   }
   .legendWrapper .LegendItem .text{
     display: inline-block;

@@ -15,7 +15,8 @@
             id: "",
             buObjId: "",
             imgUrl: "",
-            subBuObjIds: [],
+            subBuObjIds: [], //废弃
+            subBuObjs: [{id: "", dir: 0}], //0表示竖向，1表示横向
             viewBox: [0, 0, 800, 900] //默认值
         };
 
@@ -45,7 +46,8 @@
         };
 
         var _preHandleData = function (data) {
-            m_oOptions.subBuObjIds.forEach(function (strId, index) {
+            m_oOptions.subBuObjs.forEach(function (oSubBuObj, index) {
+                var strId = oSubBuObj.id;
                 var strTargetId = _generateId(strId);
                 data = data.replace("id=\"" + strId + "\"", "id=\"" + strTargetId + "\"");
             });
@@ -71,7 +73,8 @@
         };
 
         var _bindEvent = function () {
-            m_oOptions.subBuObjIds.forEach(function (strSubObjId, index) {
+            m_oOptions.subBuObjs.forEach(function (oSubBuObj, index) {
+                var strSubObjId = oSubBuObj.id;
                 var strTargetId = _generateId(strSubObjId);
                 var oBD = SVG.get(strTargetId);
                 oBD.mousedown(function (evt) {
@@ -123,6 +126,9 @@
                 //标记节点的插入槽位号
                 var oElement = _setLastChildProp(m_Draw, startPos, strTargetId);
 
+                //判断是否需要旋转
+                _rotateElement(strSlotId, slotPos, oElement);
+
                 //event
                 var oEventOptions = Object.assign({
                     callbackOnClick: function (strSlotId, oBuObj, evt) {
@@ -152,10 +158,14 @@
             var oBDTargetChild = oBDTarget.children()[0];
             var iX = oBDTargetChild.x();
             var iY = oBDTargetChild.y();
+            var iWidth = oBDTargetChild.width();
+            var iHeight = oBDTargetChild.height();
             return {
                 x: iX,
-                y: iY
-            }
+                y: iY,
+                w: iWidth,
+                h: iHeight
+            };
         };
 
         var _setPos4InsertElement = function (data, slotPos) {
@@ -171,6 +181,19 @@
             var oElement = oChildren[oChildren.length - 1];
             oElement.attr(strProp, strPropVal);
             return oElement;
+        };
+
+        var _rotateElement = function (strSlotId, oSlotPos, oElement) {
+            var arrRes = m_oOptions.subBuObjs.filter(function (oSubBuObj) {
+                return oSubBuObj.id == strSlotId;
+            });
+            if (arrRes.length) {
+                var iDir = arrRes[0].dir;
+                if (iDir) {
+                    oElement.center(oSlotPos.x + oSlotPos.w / 2, oSlotPos.y + oSlotPos.h / 2);
+                    oElement.rotate(-90);
+                }
+            }
         };
 
         this.removeNode = function (strSlotId) {
@@ -218,7 +241,8 @@
                 data = _setPos4InsertElement(data, slotPos);
 
                 //替换id
-                oBuObj.subBuObjIds.forEach(function (strSubBuObjId) {
+                oBuObj.subBuObjs.forEach(function (oSubBuObj) {
+                    var strSubBuObjId = oSubBuObj.id;
                     var strId = _generateId(strSlotId, strSubBuObjId);
                     data = data.replace("id=\"" + strSubBuObjId + "\"", "id=\"" + strId + "\"");
                 });
@@ -235,7 +259,8 @@
                 }, oEventCallback);
 
                 //childEvent
-                oBuObj.subBuObjIds.forEach(function (strSubBuObjId) {
+                oBuObj.subBuObjs.forEach(function (oSubBuObj) {
+                    var strSubBuObjId = oSubBuObj.id;
                     var strTargetId = _generateId(strSlotId, strSubBuObjId);
                     var oElement = SVG.get(strTargetId);
                     oElement.mousedown(function (evt) {
@@ -291,6 +316,19 @@
                 oElement.remove();
             }
         };
+        //endregion
+
+        //region export
+
+        this.exportPng = function (strPicName, options) {
+            if (!strPicName.endsWith(".png")) {
+                console.error("picture name must end with .png");
+                return;
+            }
+            var oOptions = options || {};
+            saveSvgAsPng(document.getElementById(m_oOptions.id).firstElementChild, strPicName, oOptions);
+        };
+
         //endregion
 
         //endregion

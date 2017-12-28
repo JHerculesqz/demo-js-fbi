@@ -47,7 +47,7 @@
          * @param oTopo
          * @param oTopoData
          */
-        this.draw = function(oTopo, oTopoData){
+        this.draw = function (oTopo, oTopoData) {
             //0.保存原始坐标
             _saveOriginalPosition(oTopoData);
 
@@ -55,27 +55,27 @@
             _drawTopo(oTopo, oTopoData);
         };
 
-        var _saveOriginalPosition = function(oTopoData){
-            oTopoData.nodeGroups.forEach(function(oNodeGroup, index){
+        var _saveOriginalPosition = function (oTopoData) {
+            oTopoData.nodeGroups.forEach(function (oNodeGroup, index) {
                 _savePos(oNodeGroup);
-                oNodeGroup.children.forEach(function(oChildNode, index){
+                oNodeGroup.children.forEach(function (oChildNode, index) {
                     _savePos(oChildNode);
                 });
             });
-            oTopoData.nodes.forEach(function(oNode, index){
+            oTopoData.nodes.forEach(function (oNode, index) {
                 _savePos(oNode);
             });
         };
-        var _savePos = function(oNode){
-            if(!oNode.oX){
+        var _savePos = function (oNode) {
+            if (!oNode.oX) {
                 oNode.oX = oNode.x;
             }
-            if(!oNode.oY){
+            if (!oNode.oY) {
                 oNode.oY = oNode.y;
             }
         };
 
-        var _drawTopo = function(oTopo, oTopoData){
+        var _drawTopo = function (oTopo, oTopoData) {
             //1.清空
             oTopo.Stage.clearAllGroups(oTopo);
             //2.绘制
@@ -110,44 +110,44 @@
             oTopo.Sprite.LinkGroup.collapseAllLinkGroup(oTopo);
         };
 
-        this.selectNodesById = function(oTopo, arrNodeId){
+        this.selectNodesById = function (oTopo, arrNodeId) {
             oTopo.Sprite.NodeGroup.selectNodesById(arrNodeId, oTopo);
         };
 
-        this.selectLinksById = function(oTopo, arrLinkId){
+        this.selectLinksById = function (oTopo, arrLinkId) {
             oTopo.Sprite.LinkGroup.selectLinksById(arrLinkId, oTopo);
         };
 
-        this.unSelectAll = function(oTopo){
+        this.unSelectAll = function (oTopo) {
             oTopo.Sprite.NodeGroup.unSelectNodeGroupAndNodes(oTopo);
             oTopo.Sprite.LinkGroup.unSelectLinks(oTopo);
         };
 
-        this.getTopoData = function(oTopo){
+        this.getTopoData = function (oTopo) {
             //nodeGroups/nodes
             var arrGroups4Node = oTopo.Stage.findGroupByTagAttr("uiNode", true, oTopo);
             var arrNodeGroups = [], arrNodes = [];
-            arrGroups4Node.forEach(function(oNodeGroup, index){
+            arrGroups4Node.forEach(function (oNodeGroup, index) {
                 var oBuObj = oNodeGroup.tag;
                 //nodeGroup
-                if(oBuObj.children){
+                if (oBuObj.children) {
                     arrNodeGroups.push(oBuObj);
                 }
-                else if(oBuObj.uiChild !== true){
+                else if (oBuObj.uiChild !== true) {
                     arrNodes.push(oBuObj);
                 }
             });
             //link
             var arrGroups4Link = oTopo.Stage.findGroupByTagAttr("uiLink", true, oTopo);
             var arrLinks = [];
-            arrGroups4Link.forEach(function(oLinkGroup, index){
+            arrGroups4Link.forEach(function (oLinkGroup, index) {
                 var oBuObj = oLinkGroup.tag;
                 //如果是合并链路
-                if(oBuObj.children && oBuObj.children.length){
+                if (oBuObj.children && oBuObj.children.length) {
                     arrLinks = arrLinks.concat(oBuObj.children);
                 }
                 //如果是单根链路
-                else{
+                else {
                     arrLinks.push(oBuObj);
                 }
             });
@@ -164,24 +164,24 @@
          * @param oTopo
          * @param oTopoData
          */
-        this.updateTopo = function(oTopo, oTopoData){
+        this.updateTopo = function (oTopo, oTopoData) {
             //0.绘制Topo
             self.draw(oTopo, oTopoData);
         };
 
-        this.createNode = function(oBuObj, oAfterCallback, oTopo){
-            oTopo.Sprite.Node.createNode(oBuObj, oAfterCallback, oTopo);
+        this.createNode = function (oBuObj, oAfterCallback, bAutoCreate, oTopo) {
+            oTopo.Sprite.Node.createNode(oBuObj, oAfterCallback, bAutoCreate, oTopo);
         };
 
-        this.savePosition = function(oTopo){
+        this.savePosition = function (oTopo) {
             //1.savePos
             var oTopoData = self.getTopoData(oTopo);
-            oTopoData.nodes.forEach(function(oNode, index){
+            oTopoData.nodes.forEach(function (oNode, index) {
                 _savePosEx(oNode);
             });
-            oTopoData.nodeGroups.forEach(function(oNodeGroup, index){
+            oTopoData.nodeGroups.forEach(function (oNodeGroup, index) {
                 _savePosEx(oNodeGroup);
-                oNodeGroup.children.forEach(function(oChildNode, index){
+                oNodeGroup.children.forEach(function (oChildNode, index) {
                     _savePosEx(oChildNode);
                 });
             });
@@ -189,20 +189,20 @@
             oTopo.Stage.eventOptions.callbackOnPositionUpdate(false);
         };
 
-        var _savePosEx = function(oNode){
+        var _savePosEx = function (oNode) {
             oNode.oX = oNode.x;
             oNode.oY = oNode.y;
         };
 
-        this.resetPosition = function(oTopo){
+        this.resetPosition = function (oTopo) {
             //1. resetPos
             var oTopoData = self.getTopoData(oTopo);
-            oTopoData.nodes.forEach(function(oNode, index){
+            oTopoData.nodes.forEach(function (oNode, index) {
                 _resetPos(oNode);
             });
-            oTopoData.nodeGroups.forEach(function(oNodeGroup, index){
+            oTopoData.nodeGroups.forEach(function (oNodeGroup, index) {
                 _resetPos(oNodeGroup);
-                oNodeGroup.children.forEach(function(oChildNode, index){
+                oNodeGroup.children.forEach(function (oChildNode, index) {
                     _resetPos(oChildNode);
                 });
             });
@@ -212,36 +212,36 @@
             oTopo.Stage.eventOptions.callbackOnPositionUpdate(false);
         };
 
-        var _resetPos = function(oNode){
+        var _resetPos = function (oNode) {
             oNode.x = oNode.oX;
             oNode.y = oNode.oY;
         };
 
-        this.isPositionUpdate = function(oTopo){
+        this.isPositionUpdate = function (oTopo) {
             var oTopoData = self.getTopoData(oTopo);
-            for(var i = 0, len = oTopoData.nodes.length; i < len; i++){
+            for (var i = 0, len = oTopoData.nodes.length; i < len; i++) {
                 var oNode = oTopoData.nodes[i];
-                if(oNode.x != oNode.oX){
+                if (oNode.x != oNode.oX) {
                     return true;
                 }
-                if(oNode.y != oNode.oY){
+                if (oNode.y != oNode.oY) {
                     return true;
                 }
             }
-            for(var i = 0, len = oTopoData.nodeGroups.length; i < len; i++){
+            for (var i = 0, len = oTopoData.nodeGroups.length; i < len; i++) {
                 var oNodeGroup = oTopoData.nodeGroups[i];
-                if(oNodeGroup.x != oNodeGroup.oX){
+                if (oNodeGroup.x != oNodeGroup.oX) {
                     return true;
                 }
-                if(oNodeGroup.y != oNodeGroup.oY){
+                if (oNodeGroup.y != oNodeGroup.oY) {
                     return true;
                 }
-                for(var j = 0, jLen = oNodeGroup.children; j < jLen; j++){
+                for (var j = 0, jLen = oNodeGroup.children; j < jLen; j++) {
                     var oChildNode = oNodeGroup.children[j];
-                    if(oChildNode.x != oChildNode.oX){
+                    if (oChildNode.x != oChildNode.oX) {
                         return true;
                     }
-                    if(oChildNode.y != oChildNode.oY){
+                    if (oChildNode.y != oChildNode.oY) {
                         return true;
                     }
                 }
@@ -249,7 +249,29 @@
             return false;
         };
 
-        this.setBestView = function(oTopo){
+        this.getPosChangeTopoCache = function (oTopo) {
+            var oTopoData = self.getTopoData(oTopo);
+            var oRes = [];
+            oTopoData.nodes.forEach(function (oNode) {
+                if (oNode.x != oNode.oX || oNode.y != oNode.oY) {
+                    oRes.push(oNode);
+                }
+            });
+            oTopoData.nodeGroups.forEach(function (oNodeGroup) {
+                if (oNodeGroup.x != oNodeGroup.oX || oNodeGroup.y != oNodeGroup.oY) {
+                    oRes.push(oNodeGroup);
+                }
+                oNodeGroup.children.forEach(function (oNode) {
+                    if (oNode.x != oNode.oX || oNode.y != oNode.oY) {
+                        oRes.push(oNode);
+                    }
+                });
+            });
+
+            return oRes;
+        };
+
+        this.setBestView = function (oTopo) {
             var iStageWidth = oTopo.ins.stage.width();
             var iStageHeight = oTopo.ins.stage.height();
             var iXMin = Number.MAX_SAFE_INTEGER;
@@ -258,7 +280,7 @@
             var iYMax = Number.MIN_SAFE_INTEGER;
             //get MinX MinY MaxX MaxY
             var oTopoSprites = _getNodeAndNodeGroupSprite(oTopo);
-            oTopoSprites.nodeSprites.forEach(function(oNode, index){
+            oTopoSprites.nodeSprites.forEach(function (oNode, index) {
                 iXMin = Math.min(iXMin, oNode.x());
                 iYMin = Math.min(iYMin, oNode.y());
 
@@ -266,7 +288,7 @@
                 iYMax = Math.max(iYMax, oNode.y() + oNode.children[0].height());
             });
 
-            oTopoSprites.nodeGroupSprites.forEach(function(oNodeGroup, index){
+            oTopoSprites.nodeGroupSprites.forEach(function (oNodeGroup, index) {
                 iXMin = Math.min(iXMin, oNodeGroup.x());
                 iYMin = Math.min(iYMin, oNodeGroup.y());
 
@@ -282,7 +304,7 @@
             var iScaleY = iStageHeight / (iYMax - iYMin);
             var iScale = Math.min(iScaleX, iScaleY);
             iScale = Math.min(iScale, 1);
-            oTopo.ins.stage.scale({ x: iScale, y: iScale });
+            oTopo.ins.stage.scale({x: iScale, y: iScale});
 
             //计算偏移
             var iFixCenterX = iStageWidth / 2;
@@ -303,40 +325,40 @@
             oTopo.ins.stage.batchDraw();
         };
 
-        var _getNodeAndNodeGroupSprite = function(oTopo){
+        var _getNodeAndNodeGroupSprite = function (oTopo) {
             var arrRes = {
                 nodeSprites: [],
                 nodeGroupSprites: []
             };
             var arrSprites = oTopo.Stage.findGroupByTagAttr("uiNode", true, oTopo);
-            arrSprites.forEach(function(oSprite, index){
+            arrSprites.forEach(function (oSprite, index) {
                 var oBuObj = oSprite.tag;
-                if(oBuObj.children){
+                if (oBuObj.children) {
                     arrRes.nodeGroupSprites.push(oSprite);
                 }
-                else if(oBuObj.uiChild !== true){
+                else if (oBuObj.uiChild !== true) {
                     arrRes.nodeSprites.push(oSprite);
                 }
             });
             return arrRes;
         };
 
-        this.getSelectedData = function(oTopo){
+        this.getSelectedData = function (oTopo) {
             var arrNodeAndNodeGroup = oTopo.Sprite.NodeGroup.getSelectNodeSprites(oTopo);
             var arrLinks = oTopo.Sprite.LinkGroup.getSelectLinkSprites(oTopo);
             var arrNode = [];
             var arrNodeGroup = [];
             var arrLink = [];
-            arrNodeAndNodeGroup.forEach(function(oSprite){
+            arrNodeAndNodeGroup.forEach(function (oSprite) {
                 var oBuObj = oSprite.tag;
-                if(oBuObj.children){
+                if (oBuObj.children) {
                     arrNodeGroup.push(oBuObj);
                 }
-                else{
+                else {
                     arrNode.push(oBuObj);
                 }
             });
-            arrLinks.forEach(function(oSprite){
+            arrLinks.forEach(function (oSprite) {
                 var oBuObj = oSprite.tag;
                 arrLink.push(oBuObj);
             });
@@ -347,7 +369,7 @@
             }
         };
 
-        this.createLink = function(oTopo, oAfterCallback){
+        this.createLink = function (oTopo, oAfterCallback) {
             oTopo.Sprite.LinkGroup.createLink(oAfterCallback, oTopo);
         };
 

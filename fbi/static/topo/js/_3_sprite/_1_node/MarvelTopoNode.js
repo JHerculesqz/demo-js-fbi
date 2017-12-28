@@ -16,6 +16,7 @@
         var createNodeData = {
             status: STATUS_FREE,
             buObj: undefined,
+            autoCreate: true,
             callback: undefined
         };
         //endregion
@@ -248,11 +249,14 @@
             }
         };
 
-        this.createNode = function (oBuObj, oAfterCallback, oTopo) {
+        this.createNode = function (oBuObj, oAfterCallback, bAutoCreate, oTopo) {
             oTopo.Stage.updateModel(oTopo.Stage.MODEL_CREATE_NODE);
             //save cache
             createNodeData.buObj = oBuObj;
             createNodeData.status = STATUS_START;
+            if (bAutoCreate === false) {
+                createNodeData.autoCreate = false;
+            }
             createNodeData.callback = oAfterCallback;
         };
 
@@ -297,17 +301,25 @@
 
         var _createNodeEnd = function (oTopo, bCreatedSuccessful) {
             oTopo.Stage.updateModel(oTopo.Stage.MODEL_EMPTY);
+            if (createNodeData.autoCreate === false) {
+                _destroyNodeById(createNodeData.buObj.id, oTopo);
+            }
             if (typeof createNodeData.callback == "function") {
                 createNodeData.callback(createNodeData.buObj, bCreatedSuccessful);
             }
             //clear cache
             createNodeData.buObj = undefined;
             createNodeData.status = STATUS_FREE;
+            createNodeData.autoCreate = true;
             createNodeData.callback = undefined;
         };
 
         this.stageEventMouseOut = function (oEvent, oTopo) {
-            var oNode = oTopo.Stage.findOne(createNodeData.buObj.id, oTopo);
+            _destroyNodeById(createNodeData.buObj.id, oTopo);
+        };
+
+        var _destroyNodeById = function (strId, oTopo) {
+            var oNode = oTopo.Stage.findOne(strId, oTopo);
             if (oNode) {
                 oNode.destroy();
                 oTopo.Layer.reDraw(oTopo.ins.layerNode);

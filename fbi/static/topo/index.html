@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Very NB Topo</title>
     <link type="text/css" rel="stylesheet" href="css/MarvelTopo.css"/>
-    <script type="application/javascript" src="lib/konva.js"></script>
+    <script type="application/javascript" src="lib/konva.min.js"></script>
     <script type="application/javascript" src="lib/keyboard.min.js"></script>
     <script type="application/javascript" src="lib/jquery-3.2.1.min.js"></script>
     <script type="application/javascript" src="js/_1_stage/MarvelTopoResource.js"></script>
@@ -538,7 +538,7 @@
                     uiNode: true
                 }, function (oBuObj, bOk) {
                     console.log("createNode: " + bOk);
-                }, oTopo);
+                }, true, oTopo);
                 createNodeId += 1;
             });
             $("#savePosition").click(function () {
@@ -609,6 +609,10 @@
                     }
                 });
             });
+            $("#getPosChangeTopoCache").click(function(){
+                var oRes = oTopo.Api.getPosChangeTopoCache(oTopo);
+                console.log(oRes);
+            });
             //endregion
         });
     </script>
@@ -632,6 +636,7 @@
     <button id="hideOrShowLink">hideOrShowLink</button>
     <button id="getSelectedData">getSelectedData</button>
     <button id="createLink">createLink</button>
+    <button id="getPosChangeTopoCache">getPosChangeTopoCache</button>
 </div>
 <div>
     <div id="id1" style="width:1200px; height:600px; z-index: 1000; position: relative;"></div>

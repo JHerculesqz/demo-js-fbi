@@ -62,6 +62,7 @@
     padding: 10px;
     height: calc(100% - 32px);
     box-sizing: border-box;
+    background-color: rgba(0,0,0,0.3);
   }
 
 

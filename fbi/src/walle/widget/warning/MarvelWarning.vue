@@ -58,7 +58,7 @@
     background-color: #3dcca6;
   }
   .alarmGroup .level6:before{
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #808080;
   }
 
   /*region dark theme*/
