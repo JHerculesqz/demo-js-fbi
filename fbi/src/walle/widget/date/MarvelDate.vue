@@ -8,17 +8,20 @@
       <div class="dateOptions">
         <div class="option" v-for="year in yearLst"
              v-bind:class="{ select: year==ySelect }"
-             v-on:click="onYearClick(year)">{{ year }}</div>
+             v-on:click="onYearClick(year)">{{ year }}
+        </div>
       </div>
       <div class="dateOptions">
         <div class="option" v-for="month in monthLst"
              v-bind:class="{ select: month==mSelect }"
-             v-on:click="onMonthClick(month)">{{ month }}</div>
+             v-on:click="onMonthClick(month)">{{ month }}
+        </div>
       </div>
       <div class="dateOptions">
         <div class="option" v-for="day in dayLst"
              v-bind:class="{ select: day==dSelect }"
-             v-on:click="onDayClick(day)">{{ day }}</div>
+             v-on:click="onDayClick(day)">{{ day }}
+        </div>
       </div>
     </div>
   </div>
@@ -32,27 +35,27 @@
     name: 'MarvelDate',
     props: ["yearStart", "yearEnd", "yearSelect",
       "monthSelect", "daySelect"],
-    data: function() {
-        return {
-          yearLst: [],
-          ySelect: this.yearSelect,
-          monthLst: [],
-          mSelect: this.monthSelect,
-          dayLst: [],
-          dSelect: this.daySelect,
-          show: false
-        }
+    data: function () {
+      return {
+        yearLst: [],
+        ySelect: this.yearSelect,
+        monthLst: [],
+        mSelect: this.monthSelect,
+        dayLst: [],
+        dSelect: this.daySelect,
+        show: false
+      }
     },
-    mounted: function(){
+    mounted: function () {
       //1.init yearLst
       this.yearLst = [];
-      for(var i=this.yearStart;i<this.yearEnd;i++){
+      for (var i = this.yearStart; i < this.yearEnd; i++) {
         this.yearLst.push(i);
       }
 
       //2.init monthLst
       this.monthLst = [];
-      for(var i=1;i<=12;i++){
+      for (var i = 1; i <= 12; i++) {
         this.monthLst.push(i);
       }
 
@@ -60,41 +63,47 @@
       this._updateDayLst();
     },
     methods: {
-      onInputClick: function(){
+      onInputClick: function () {
         this.show = !this.show;
         console.log(this.show);
       },
-      onYearClick: function(strYear){
+      onYearClick: function (strYear) {
         this.ySelect = strYear;
         this._updateDayLst();
       },
-      onMonthClick: function(strMonth){
+      onMonthClick: function (strMonth) {
         this.mSelect = strMonth;
         this._updateDayLst();
       },
-      onDayClick: function(strDay){
+      onDayClick: function (strDay) {
         this.dSelect = strDay;
         this.show = false;
       },
-      _updateDayLst: function(){
+      _updateDayLst: function () {
         this.dayLst = [];
         var iDayCount = MarvelDateUtils.getDaysInOneMonth(this.ySelect, this.mSelect);
-        for(var i=1;i<=iDayCount;i++){
+        for (var i = 1; i <= iDayCount; i++) {
           this.dayLst.push(i);
         }
       },
-      getTime:function(){
+      getTime: function () {
         return this.ySelect + "-" + this.mSelect + "-" + this.dSelect;
+      },
+      setSelectYMD: function (strYear, strMonth, strDay) {
+        this.ySelect = strYear;
+        this.mSelect = strMonth;
+        this.dSelect = strDay;
       }
     }
   }
 </script>
 
 <style scoped>
-  .dpn{
+  .dpn {
     display: none;
   }
-  .dateSelectWrapper{
+
+  .dateSelectWrapper {
     height: 32px;
     width: 100%;
     border: 1px solid #ccc;
@@ -106,10 +115,12 @@
     text-align: right;
     padding: 0 10px;
   }
-  .dateSelectWrapper:hover{
+
+  .dateSelectWrapper:hover {
     border: 1px solid #3399ff;
   }
-  .dateSelectWrapper .LabelArea{
+
+  .dateSelectWrapper .LabelArea {
     height: 100%;
     width: calc(100% - 46px);
     position: absolute;
@@ -119,7 +130,8 @@
     text-align: left;
     font-size: 14px;
   }
-  .dateSelectWrapper .dateArea{
+
+  .dateSelectWrapper .dateArea {
     position: absolute;
     top: 36px;
     left: 0;
@@ -131,7 +143,8 @@
     box-sizing: border-box;
     z-index: 1;
   }
-  .dateSelectWrapper .dateArea .dateOptions{
+
+  .dateSelectWrapper .dateArea .dateOptions {
     float: left;
     width: 33%;
     text-align: center;
@@ -141,46 +154,56 @@
     max-height: 320px;
     overflow-y: auto;
   }
-  .dateSelectWrapper .dateArea .dateOptions:last-child{
+
+  .dateSelectWrapper .dateArea .dateOptions:last-child {
     border-right: none;
     width: 34%;
   }
-  .dateSelectWrapper .dateArea .dateOptions .select{
+
+  .dateSelectWrapper .dateArea .dateOptions .select {
     background-color: #3dcca6;
     color: #ffffff;
   }
-  .dateSelectWrapper .dateArea .dateOptions .option{
+
+  .dateSelectWrapper .dateArea .dateOptions .option {
     cursor: pointer;
   }
-  .dateSelectWrapper .dateArea .dateOptions .option:hover{
+
+  .dateSelectWrapper .dateArea .dateOptions .option:hover {
     background-color: #d8f5ed;
   }
 
   /*region dark theme*/
 
-  .dark .dateSelectWrapper{
+  .dark .dateSelectWrapper {
     border: 1px solid #8b90b3;
     color: #3dcca6;
   }
-  .dark .dateSelectWrapper:hover{
+
+  .dark .dateSelectWrapper:hover {
     border: 1px solid #3dcca6;
   }
-  .dark .dateSelectWrapper .LabelArea{
+
+  .dark .dateSelectWrapper .LabelArea {
     color: #ffffff;
   }
-  .dark .dateSelectWrapper .dateArea{
+
+  .dark .dateSelectWrapper .dateArea {
     background-color: #1e1f36;
     border: 1px solid #8b90b3;
   }
-  .dark .dateSelectWrapper .dateArea .dateOptions{
+
+  .dark .dateSelectWrapper .dateArea .dateOptions {
     color: #8b90b3;
     border-right: 1px solid #8b90b3;
   }
-  .dark .dateSelectWrapper .dateArea .dateOptions .select{
+
+  .dark .dateSelectWrapper .dateArea .dateOptions .select {
     background-color: #3dcca6;
     color: #ffffff;
   }
-  .dark .dateSelectWrapper .dateArea .dateOptions .option:hover{
+
+  .dark .dateSelectWrapper .dateArea .dateOptions .option:hover {
     background-color: #393b70;
   }
 

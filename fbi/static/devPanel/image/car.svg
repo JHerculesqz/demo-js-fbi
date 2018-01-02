@@ -440,35 +440,35 @@ BgcwRcVrm4NEf5cN4j06LA9NXgn4iE8jKw86389Xg9qEDYHi1efX6quOMgdt7IyX59IarNPw1r5h
 ny+7oeLxsSjboRj6StX4vjJJVvcLGojtzltd6s3DGVtrO73PQpUeah4PAwKVvZvDUtj85gTQSNQi
 jAKoAA6B/wCCZ//Z" transform="matrix(1 0 0 1 -0.5 -0.5)">
 </image>
-<g id="1">
+<g id="1" style="cursor:pointer">
 	<rect x="12.033" y="77.287" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 54.0332 98.9777)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">铲斗油缸</text>
 </g>
-<g id="2">
+<g id="2" style="cursor:pointer">
 	<rect x="405.825" y="88.287" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 447.8242 109.9777)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">斗杆油缸</text>
 </g>
-<g id="3">
+<g id="3" style="cursor:pointer">
 	<rect x="489.946" y="280.82" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 531.9457 302.5115)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">照明灯</text>
 </g>
-<g id="4">
+<g id="4" style="cursor:pointer">
 	<rect x="148.114" y="438.817" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 190.1133 460.5081)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">履带杆</text>
 </g>
-<g id="5">
+<g id="5" style="cursor:pointer">
 	<rect x="84.328" y="547.055" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 126.3277 568.7458)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">履带</text>
 </g>
-<g id="6">
+<g id="6" style="cursor:pointer">
 	<rect x="566.425" y="377.291" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 608.4252 398.9816)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">发动机</text>
 </g>
-<g id="7">
+<g id="7" style="cursor:pointer">
 	<rect x="586.425" y="471.793" fill="#D3D3D3" width="131.541" height="33.366"/>
 	<text transform="matrix(1 0 0 1 628.4252 493.4841)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">剩余燃油量</text>
 </g>
-<g id="8">
+<g id="8" style="cursor:pointer">
 	<rect x="576.425" y="567.137" fill="#D3D3D3" width="117.092" height="33.366"/>
 	<text transform="matrix(1 0 0 1 618.4252 588.8278)" font-family="'AdobeSongStd-Light-GBpc-EUC-H'" font-size="16">驱动轮</text>
 </g>

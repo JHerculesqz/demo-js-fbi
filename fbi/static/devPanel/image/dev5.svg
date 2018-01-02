@@ -45,43 +45,43 @@
 	<rect x="62.511" y="145.113" fill="#DDDDDD" width="280.489" height="123.921"/>
 	<text transform="matrix(1 0 0 1 37 214.6093)" fill="#FFFFFF" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">1</text>
 </g>
-<g id="1">
+<g id="1" style="cursor:pointer">
 	<rect x="66.256" y="150.113" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6649 185.0923)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l1Warn">
 	<circle fill="#008C01" cx="119.027" cy="177.556" r="11"/>
 </g>
-<g id="3">
+<g id="3" style="cursor:pointer">
 	<rect x="66.256" y="209.146" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 157.6648 244.1263)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l3Warn">
 	<circle fill="#008C01" cx="119.027" cy="236.59" r="11"/>
 </g>
-<g id="2">
+<g id="2" style="cursor:pointer">
 	<rect x="431.038" y="150.113" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 185.0923)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">光学模块</text>
 </g>
 <g id="l2Warn">
 	<circle fill="#008C01" cx="483.809" cy="177.556" r="11"/>
 </g>
-<g id="4">
+<g id="4" style="cursor:pointer">
 	<rect x="431.038" y="209.146" fill="#E4CAB1" width="273" height="54.887"/>
 	<text transform="matrix(1 0 0 1 522.447 244.1263)" fill="#000333" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">电学模块</text>
 </g>
 <g id="l4Warn">
 	<circle fill="#008C01" cx="483.809" cy="236.59" r="11"/>
 </g>
-<g id="5">
+<g id="5" style="cursor:pointer">
 	<rect x="20" y="84.022" fill="#9897A5" width="325" height="53.115"/>
 	<text transform="matrix(1 0 0 1 157.6647 118.1153)" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">主控制板</text>
 </g>
-<g id="6">
+<g id="6" style="cursor:pointer">
 	<rect x="384.782" y="84.022" fill="#9897A5" width="325" height="53.115"/>
 	<text transform="matrix(1 0 0 1 522.4469 118.1153)" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">合束模块</text>
 </g>
-<g id="7">
+<g id="7" style="cursor:pointer">
 	<rect x="19.782" y="297.583" fill="#9897A5" width="690" height="53.115"/>
 	<text transform="matrix(1 0 0 1 323.1249 331.6763)" font-family="'PingFangHK-Thin-83pv-RKSJ-H'" font-size="24">强电单元</text>
 </g>
