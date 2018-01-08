@@ -90,7 +90,7 @@
             console.log("callbackOnNodeClick");
             self._onNodeClick(e);
           },
-          callbackOnNodeContextMenu: function(e){
+          callbackOnNodeContextMenu: function (e) {
             console.log("callbackOnNodeContextMenu");
             self._onNodeContextMenu(e);
           },
@@ -121,6 +121,9 @@
       },
       showOrHide: function (bIsShow) {
         this.isShow = bIsShow ? "block" : "none";
+      },
+      setConfig: function (oConfig) {
+        this.gisObj.Api.setConfig(oConfig, this.gisObj);
       },
       //#endregion
 
@@ -185,8 +188,14 @@
       delAttachedIcon4Marker: function (strId) {
         this.gisObj.Api.delAttachedIcon4Marker(strId, this.gisObj);
       },
-      createMarker: function(oBuObj, oAfterCallback, bAutoCreate){
+      createMarker: function (oBuObj, oAfterCallback, bAutoCreate) {
         this.gisObj.Api.createMarker(oBuObj, oAfterCallback, bAutoCreate, this.gisObj);
+      },
+      showAllLabel: function () {
+        this.gisObj.Api.showAllLabel(this.gisObj);
+      },
+      hideAllLabel: function () {
+        this.gisObj.Api.hideAllLabel(this.gisObj);
       },
       //#endregion
 

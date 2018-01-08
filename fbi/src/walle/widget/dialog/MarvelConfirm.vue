@@ -57,7 +57,7 @@
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 1500;
+    z-index: 3000;
     background-color: rgba(0,0,0,0.7);
   }
   .tipDialogBg .tipDialogWrapper{

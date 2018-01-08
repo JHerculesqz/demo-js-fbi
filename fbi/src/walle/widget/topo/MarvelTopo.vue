@@ -13,35 +13,41 @@
     },
     methods: {
       //region event
-      _onNodeClick: function(oNode, oEvent){
+      _onNodeClick: function (oNode, oEvent) {
         this.$emit("onNodeClick", oNode, oEvent);
       },
-      _onGenerateNodeProp: function(oNode){
+      _onGenerateNodeProp: function (oNode) {
         this.$emit("onGenerateNodeProp", oNode);
       },
-      _onGenerateNodeTip: function(oNode){
+      _onGenerateNodeTip: function (oNode) {
         this.$emit("onGenerateNodeTip", oNode);
       },
-      _onNodeGroupClick: function(oNodeGroup, oEvent){
+      _onNodeGroupClick: function (oNodeGroup, oEvent) {
         this.$emit("onNodeGroupClick", oNodeGroup, oEvent);
       },
-      _onLinkGroupClick: function(oLinkGroup, oEvent){
+      _onLinkGroupClick: function (oLinkGroup, oEvent) {
         this.$emit("onLinkGroupClick", oLinkGroup, oEvent);
       },
-      _onLinkClick: function(oLink, oEvent){
+      _onLinkClick: function (oLink, oEvent) {
         this.$emit("onLinkClick", oLink, oEvent);
       },
-      _onRightClick: function(oBuObj, iX, iY, oEvent){
+      _onRightClick: function (oBuObj, iX, iY, oEvent) {
         this.$emit("onRightClick", oBuObj, iX, iY, oEvent);
       },
-      _onGenerateLinkProp: function(oLink){
+      _onGenerateLinkProp: function (oLink) {
         this.$emit("onGenerateLinkProp", oLink);
       },
-      _onGenerateLinkTip: function(oLink){
+      _onGenerateLinkTip: function (oLink) {
         this.$emit("onGenerateLinkTip", oLink);
       },
-      _onPositionUpdate: function(bUpdate){
+      _onPositionUpdate: function (bUpdate) {
         this.$emit("onPositionUpdate", bUpdate);
+      },
+      _onClick: function (oEvent) {
+        this.$emit("onClick", oEvent);
+      },
+      _onAreaSelect: function (oSelectTopoData) {
+        this.$emit("onAreaSelect", oSelectTopoData);
       },
       //endregion
       init: function (oAfterCallBack) {
@@ -83,45 +89,51 @@
           }
         };
         //#endregion
-        //#region Topo
+        //region Topo
         var self = this;
         var oEventOptions = {
           //region node
-          callbackOnNodeClick: function(oNode, oEvent){
+          callbackOnNodeClick: function (oNode, oEvent) {
             self._onNodeClick(oNode, oEvent);
           },
-          callbackGenerateNodeProp: function(oNode){
+          callbackGenerateNodeProp: function (oNode) {
             self._onGenerateNodeProp(oNode);
           },
-          callbackGenerateNodeTip: function(oNode){
+          callbackGenerateNodeTip: function (oNode) {
             self._onGenerateNodeTip(oNode);
           },
           //endregion
           //region nodeGroup
-          callbackOnNodeGroupClick: function(oNodeGroup, oEvent){
+          callbackOnNodeGroupClick: function (oNodeGroup, oEvent) {
             self._onNodeGroupClick(oNodeGroup, oEvent);
           },
           //endregion
           //region link
-          callbackOnLinkGroupClick: function(oLinkGroup, oEvent){
+          callbackOnLinkGroupClick: function (oLinkGroup, oEvent) {
             self._onLinkGroupClick(oLinkGroup, oEvent);
           },
-          callbackOnLinkClick: function(oLink, oEvent){
+          callbackOnLinkClick: function (oLink, oEvent) {
             self._onLinkClick(oLink, oEvent);
           },
-          callbackGenerateLinkProp: function(oLink){
+          callbackGenerateLinkProp: function (oLink) {
             self._onGenerateLinkProp(oLink);
           },
-          callbackGenerateLinkTip: function(oLink){
+          callbackGenerateLinkTip: function (oLink) {
             self._onGenerateLinkTip(oLink);
           },
           //endregion
           //region stage
+          callbackOnClick: function (oEvent) {
+            self._onClick(oEvent);
+          },
           callbackOnRightClick: function (oBuObj, iX, iY, oEvent) {
             self._onRightClick(oBuObj, iX, iY, oEvent); //oBuObj为"background"表示点击的是背景
           },
           callbackOnPositionUpdate: function (bUpdate) {
             self._onPositionUpdate(bUpdate);
+          },
+          callbackOnAreaSelect: function (oSelectTopoData) {
+            self._onAreaSelect(oSelectTopoData);
           }
           //endregion
         };
@@ -168,29 +180,38 @@
       updateTopo: function (oTopoData) {
         this.oTopo.Api.updateTopo(this.oTopo, oTopoData);
       },
-      createNode: function(oBuObj, oAfterCallback, bAutoCreate){
+      createNode: function (oBuObj, oAfterCallback, bAutoCreate) {
         this.oTopo.Api.createNode(oBuObj, oAfterCallback, bAutoCreate, this.oTopo);
       },
-      savePosition: function(){
+      createNodeContinue: function (oBuObj, oAfterCallback) {
+        this.oTopo.Api.createNodeContinue(oBuObj, oAfterCallback, this.oTopo);
+      },
+      savePosition: function () {
         this.oTopo.Api.savePosition(this.oTopo);
       },
-      resetPosition: function(){
+      resetPosition: function () {
         this.oTopo.Api.resetPosition(this.oTopo);
       },
-      isPositionUpdate: function(){
-        return  this.oTopo.Api.isPositionUpdate(this.oTopo);
+      isPositionUpdate: function () {
+        return this.oTopo.Api.isPositionUpdate(this.oTopo);
       },
-      setBestView: function(){
+      setBestView: function () {
         this.oTopo.Api.setBestView(this.oTopo);
       },
-      getSelectedData: function(){
+      getSelectedData: function () {
         return this.oTopo.Api.getSelectedData(this.oTopo);
       },
-      createLink: function(oAfterCallback){
+      createLink: function (oAfterCallback) {
         this.oTopo.Api.createLink(this.oTopo, oAfterCallback);
       },
-      getPosChangeTopoCache: function(){
+      getPosChangeTopoCache: function () {
         return this.oTopo.Api.getPosChangeTopoCache(this.oTopo);
+      },
+      createLinkContinue: function (oAfterCallback) {
+        this.oTopo.Api.createLinkContinue(this.oTopo, oAfterCallback);
+      },
+      setConfig: function (oConfig) {
+        this.oTopo.Api.setConfig(this.oTopo, oConfig);
       }
     }
   }

@@ -88,7 +88,9 @@ multiDropdown：下拉框多选，支持度不好，待优化
               </div>
             </td>
             <td v-if="title.type == 'text'" :style="getTdStyle(title, row)">
-              <div :title="getCellValueByKey(title.key, row)">{{getCellValueByKey(title.key, row)}}</div>
+              <div :title="getCellValueByKey(title.key, row)" @click.stop="onClickTextCell(title.key, row)">
+                {{getCellValueByKey(title.key, row)}}
+              </div>
             </td>
             <td v-if="title.type == 'input'" :style="getTdStyle(title, row)">
               <div class="inputWrapper">
@@ -140,6 +142,24 @@ multiDropdown：下拉框多选，支持度不好，待优化
                      @click.stop="onClickMultiDropdownItem(title.key, row, item)">{{item.value}}
                 </div>
               </div>
+            </td>
+            <td v-if="title.type == 'customer'" :style="getTdStyle(title, row)">
+              <template v-if="getCellType(title, row) == 'text'">
+                <div :title="getCellValueByKey(title.key, row)" @click.stop="onClickTextCell(title.key, row)">
+                  {{getCellValueByKey(title.key, row)}}
+                </div>
+              </template>
+              <template v-else-if=" getCellType(title, row)=='dropdown'">
+                <select class="customerSelect"
+                        @click.stop=";"
+                        @change.stop="onOptionChange(title.key, row, $event)">
+                  <option class="customerSelectOption"
+                          v-for="item in getCellValueByKey(title.key, row)"
+                          :selected="item.selected == true"
+                          :value="item.value">{{item.value}}
+                  </option>
+                </select>
+              </template>
             </td>
           </template>
         </tr>
@@ -305,6 +325,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
                 let strId = this.getCellValueByKey("id", oRow);
                 this.selectRowIds.push(strId);
               }
+              if (oCheckBoxCell.disabled === true) {
+                let strId = this.getCellValueByKey("id", oRow);
+                this.disabledIds.push(strId);
+              }
             });
           }
           if (oTitle.type == "radioBox") {
@@ -313,6 +337,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
               if (oRadioBoxCell.checked) {
                 let strId = this.getCellValueByKey("id", oRow);
                 this.radioSelect = strId;
+              }
+              if (oRadioBoxCell.disabled === true) {
+                let strId = this.getCellValueByKey("id", oRow);
+                this.disabledIds.push(strId);
               }
             });
           }
@@ -399,18 +427,30 @@ multiDropdown：下拉框多选，支持度不好，待优化
           this.rows.forEach((oRow) => {
             let strId = this.getCellValueByKey("id", oRow);
             let index = this.selectRowIds.indexOf(strId);
-            if (index == -1) {
+            let indexEx = this.disabledIds.indexOf(strId);
+            if (index == -1 && indexEx == -1) {
               this.selectRowIds.push(strId);
             }
           });
         }
         else {
-          this.selectRowIds.splice(0);
+          this.rows.forEach((oRow) => {
+            let strId = this.getCellValueByKey("id", oRow);
+            let index = this.selectRowIds.indexOf(strId);
+            let indexEx = this.disabledIds.indexOf(strId);
+            if (index > -1 && indexEx == -1) {
+              this.selectRowIds.splice(index, 1);
+            }
+          });
         }
         //update selected prop
         this.rows.forEach((oRow) => {
           let oCell = this._getCell("checkBox", oRow);
-          oCell.checked = isChecked;
+          let strId = this.getCellValueByKey("id", oRow);
+          let indexEx = this.disabledIds.indexOf(strId);
+          if (indexEx == -1) {
+            oCell.checked = isChecked;
+          }
         });
         //event
         this.$emit("onTitleCheckOrUncheck", isChecked);
@@ -500,6 +540,10 @@ multiDropdown：下拉框多选，支持度不好，待优化
         };
         return oStyle;
       },
+      getCellType(oTitle, oRow) {
+        let oCell = this._getCell(oTitle.key, oRow);
+        return oCell.type;
+      },
       //region checkbox
       onRowCheckboxChange(oRow, oEvent) {
         let isChecked = oEvent.target.checked;
@@ -557,6 +601,12 @@ multiDropdown：下拉框多选，支持度不好，待优化
         });
         //event
         this.$emit("onRowRadioCheck", oRow);
+      },
+      //endregion
+      //region text
+      onClickTextCell(strKey, oRow) {
+        let oCell = this._getCell(strKey, oRow);
+        this.$emit("onClickTextCell", oRow, oCell);
       },
       //endregion
       //region icon
@@ -713,19 +763,56 @@ multiDropdown：下拉框多选，支持度不好，待优化
         return arrRow;
       },
       disableRow(strRowId) {
+        //cache
         let index = this.disabledIds.indexOf(strRowId);
         if (index == -1) {
           this.disabledIds.push(strRowId);
         }
+        //update prop
+        let oRow = this.getRowById(strRowId);
+        if (oRow) {
+          let oCell = this._getCell("checkBox", oRow);
+          if (!oCell) {
+            oCell = this._getCell("radioBox", oRow);
+          }
+          if (oCell) {
+            oCell.disabled = true;
+          }
+        }
       },
       enableRow(strRowId) {
+        //cache
         let index = this.disabledIds.indexOf(strRowId);
         if (index > -1) {
           this.disabledIds.splice(index, 1);
         }
+        //update prop
+        let oRow = this.getRowById(strRowId);
+        if (oRow) {
+          let oCell = this._getCell("checkBox", oRow);
+          if (!oCell) {
+            oCell = this._getCell("radioBox", oRow);
+          }
+          if (oCell) {
+            oCell.disabled = false;
+          }
+        }
       },
       enableAllRows() {
+        //cache
         this.disabledIds.splice(0);
+        //update prop
+        this.rows.forEach((oRow) => {
+          if (oRow) {
+            let oCell = this._getCell("checkBox", oRow);
+            if (!oCell) {
+              oCell = this._getCell("radioBox", oRow);
+            }
+            if (oCell) {
+              oCell.disabled = false;
+            }
+          }
+        });
       },
       checkOrUnCheckRow4CheckBox(strRowId, bCheck) {
         let index = this.selectRowIds.indexOf(strRowId);
@@ -897,7 +984,7 @@ multiDropdown：下拉框多选，支持度不好，待优化
   .gridWrapper .grid .gridCont tbody tr td {
     color: #666;
     height: 40px;
-    padding: 0 10px;
+    padding: 0 8px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

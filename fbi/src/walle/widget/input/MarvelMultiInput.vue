@@ -2,6 +2,7 @@
   <div class="inputWrapper" v-bind:class="[status, size]"
        v-bind:style="{height: height + 'px'}">
     <textarea :placeholder="placeHolder"
+              :title="placeHolder"
               v-model="inputMsg"
               @input="onInput"></textarea>
   </div>

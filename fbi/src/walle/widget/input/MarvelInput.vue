@@ -1,7 +1,8 @@
 <template>
   <div class="inputWrapper" v-bind:class="[status, size]">
+    <div class="placeHolder" v-show="inputMsg === ''">{{placeHolder}}</div>
     <input class="inputDefault" type="text"
-           :placeholder="placeHolder"
+           :title="placeHolder"
            v-model="inputMsg"
            @input="onInput">
     <div class="errorTip icon-notification">{{ errMsg }}</div>
@@ -36,6 +37,22 @@
 <style scoped>
   .inputWrapper {
     width: 100%;
+    position: relative;
+  }
+
+  .placeHolder{
+    color: #999;
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
   }
 
   .inputWrapper .inputDefault {
@@ -85,9 +102,18 @@
     font-size: 12px;
   }
 
+  .mini .placeHolder{
+    height: 22px;
+    line-height: 22px;
+  }
+
   /*region dark theme*/
   .dark .inputWrapper{
     background-color: transparent;
+  }
+
+  .dark .inputWrapper .placeHolder{
+    color: #666;
   }
 
   .dark .inputDefault {

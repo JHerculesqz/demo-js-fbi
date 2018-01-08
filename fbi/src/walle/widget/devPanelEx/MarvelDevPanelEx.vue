@@ -59,8 +59,11 @@
       addMainNode(strSlotId, oBuObj, oAfterCallback, oEventCallback) {
         this.devPanelObj.addMainNode(strSlotId, oBuObj, oAfterCallback, oEventCallback);
       },
+      addSubNode(strFirstSlotId, strSecondSlotId, oBuObj, oAfterCallback, oEventCallback) {
+        this.devPanelObj.addSubNode(strFirstSlotId, strSecondSlotId, oBuObj, oAfterCallback, oEventCallback);
+      },
       removeSubNode(strFirstSlotId, strSecondSlotId) {
-        this.devPanelObj.removeNode(strFirstSlotId, strSecondSlotId);
+        this.devPanelObj.removeSubNode(strFirstSlotId, strSecondSlotId);
       },
       setActiveStyle(...args) {
         this.devPanelObj.setActiveStyle.call(this.devPanelObj, args);

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?uo6a1l');
-  src:  url('fonts/icomoon.eot?uo6a1l#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?uo6a1l') format('truetype'),
-    url('fonts/icomoon.woff?uo6a1l') format('woff'),
-    url('fonts/icomoon.svg?uo6a1l#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?t9o0ox');
+  src:  url('fonts/icomoon.eot?t9o0ox#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?t9o0ox') format('truetype'),
+    url('fonts/icomoon.woff?t9o0ox') format('woff'),
+    url('fonts/icomoon.svg?t9o0ox#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -342,6 +342,14 @@
 }
 .icon-marvelIcon-80:before {
   content: "\e94f";
+
+}
+.icon-marvelIcon-81:before {
+  content: "\e950";
+
+}
+.icon-marvelIcon-82:before {
+  content: "\e951";
 
 }
 .icon-home:before {
